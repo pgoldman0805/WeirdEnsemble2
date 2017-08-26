@@ -1,0 +1,39 @@
+﻿#mainNav {
+    // BACKGROUND COLOR GRADIENT
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#e6f1f6+0,b1cceb+100 */
+    background: rgb(230, 241, 246);
+    /* Old browsers */
+    background: -moz-linear-gradient(-45deg, rgba(230, 241, 246, 1) 0%, rgba(177, 204, 235, 1) 100%);
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg, rgba(230, 241, 246, 1) 0%, rgba(177, 204, 235, 1) 100%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg, rgba(230, 241, 246, 1) 0%, rgba(177, 204, 235, 1) 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6f1f6', endColorstr='#b1cceb', GradientType=1);
+    /* IE6-9 fallback on horizontal gradient */
+    box-shadow: 0 -1px 4px RGBA(0,0,0,0.6), 0 1px 16px rgba(34,25,25,0.4);
+
+
+    .navbar-brand {
+        text-transform: uppercase;
+    }
+
+    li a:not(span), a.navbar-brand {
+        color: #333;
+        font-weight: bold;
+
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+            transition: 0.25s;
+            color: dodgerblue;
+        }
+    }
+}
+
+.navbar-toggle {
+    background-color: white;
+
+    .icon-bar {
+        background-color: black;
+    }
+}

@@ -1,0 +1,41 @@
+﻿h1.title {
+    background-color: dodgerblue;
+    color: white;
+}
+
+
+
+.about-img {
+
+    img {
+        width: 30%;
+        //        height: 20%;
+        min-width: 200px;
+        padding: 2em;
+    }
+
+    margin-bottom: 1em;
+}
+
+
+
+.clearfix {
+    clear: both;
+}
+
+.aboutContent {
+
+    p {
+        font-family: 'Nunito', sans-serif;
+        font-weight: normal;
+        text-align: justify;
+        font-size: 1.15em;
+        margin-top: 1.5em;
+        //        clear: both;
+        line-height: 2;
+    }
+
+    padding: 0 2em;
+    background-color: rgba(255,255,255,0.7);
+    margin: 2em 0;
+}

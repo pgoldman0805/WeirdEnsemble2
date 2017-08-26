@@ -1,0 +1,9 @@
+{
+	"version": 3,
+	"file": "sign-in-register.css",
+	"sources": [
+		"sign-in-register.scss"
+	],
+	"mappings": "AACA,AAAC,CAAA,AAAA,uBAAuB,AAAC,CACrB,SAAS,CAAE,KAAM,CACpB,AAED,AAAA,OAAO,AAAC,CACJ,OAAO,CAAE,MAAO,CACnB,AAED,AAAA,gBAAgB,AAAC,CACb,UAAU,CAAE,KAAM,CACrB",
+	"names": []
+}

@@ -1,0 +1,23 @@
+﻿<nav id="mainNav" class="navbar navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("Weird Ensemble", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Browse Products", "Index", "Product")</li>
+                <li>@Html.ActionLink("About", "Index", "About")</li>
+                <li>@Html.ActionLink("Contact", "Index", "Contact")</li>
+            </ul>
+            <ul class="nav navbar-nav pull-right">
+                <li>@Html.ActionLink("Login", "Index", "Login")</li>
+                <li>@Html.ActionLink("Register", "Index", "Register")</li>
+            </ul>
+        </div>
+    </div>
+</nav>

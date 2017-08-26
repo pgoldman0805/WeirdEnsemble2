@@ -1,0 +1,26 @@
+﻿footer {
+    background-color: #fff;
+
+    .footer-contact {
+        background-color: #EFEFEF;
+        //        margin: 0 auto;
+        .footer-contact-table {
+            display: table;
+            text-align: left;
+            margin: 0 auto;
+
+            .table-cell {
+                display: table-cell;
+                padding: 0 15px;
+                vertical-align: top;
+                line-height: 1.75;
+            }
+        }
+    }
+
+    .footer-copy {
+        padding: 15px 0 10px;
+        font-size: 11px;
+        border-top: 1px solid #ccc;
+    }
+}

@@ -1,0 +1,122 @@
+﻿#mainNav {
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#e6f1f6+0,b1cceb+100 */
+  background: #e6f1f6;
+  /* Old browsers */
+  background: -moz-linear-gradient(-45deg, #e6f1f6 0%, #b1cceb 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(-45deg, #e6f1f6 0%, #b1cceb 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(135deg, #e6f1f6 0%, #b1cceb 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6f1f6', endColorstr='#b1cceb', GradientType=1);
+  /* IE6-9 fallback on horizontal gradient */
+  box-shadow: 0 -1px 4px RGBA(0, 0, 0, 0.6), 0 1px 16px rgba(34, 25, 25, 0.4); }
+  #mainNav .navbar-brand {
+    text-transform: uppercase; }
+  #mainNav li a:not(span), #mainNav a.navbar-brand {
+    color: #333;
+    font-weight: bold; }
+    #mainNav li a:not(span):hover, #mainNav a.navbar-brand:hover {
+      background-color: rgba(255, 255, 255, 0.5);
+      transition: 0.25s;
+      color: dodgerblue; }
+
+.navbar-toggle {
+  background-color: white; }
+  .navbar-toggle .icon-bar {
+    background-color: black; }
+
+footer {
+  background-color: #fff; }
+  footer .footer-contact {
+    background-color: #EFEFEF; }
+    footer .footer-contact .footer-contact-table {
+      display: table;
+      text-align: left;
+      margin: 0 auto; }
+      footer .footer-contact .footer-contact-table .table-cell {
+        display: table-cell;
+        padding: 0 15px;
+        vertical-align: top;
+        line-height: 1.75; }
+  footer .footer-copy {
+    padding: 15px 0 10px;
+    font-size: 11px;
+    border-top: 1px solid #ccc; }
+
+p.register-password-text {
+  font-size: 0.8em; }
+
+.inline {
+  display: inline; }
+
+.forgot-password {
+  margin-top: 1.2em; }
+
+.panel-body {
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f7efff+0,f8f3ff+50,f7f1ff+60,faf7ff+100 */
+  background: #f7efff;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #f7efff 0%, #f8f3ff 50%, #f7f1ff 60%, #faf7ff 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #f7efff 0%, #f8f3ff 50%, #f7f1ff 60%, #faf7ff 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #f7efff 0%, #f8f3ff 50%, #f7f1ff 60%, #faf7ff 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7efff', endColorstr='#faf7ff', GradientType=0);
+  /* IE6-9 */
+  height: auto;
+  min-height: 350px;
+  height: auto !important;
+  /* for IE as it does not support min-height */
+  /*    height: 300px;*/
+  outline: 1px solid #222; }
+
+.productImg {
+  /*    margin: 1.5em;*/
+  width: 100%;
+  max-height: 300px;
+  display: block;
+  outline: 1px solid black;
+  box-shadow: 3px 4px 4px black;
+  margin-bottom: 1em; }
+
+.productBrand {
+  margin-top: -0.15em; }
+
+.productDesc {
+  margin-top: 0.75em;
+  text-align: justify; }
+
+.gold {
+  color: #8e8e0c; }
+
+h1.title {
+  background-color: dodgerblue;
+  color: white; }
+
+.about-img {
+  margin-bottom: 1em; }
+  .about-img img {
+    width: 30%;
+    min-width: 200px;
+    padding: 2em; }
+
+.clearfix {
+  clear: both; }
+
+.aboutContent {
+  padding: 0 2em;
+  background-color: rgba(255, 255, 255, 0.7);
+  margin: 2em 0; }
+  .aboutContent p {
+    font-family: 'Nunito', sans-serif;
+    font-weight: normal;
+    text-align: justify;
+    font-size: 1.15em;
+    margin-top: 1.5em;
+    line-height: 2; }
+
+.body-content {
+  margin-top: 5%; }
+

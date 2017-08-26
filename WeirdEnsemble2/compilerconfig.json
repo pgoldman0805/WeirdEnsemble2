@@ -1,0 +1,14 @@
+﻿[
+  {
+    "outputFile": "Content/styles/layout/Header.css",
+    "inputFile": "Content/styles/layout/Header.scss"
+  },
+  {
+    "outputFile": "Content/styles/Site.css",
+    "inputFile": "Content/styles/Site.scss"
+  },
+  {
+    "outputFile": "Content/styles/sign-in-register.css",
+    "inputFile": "Content/styles/sign-in-register.scss"
+  }
+]

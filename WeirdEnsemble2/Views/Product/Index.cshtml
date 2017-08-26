@@ -1,0 +1,14 @@
+﻿@model IEnumerable<WeirdEnsemble2.Models.Product>
+
+@{
+    ViewBag.Title = "Products";
+}
+
+<div class="row">
+    <h2 class="text-center">Products</h2>
+   @foreach (var p in Model)
+   {
+       @Html.Partial("_ProductContainer",p);
+   }
+</div>
+

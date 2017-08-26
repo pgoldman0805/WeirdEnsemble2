@@ -9,7 +9,7 @@ using System.Web.Routing;
 
 namespace WeirdEnsemble2
 {
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         protected void Application_Start()
         {
@@ -18,6 +18,8 @@ namespace WeirdEnsemble2
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+           Controllers.ProductController.InitializeProducts();
         }
     }
 }
