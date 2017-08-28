@@ -1,18 +1,20 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en-us">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title | WeirdEnsemble</title>
+    <link rel="icon" type="image/png" href="~/Content/images/bg/Logo.png" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
     @Html.Partial("_HeaderNavBar")
+
     <div class="container body-content">
         @RenderBody()
-        <hr />
     </div>
+
     @Html.Partial("_Footer")
 
     @Scripts.Render("~/bundles/jquery")

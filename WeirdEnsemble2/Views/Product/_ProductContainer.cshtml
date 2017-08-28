@@ -1,42 +1,45 @@
 ﻿@model WeirdEnsemble2.Models.Product
 
-<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+<div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
     <div class="panel panel-default">
-
-        <div class="panel-body">
-            <img class="productImg" src="@(Model.ImagePath)" />
-            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                <h3 class="productBrand">
-                    <a href="@Model.Website_Link" target="_blank">@Model.Brand</a>
-                </h3>
-                <h4 class="productName">
-                    <a href="@Model.Product_Link" target="_blank">@Model.Name</a>
-                </h4>
-            </div>
-            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                <div class="productRating">
-                    <h5>
-                        Rating:
-                        @if (Model.Rating != null)
-                        {
-                            for (var i = 0; i < Model.Rating; i++)
+        <a href="@Url.Action("Detail","Product",new { id = Model.ID } )">
+            <div class="panel-body">
+                <img class="productImg" src="@(Model.ImagePath)" />
+                @*<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">*@
+                <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                    <h3 class="productBrand">
+                        @*<a href="@Model.Website_Link" target="_blank">@Model.Brand</a>*@
+                        @Model.Brand
+                    </h3>
+                    <h4 class="productName">
+                        @*<a href="@Model.Product_Link" target="_blank">@Model.Name</a>*@
+                        @Model.Name
+                    </h4>
+                @*</div>
+                <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">*@
+                    <div class="productRating">
+                        <h5>
+                            Rating:
+                            @if (Model.Rating != null)
                             {
-                                <span class="glyphicon glyphicon-star gold" aria-hidden="true"></span>
+                                for (var i = 0; i < Model.Rating; i++)
+                                {
+                                    <span class="glyphicon glyphicon-star gold tiny-star" aria-hidden="true"></span>
+                                }
                             }
-                        }
-                        else
-                        {
-                            @:N/A
-                        }
+                            else
+                            {
+                                @:N/A
+                            }
                         
-                    </h5>
-                </div>
-                <div class="productPrice">
-                    
-                    <h4><span class="dollar-sign">$</span>@(Model.Price)</h4>
-                </div>
-            </div>    
+                        </h5>
+                    </div>
+                    <div class="productPrice">
+                        <h4><span class="dollar-sign">$</span>@(Model.Price)</h4>
+                    </div>
+                </div>    
                 
-        </div>
+            </div>
+        </a>
     </div>
 </div>

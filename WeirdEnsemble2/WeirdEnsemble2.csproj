@@ -177,6 +177,7 @@
     </None>
     <None Include="Content\styles\layout\_Footer.scss" />
     <None Include="Content\styles\layout\_Header.scss" />
+    <Content Include="Content\images\bg\Logo.png" />
     <Content Include="Content\styles\libraries\bootstrap-theme.css" />
     <Content Include="Content\styles\libraries\bootstrap-theme.min.css" />
     <Content Include="Content\styles\libraries\bootstrap.css" />
@@ -224,6 +225,7 @@
     <Content Include="Content\styles\pages\_About.scss" />
     <Content Include="Content\styles\pages\_Products.scss" />
     <Content Include="Content\styles\pages\_Home.scss" />
+    <Content Include="Content\styles\pages\_ProductDetails.scss" />
     <None Include="Content\styles\Site.scss" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

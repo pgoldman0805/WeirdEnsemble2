@@ -16,18 +16,21 @@
     height: auto !important;
     /* for IE as it does not support min-height */
     /*    height: 300px;*/
-    outline: 1px solid #222;
+    /*outline: 1px solid #222;*/
 }
 
 
 .productImg {
     /*    margin: 1.5em;*/
     width: 100%;
-    max-height: 300px;
+    height: auto;
+    max-height: 150px;
+    
     display: block;
-    outline: 1px solid black;
-    box-shadow: 3px 4px 4px black;
-    margin-bottom: 1em;
+    /*outline: 1px solid black;*/
+    box-shadow: 1px 4px 15px lightgray;
+    margin: 1em 0 2em 0;
+    padding: 2px;
 }
 
 
@@ -41,5 +44,9 @@
 }
 
 .gold {
-    color: #8e8e0c;
+    color: #c9b800;
+}
+
+.tiny-star{
+    font-size: 0.5em;
 }

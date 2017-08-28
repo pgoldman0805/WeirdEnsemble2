@@ -1,25 +1,30 @@
 ﻿#mainNav {
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#e6f1f6+0,b1cceb+100 */
-  background: #e6f1f6;
-  /* Old browsers */
-  background: -moz-linear-gradient(-45deg, #e6f1f6 0%, #b1cceb 100%);
-  /* FF3.6-15 */
-  background: -webkit-linear-gradient(-45deg, #e6f1f6 0%, #b1cceb 100%);
-  /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(135deg, #e6f1f6 0%, #b1cceb 100%);
-  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6f1f6', endColorstr='#b1cceb', GradientType=1);
-  /* IE6-9 fallback on horizontal gradient */
+  /*background: rgb(230, 241, 246);
+    background: -moz-linear-gradient(-45deg, rgba(230, 241, 246, 1) 0%, rgba(177, 204, 235, 1) 100%);
+    background: -webkit-linear-gradient(-45deg, rgba(230, 241, 246, 1) 0%, rgba(177, 204, 235, 1) 100%);
+    background: linear-gradient(135deg, rgba(230, 241, 246, 1) 0%, rgba(177, 204, 235, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6f1f6', endColorstr='#b1cceb', GradientType=1);*/
+  background-color: #0072C6;
   box-shadow: 0 -1px 4px RGBA(0, 0, 0, 0.6), 0 1px 16px rgba(34, 25, 25, 0.4); }
   #mainNav .navbar-brand {
     text-transform: uppercase; }
+    #mainNav .navbar-brand img {
+      display: inline;
+      height: 100%;
+      width: 1em; }
+    #mainNav .navbar-brand:hover {
+      text-decoration: none !important; }
   #mainNav li a:not(span), #mainNav a.navbar-brand {
-    color: #333;
+    color: #F9FDFC;
     font-weight: bold; }
     #mainNav li a:not(span):hover, #mainNav a.navbar-brand:hover {
-      background-color: rgba(255, 255, 255, 0.5);
-      transition: 0.25s;
-      color: dodgerblue; }
+      background-color: transparent;
+      opacity: 0.75;
+      /*text-decoration-style:wavy;*/
+      /*text-decoration: underline;*/
+      /*background-color: rgba(255, 255, 255, 0.5);*/
+      transition: 0.5s; }
 
 .navbar-toggle {
   background-color: white; }
@@ -70,16 +75,18 @@ p.register-password-text {
   height: auto !important;
   /* for IE as it does not support min-height */
   /*    height: 300px;*/
-  outline: 1px solid #222; }
+  /*outline: 1px solid #222;*/ }
 
 .productImg {
   /*    margin: 1.5em;*/
   width: 100%;
-  max-height: 300px;
+  height: auto;
+  max-height: 150px;
   display: block;
-  outline: 1px solid black;
-  box-shadow: 3px 4px 4px black;
-  margin-bottom: 1em; }
+  /*outline: 1px solid black;*/
+  box-shadow: 1px 4px 15px lightgray;
+  margin: 1em 0 2em 0;
+  padding: 2px; }
 
 .productBrand {
   margin-top: -0.15em; }
@@ -89,7 +96,10 @@ p.register-password-text {
   text-align: justify; }
 
 .gold {
-  color: #8e8e0c; }
+  color: #c9b800; }
+
+.tiny-star {
+  font-size: 0.5em; }
 
 h1.title {
   background-color: dodgerblue;
@@ -116,6 +126,23 @@ h1.title {
     font-size: 1.15em;
     margin-top: 1.5em;
     line-height: 2; }
+
+.price-container {
+  color: #d54140;
+  font-weight: 600;
+  font-size: 1.5em;
+  display: inline-table; }
+
+.dollars {
+  font-size: 200%;
+  position: relative;
+  top: 10px; }
+
+.desc-container {
+  margin-top: 4%; }
+  .desc-container p {
+    line-height: 2;
+    letter-spacing: 1px; }
 
 .body-content {
   margin-top: 5%; }

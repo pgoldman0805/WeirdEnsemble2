@@ -1,0 +1,21 @@
+﻿.price-container{
+    color: #d54140;
+    font-weight: 600;
+    font-size: 1.5em;
+    display: inline-table;
+}
+
+.dollars {
+    font-size: 200%;
+    position: relative;
+    top: 10px;
+}
+
+.desc-container {
+    margin-top: 4%;
+
+    p {
+        line-height: 2;
+        letter-spacing: 1px;
+    }
+}

@@ -16,10 +16,10 @@
             <span class="dollars">@(Model.Price.ToString().Split('.')[0])</span>
             <span class="cents">.@(Model.Price.ToString().Split('.')[1])</span>
         </div>
-        <div id="desc-container">
-            <h3 class="desc-title">Product Description</h3>
+        <div class="desc-container">
             <p>@Model.Description</p>
         </div>
+        <button class="btn btn-success btn-block">Add To Cart</button>
         
     </div>
 </div>

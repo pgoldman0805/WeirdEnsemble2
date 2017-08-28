@@ -61,7 +61,7 @@ namespace WeirdEnsemble2.Controllers
                 return HttpNotFound();
             }
 
-            Product p = products.First(m => m.ID == id);
+            Product p = products.Single(m => m.ID == id);
             return View("Detail", p);
 
         }
