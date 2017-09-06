@@ -16,15 +16,14 @@
     #mainNav .navbar-brand:hover {
       text-decoration: none !important; }
   #mainNav li a:not(span), #mainNav a.navbar-brand {
-    color: #F9FDFC;
-    font-weight: bold; }
+    color: #F9FDFC; }
     #mainNav li a:not(span):hover, #mainNav a.navbar-brand:hover {
       background-color: transparent;
-      opacity: 0.75;
+      opacity: 0.7;
       /*text-decoration-style:wavy;*/
       /*text-decoration: underline;*/
       /*background-color: rgba(255, 255, 255, 0.5);*/
-      transition: 0.5s; }
+      transition: 0.25s; }
 
 .navbar-toggle {
   background-color: white; }
@@ -79,17 +78,20 @@ p.register-password-text {
 
 .productImg {
   /*    margin: 1.5em;*/
-  width: 100%;
+  width: 50%;
   height: auto;
-  max-height: 150px;
+  /*max-height: 150px;*/
+  min-height: 150px;
   display: block;
   /*outline: 1px solid black;*/
   box-shadow: 1px 4px 15px lightgray;
-  margin: 1em 0 2em 0;
-  padding: 2px; }
+  margin: 0 auto;
+  padding: 2px;
+  margin-bottom: 2em; }
 
 .productBrand {
-  margin-top: -0.15em; }
+  margin-top: -0.15em;
+  text-transform: uppercase; }
 
 .productDesc {
   margin-top: 0.75em;
@@ -112,9 +114,6 @@ h1.title {
     min-width: 200px;
     padding: 2em; }
 
-.clearfix {
-  clear: both; }
-
 .aboutContent {
   padding: 0 2em;
   background-color: rgba(255, 255, 255, 0.7);
@@ -126,6 +125,9 @@ h1.title {
     font-size: 1.15em;
     margin-top: 1.5em;
     line-height: 2; }
+
+details-title {
+  margin-top: 6%; }
 
 .price-container {
   color: #d54140;
@@ -145,5 +147,5 @@ h1.title {
     letter-spacing: 1px; }
 
 .body-content {
-  margin-top: 5%; }
+  margin-top: 6%; }
 

@@ -12,27 +12,22 @@ namespace WeirdEnsemble2.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Customer
+    public partial class Address
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Customer()
+        public Address()
         {
             this.CustomerAddresses = new HashSet<CustomerAddress>();
             this.Orders = new HashSet<Order>();
-            this.ProductReviews = new HashSet<ProductReview>();
+            this.Orders1 = new HashSet<Order>();
         }
     
         public int Id { get; set; }
-        public string Title { get; set; }
-        public string FirstName { get; set; }
-        public string MiddleName { get; set; }
-        public string LastName { get; set; }
-        public string Suffix { get; set; }
-        public Nullable<System.DateTime> DateOfBirth { get; set; }
-        public string PhoneNumber { get; set; }
-        public string EmailAddress { get; set; }
-        public Nullable<bool> EmailPromotion { get; set; }
-        public string PasswordHash { get; set; }
+        public string Line1 { get; set; }
+        public string Line2 { get; set; }
+        public string City { get; set; }
+        public string StateProvince { get; set; }
+        public string ZipCode { get; set; }
         public System.DateTime DateCreated { get; set; }
         public Nullable<System.DateTime> DateLastModified { get; set; }
     
@@ -41,6 +36,6 @@ namespace WeirdEnsemble2.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductReview> ProductReviews { get; set; }
+        public virtual ICollection<Order> Orders1 { get; set; }
     }
 }

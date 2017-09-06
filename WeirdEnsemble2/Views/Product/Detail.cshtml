@@ -3,18 +3,20 @@
 @{
     ViewBag.Title = Model.Brand + " " + Model.Name;
 }
+@*<div class="row product-details-title">*@
+    <h2 class="text-center details-title">@(Model.Brand + " " + Model.Name)</h2>
+@*</div>*@
 
-<h2 class="text-center">@(Model.Brand + " " + Model.Name)</h2>
 
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-        <img class="product-image img-responsive" src= "@(Model.ImagePath)"/>
+        <img class="product-image img-responsive" src= "@(Model.ProductProductImages.FirstOrDefault(m => m.Primary).ProductImage.ImagePath)"/>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
         <div class="price-container">
             <span class="dollar-sign">$</span>
-            <span class="dollars">@(Model.Price.ToString().Split('.')[0])</span>
-            <span class="cents">.@(Model.Price.ToString().Split('.')[1])</span>
+            <span class="dollars">@(Model.ListPrice.ToString().Split('.')[0])</span>
+            <span class="cents">.@(Model.ListPrice.ToString().Split('.')[1].Substring(0,2))</span>
         </div>
         <div class="desc-container">
             <p>@Model.Description</p>

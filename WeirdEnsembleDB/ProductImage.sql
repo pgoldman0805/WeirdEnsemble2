@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[ProductImage]
+(
+	[Id] INT IDENTITY NOT NULL PRIMARY KEY,
+	[ProductID] INT NOT NULL CONSTRAINT FK_ProductImage_ProductID FOREIGN KEY REFERENCES Product(Id) ON DELETE CASCADE,
+	[ImagePath] NVARCHAR(256) NOT NULL,
+	[AlternateText] NTEXT NULL,
+	[DateLastModified] DATETIME NULL DEFAULT (GetUtcDate())
+)

@@ -49,6 +49,12 @@
     <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.4.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
     </Reference>
@@ -86,6 +92,8 @@
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -158,6 +166,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -166,8 +175,57 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Customer.cs" />
-    <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\Address.cs">
+      <DependentUpon>WeirdEnsembleModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Category.cs">
+      <DependentUpon>WeirdEnsembleModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Customer.cs">
+      <DependentUpon>WeirdEnsembleModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CustomerAddress.cs">
+      <DependentUpon>WeirdEnsembleModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Order.cs">
+      <DependentUpon>WeirdEnsembleModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OrderItem.cs">
+      <DependentUpon>WeirdEnsembleModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Product.cs">
+      <DependentUpon>WeirdEnsembleModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductCategory.cs">
+      <DependentUpon>WeirdEnsembleModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductImage.cs">
+      <DependentUpon>WeirdEnsembleModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductInventory.cs">
+      <DependentUpon>WeirdEnsembleModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductProductImage.cs">
+      <DependentUpon>WeirdEnsembleModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductReview.cs">
+      <DependentUpon>WeirdEnsembleModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WeirdEnsembleModels.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WeirdEnsembleModels.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WeirdEnsembleModels.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WeirdEnsembleModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WeirdEnsembleModels.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WeirdEnsembleModels.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -178,6 +236,7 @@
     <None Include="Content\styles\layout\_Footer.scss" />
     <None Include="Content\styles\layout\_Header.scss" />
     <Content Include="Content\images\bg\Logo.png" />
+    <Content Include="Content\images\bg\WeirdEnsembleBanner.png" />
     <Content Include="Content\styles\libraries\bootstrap-theme.css" />
     <Content Include="Content\styles\libraries\bootstrap-theme.min.css" />
     <Content Include="Content\styles\libraries\bootstrap.css" />
@@ -238,7 +297,24 @@
     <Content Include="Content\styles\libraries\bootstrap.css.map" />
     <Content Include="Content\styles\libraries\bootstrap-theme.min.css.map" />
     <Content Include="Content\styles\libraries\bootstrap-theme.css.map" />
+    <EntityDeploy Include="Models\WeirdEnsembleModels.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>WeirdEnsembleModels.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\WeirdEnsembleModels.edmx.diagram">
+      <DependentUpon>WeirdEnsembleModels.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Models\WeirdEnsembleModels.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>WeirdEnsembleModels.Context.cs</LastGenOutput>
+      <DependentUpon>WeirdEnsembleModels.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\WeirdEnsembleModels.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>WeirdEnsembleModels.edmx</DependentUpon>
+      <LastGenOutput>WeirdEnsembleModels.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
@@ -276,6 +352,7 @@
     <Content Include="Views\Shared\_HeaderNavBar.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Product\_ProductContainer.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -285,6 +362,9 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

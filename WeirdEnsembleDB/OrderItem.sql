@@ -1,0 +1,10 @@
+﻿CREATE TABLE [dbo].[OrderItem]
+(
+	[Id] INT IDENTITY NOT NULL PRIMARY KEY,
+	[OrderId] INT NOT NULL CONSTRAINT FK_OrderItem_OrderId FOREIGN KEY REFERENCES [Order](Id),
+	[ProductId] INT NOT NULL CONSTRAINT FK_OrderItem_ProductId FOREIGN KEY REFERENCES Product(Id),
+	[Quantity] INT NOT NULL DEFAULT (1),
+	[PurchasePrice] SMALLMONEY NOT NULL,
+	[DateCreated] DATETIME NOT NULL DEFAULT (GetUtcDate()),
+	[DateLastModified] DATETIME NOT NULL,
+)

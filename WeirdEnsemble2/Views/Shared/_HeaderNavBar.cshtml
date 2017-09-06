@@ -20,8 +20,20 @@
                 <li>@Html.ActionLink("Contact", "Index", "Contact")</li>
             </ul>
             <ul class="nav navbar-nav pull-right">
-                <li>@Html.ActionLink("Login", "Index", "Login")</li>
-                <li>@Html.ActionLink("Register", "Index", "Register")</li>
+                <li>
+                    <a href="@Url.Action("Index","Login")">
+                        <i class="glyphicon glyphicon-log-in"></i> Sign In / Register
+                        <span class="sr-only">Sign In or Register</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index","Cart")">
+                        <i class="glyphicon glyphicon-shopping-cart"></i> Cart
+                        <span class="sr-only">Cart</span>
+                    </a>
+                </li>
+
+                @*<li>@Html.ActionLink("Register", "Index", "Register")</li>*@
             </ul>
         </div>
     </div>

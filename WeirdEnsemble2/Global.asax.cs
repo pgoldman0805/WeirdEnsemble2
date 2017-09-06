@@ -19,7 +19,7 @@ namespace WeirdEnsemble2
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-           Controllers.ProductController.InitializeProducts();
+           //Controllers.ProductController.InitializeProducts();
         }
     }
 }
