@@ -5,8 +5,8 @@
     [City]             NVARCHAR (200) NOT NULL,
     [StateProvince]    NVARCHAR (200) NOT NULL,
     [ZipCode]          NVARCHAR (25)  NOT NULL,
-    [DateCreated]      DATETIME       DEFAULT (getutcdate()) NOT NULL,
-    [DateLastModified] DATETIME       DEFAULT (getUtcDate()) NOT NULL,
+    [DateCreated]      DATETIME       DEFAULT (getutcdate()) NULL,
+    [DateLastModified] DATETIME       DEFAULT (getUtcDate()) NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 

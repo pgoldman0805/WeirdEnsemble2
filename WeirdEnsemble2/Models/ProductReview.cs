@@ -19,8 +19,8 @@ namespace WeirdEnsemble2.Models
         public int CustomerID { get; set; }
         public int Rating { get; set; }
         public string Comments { get; set; }
-        public System.DateTime DateCreated { get; set; }
-        public System.DateTime DateLastModified { get; set; }
+        public Nullable<System.DateTime> DateCreated { get; set; }
+        public Nullable<System.DateTime> DateLastModified { get; set; }
     
         public virtual Customer Customer { get; set; }
         public virtual Product Product { get; set; }

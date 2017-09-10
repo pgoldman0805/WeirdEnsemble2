@@ -4,8 +4,8 @@
     [LastName]         NVARCHAR (200) NOT NULL,
     [Email]            NVARCHAR (256) NOT NULL,
     [Comment]          NTEXT          NOT NULL,
-    [DateCreated]      DATETIME       DEFAULT (getutcdate()) NOT NULL,
-    [DateLastModified] DATETIME       DEFAULT (getUtcDate()) NOT NULL,
+    [DateCreated]      DATETIME       DEFAULT (getutcdate()) NULL,
+    [DateLastModified] DATETIME       DEFAULT (getUtcDate()) NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 

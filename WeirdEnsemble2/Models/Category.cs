@@ -24,7 +24,7 @@ namespace WeirdEnsemble2.Models
         public int Id { get; set; }
         public Nullable<int> ParentID { get; set; }
         public string Name { get; set; }
-        public System.DateTime DateLastModified { get; set; }
+        public Nullable<System.DateTime> DateLastModified { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Category> Category1 { get; set; }

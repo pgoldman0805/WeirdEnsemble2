@@ -16,7 +16,7 @@ namespace WeirdEnsemble2.Models
     {
         public int CustomerID { get; set; }
         public int AddressID { get; set; }
-        public System.DateTime DateLastModified { get; set; }
+        public Nullable<System.DateTime> DateLastModified { get; set; }
     
         public virtual Address Address { get; set; }
         public virtual Customer Customer { get; set; }

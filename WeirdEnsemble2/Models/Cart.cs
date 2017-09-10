@@ -23,8 +23,8 @@ namespace WeirdEnsemble2.Models
         public int Id { get; set; }
         public Nullable<int> CustomerId { get; set; }
         public string Name { get; set; }
-        public System.DateTime DateCreated { get; set; }
-        public System.DateTime DateLastModified { get; set; }
+        public Nullable<System.DateTime> DateCreated { get; set; }
+        public Nullable<System.DateTime> DateLastModified { get; set; }
     
         public virtual Customer Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

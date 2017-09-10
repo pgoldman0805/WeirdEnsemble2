@@ -19,7 +19,7 @@ namespace WeirdEnsemble2.Models
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Comment { get; set; }
-        public System.DateTime DateCreated { get; set; }
-        public System.DateTime DateLastModified { get; set; }
+        public Nullable<System.DateTime> DateCreated { get; set; }
+        public Nullable<System.DateTime> DateLastModified { get; set; }
     }
 }

@@ -6,8 +6,8 @@
     [ListPrice]        MONEY           NULL,
     [ProductLink]      NVARCHAR (1500) NULL,
     [BrandLink]        NVARCHAR (1500) NULL,
-    [DateCreated]      DATETIME        DEFAULT (getutcdate()) NOT NULL,
-    [DateLastModified] DATETIME        DEFAULT (getutcdate()) NOT NULL,
+    [DateCreated]      DATETIME        DEFAULT (getutcdate()) NULL,
+    [DateLastModified] DATETIME        DEFAULT (getutcdate()) NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC),
 );
 

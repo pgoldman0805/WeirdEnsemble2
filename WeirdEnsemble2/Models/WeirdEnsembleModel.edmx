@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -25,8 +25,8 @@
           <Property Name="City" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="StateProvince" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="ZipCode" Type="nvarchar" MaxLength="25" Nullable="false" />
-          <Property Name="DateCreated" Type="datetime" Nullable="false" />
-          <Property Name="DateLastModified" Type="datetime" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="DateLastModified" Type="datetime" />
         </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
@@ -86,8 +86,8 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CustomerId" Type="int" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="DateCreated" Type="datetime" Nullable="false" />
-          <Property Name="DateLastModified" Type="datetime" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="DateLastModified" Type="datetime" />
         </EntityType>
         <EntityType Name="CartItem">
           <Key>
@@ -97,8 +97,8 @@
           <Property Name="CartId" Type="int" Nullable="false" />
           <Property Name="ProductId" Type="int" Nullable="false" />
           <Property Name="Quantity" Type="int" Nullable="false" />
-          <Property Name="DateCreated" Type="datetime" Nullable="false" />
-          <Property Name="DateLastModified" Type="datetime" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="DateLastModified" Type="datetime" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -107,7 +107,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ParentID" Type="int" />
           <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
-          <Property Name="DateLastModified" Type="datetime" Nullable="false" />
+          <Property Name="DateLastModified" Type="datetime" />
         </EntityType>
         <EntityType Name="Contact">
           <Key>
@@ -118,8 +118,8 @@
           <Property Name="LastName" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="Comment" Type="ntext" Nullable="false" />
-          <Property Name="DateCreated" Type="datetime" Nullable="false" />
-          <Property Name="DateLastModified" Type="datetime" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="DateLastModified" Type="datetime" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -136,8 +136,8 @@
           <Property Name="EmailAddress" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="EmailPromotion" Type="bit" />
           <Property Name="PasswordHash" Type="varchar" MaxLength="200" Nullable="false" />
-          <Property Name="DateCreated" Type="datetime" Nullable="false" />
-          <Property Name="DateLastModified" Type="datetime" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="DateLastModified" Type="datetime" />
         </EntityType>
         <EntityType Name="CustomerAddress">
           <Key>
@@ -146,7 +146,7 @@
           </Key>
           <Property Name="CustomerID" Type="int" Nullable="false" />
           <Property Name="AddressID" Type="int" Nullable="false" />
-          <Property Name="DateLastModified" Type="datetime" Nullable="false" />
+          <Property Name="DateLastModified" Type="datetime" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -156,9 +156,9 @@
           <Property Name="CustomerID" Type="int" Nullable="false" />
           <Property Name="BillToAddressID" Type="int" Nullable="false" />
           <Property Name="ShipToAddressID" Type="int" Nullable="false" />
-          <Property Name="DatePlaced" Type="datetime" Nullable="false" />
+          <Property Name="DatePlaced" Type="datetime" />
           <Property Name="DateShipped" Type="datetime" />
-          <Property Name="DateLastModified" Type="datetime" Nullable="false" />
+          <Property Name="DateLastModified" Type="datetime" />
         </EntityType>
         <EntityType Name="OrderItem">
           <Key>
@@ -169,8 +169,8 @@
           <Property Name="ProductId" Type="int" Nullable="false" />
           <Property Name="Quantity" Type="int" Nullable="false" />
           <Property Name="PurchasePrice" Type="smallmoney" Nullable="false" />
-          <Property Name="DateCreated" Type="datetime" Nullable="false" />
-          <Property Name="DateLastModified" Type="datetime" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="DateLastModified" Type="datetime" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -183,8 +183,8 @@
           <Property Name="ListPrice" Type="money" />
           <Property Name="ProductLink" Type="nvarchar" MaxLength="1500" />
           <Property Name="BrandLink" Type="nvarchar" MaxLength="1500" />
-          <Property Name="DateCreated" Type="datetime" Nullable="false" />
-          <Property Name="DateLastModified" Type="datetime" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="DateLastModified" Type="datetime" />
         </EntityType>
         <EntityType Name="ProductCategory">
           <Key>
@@ -193,8 +193,8 @@
           </Key>
           <Property Name="ProductId" Type="int" Nullable="false" />
           <Property Name="CategoryId" Type="int" Nullable="false" />
-          <Property Name="DateCreated" Type="datetime" Nullable="false" />
-          <Property Name="DateLastModified" Type="datetime" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="DateLastModified" Type="datetime" />
         </EntityType>
         <EntityType Name="ProductImage">
           <Key>
@@ -204,8 +204,8 @@
           <Property Name="ProductID" Type="int" Nullable="false" />
           <Property Name="ImagePath" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="AlternateText" Type="ntext" />
-          <Property Name="DateCreated" Type="datetime" Nullable="false" />
-          <Property Name="DateLastModified" Type="datetime" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="DateLastModified" Type="datetime" />
         </EntityType>
         <EntityType Name="ProductInventory">
           <Key>
@@ -213,8 +213,8 @@
           </Key>
           <Property Name="ProductId" Type="int" Nullable="false" />
           <Property Name="Quantity" Type="smallint" Nullable="false" />
-          <Property Name="DateCreated" Type="datetime" Nullable="false" />
-          <Property Name="DateLastModified" Type="datetime" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="DateLastModified" Type="datetime" />
         </EntityType>
         <EntityType Name="ProductProductImage">
           <Key>
@@ -224,7 +224,7 @@
           <Property Name="ProductId" Type="int" Nullable="false" />
           <Property Name="ProductImageId" Type="int" Nullable="false" />
           <Property Name="Primary" Type="bit" Nullable="false" />
-          <Property Name="DateLastModified" Type="datetime" Nullable="false" />
+          <Property Name="DateLastModified" Type="datetime" />
         </EntityType>
         <EntityType Name="ProductReview">
           <Key>
@@ -235,8 +235,8 @@
           <Property Name="CustomerID" Type="int" Nullable="false" />
           <Property Name="Rating" Type="int" Nullable="false" />
           <Property Name="Comments" Type="nvarchar" MaxLength="3000" />
-          <Property Name="DateCreated" Type="datetime" Nullable="false" />
-          <Property Name="DateLastModified" Type="datetime" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="DateLastModified" Type="datetime" />
         </EntityType>
         <Association Name="CK_Category_ParentID">
           <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
@@ -639,8 +639,7 @@
             <End Role="ProductReview" EntitySet="ProductReview" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -664,8 +663,8 @@
           <Property Name="City" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="StateProvince" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ZipCode" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DateLastModified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
           <NavigationProperty Name="CustomerAddresses" Relationship="Self.FK_CustomerAddress_AddressID" FromRole="Address" ToRole="CustomerAddress" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Order_BillToAddressID" FromRole="Address" ToRole="Order" />
           <NavigationProperty Name="Orders1" Relationship="Self.FK_Order_ShipToAddressID" FromRole="Address" ToRole="Order" />
@@ -726,8 +725,8 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CustomerId" Type="Int32" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DateLastModified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Customer" Relationship="Self.FK_Cart_CustomerId" FromRole="Cart" ToRole="Customer" />
           <NavigationProperty Name="CartItems" Relationship="Self.FK_CartItem_CartId" FromRole="Cart" ToRole="CartItem" />
         </EntityType>
@@ -739,8 +738,8 @@
           <Property Name="CartId" Type="Int32" Nullable="false" />
           <Property Name="ProductId" Type="Int32" Nullable="false" />
           <Property Name="Quantity" Type="Int32" Nullable="false" />
-          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DateLastModified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Cart" Relationship="Self.FK_CartItem_CartId" FromRole="CartItem" ToRole="Cart" />
           <NavigationProperty Name="Product" Relationship="Self.FK_CartItem_ProductId" FromRole="CartItem" ToRole="Product" />
         </EntityType>
@@ -751,7 +750,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ParentID" Type="Int32" />
           <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="DateLastModified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Category1" Relationship="Self.CK_Category_ParentID" FromRole="Category" ToRole="Category1" />
           <NavigationProperty Name="Category2" Relationship="Self.CK_Category_ParentID" FromRole="Category1" ToRole="Category" />
           <NavigationProperty Name="ProductCategories" Relationship="Self.FK_ProductCategory_CategoryID" FromRole="Category" ToRole="ProductCategory" />
@@ -765,8 +764,8 @@
           <Property Name="LastName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DateLastModified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -783,8 +782,8 @@
           <Property Name="EmailAddress" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="EmailPromotion" Type="Boolean" />
           <Property Name="PasswordHash" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DateLastModified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Carts" Relationship="Self.FK_Cart_CustomerId" FromRole="Customer" ToRole="Cart" />
           <NavigationProperty Name="CustomerAddresses" Relationship="Self.FK_CustomerAddress_CustomerID" FromRole="Customer" ToRole="CustomerAddress" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Order_CustomerID" FromRole="Customer" ToRole="Order" />
@@ -797,7 +796,7 @@
           </Key>
           <Property Name="CustomerID" Type="Int32" Nullable="false" />
           <Property Name="AddressID" Type="Int32" Nullable="false" />
-          <Property Name="DateLastModified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Address" Relationship="Self.FK_CustomerAddress_AddressID" FromRole="CustomerAddress" ToRole="Address" />
           <NavigationProperty Name="Customer" Relationship="Self.FK_CustomerAddress_CustomerID" FromRole="CustomerAddress" ToRole="Customer" />
         </EntityType>
@@ -809,9 +808,9 @@
           <Property Name="CustomerID" Type="Int32" Nullable="false" />
           <Property Name="BillToAddressID" Type="Int32" Nullable="false" />
           <Property Name="ShipToAddressID" Type="Int32" Nullable="false" />
-          <Property Name="DatePlaced" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DatePlaced" Type="DateTime" Precision="3" />
           <Property Name="DateShipped" Type="DateTime" Precision="3" />
-          <Property Name="DateLastModified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Address" Relationship="Self.FK_Order_BillToAddressID" FromRole="Order" ToRole="Address" />
           <NavigationProperty Name="Address1" Relationship="Self.FK_Order_ShipToAddressID" FromRole="Order" ToRole="Address" />
           <NavigationProperty Name="Customer" Relationship="Self.FK_Order_CustomerID" FromRole="Order" ToRole="Customer" />
@@ -826,8 +825,8 @@
           <Property Name="ProductId" Type="Int32" Nullable="false" />
           <Property Name="Quantity" Type="Int32" Nullable="false" />
           <Property Name="PurchasePrice" Type="Decimal" Precision="10" Scale="4" Nullable="false" />
-          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DateLastModified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Order" Relationship="Self.FK_OrderItem_OrderId" FromRole="OrderItem" ToRole="Order" />
           <NavigationProperty Name="Product" Relationship="Self.FK_OrderItem_ProductId" FromRole="OrderItem" ToRole="Product" />
         </EntityType>
@@ -842,8 +841,8 @@
           <Property Name="ListPrice" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="ProductLink" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
           <Property Name="BrandLink" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
-          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DateLastModified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
           <NavigationProperty Name="CartItems" Relationship="Self.FK_CartItem_ProductId" FromRole="Product" ToRole="CartItem" />
           <NavigationProperty Name="OrderItems" Relationship="Self.FK_OrderItem_ProductId" FromRole="Product" ToRole="OrderItem" />
           <NavigationProperty Name="ProductCategories" Relationship="Self.FK_ProductCategory_ProductID" FromRole="Product" ToRole="ProductCategory" />
@@ -859,8 +858,8 @@
           </Key>
           <Property Name="ProductId" Type="Int32" Nullable="false" />
           <Property Name="CategoryId" Type="Int32" Nullable="false" />
-          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DateLastModified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Category" Relationship="Self.FK_ProductCategory_CategoryID" FromRole="ProductCategory" ToRole="Category" />
           <NavigationProperty Name="Product" Relationship="Self.FK_ProductCategory_ProductID" FromRole="ProductCategory" ToRole="Product" />
         </EntityType>
@@ -872,8 +871,8 @@
           <Property Name="ProductID" Type="Int32" Nullable="false" />
           <Property Name="ImagePath" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="AlternateText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DateLastModified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Product" Relationship="Self.FK_ProductImage_ProductID" FromRole="ProductImage" ToRole="Product" />
           <NavigationProperty Name="ProductProductImages" Relationship="Self.FK_ProductProductImage_ProductImageId" FromRole="ProductImage" ToRole="ProductProductImage" />
         </EntityType>
@@ -883,8 +882,8 @@
           </Key>
           <Property Name="ProductId" Type="Int32" Nullable="false" />
           <Property Name="Quantity" Type="Int16" Nullable="false" />
-          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DateLastModified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Product" Relationship="Self.FK_ProductInventory_ProductId" FromRole="ProductInventory" ToRole="Product" />
         </EntityType>
         <EntityType Name="ProductProductImage">
@@ -895,7 +894,7 @@
           <Property Name="ProductId" Type="Int32" Nullable="false" />
           <Property Name="ProductImageId" Type="Int32" Nullable="false" />
           <Property Name="Primary" Type="Boolean" Nullable="false" />
-          <Property Name="DateLastModified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Product" Relationship="Self.FK_ProductProductImage_ProductId" FromRole="ProductProductImage" ToRole="Product" />
           <NavigationProperty Name="ProductImage" Relationship="Self.FK_ProductProductImage_ProductImageId" FromRole="ProductProductImage" ToRole="ProductImage" />
         </EntityType>
@@ -908,8 +907,8 @@
           <Property Name="CustomerID" Type="Int32" Nullable="false" />
           <Property Name="Rating" Type="Int32" Nullable="false" />
           <Property Name="Comments" Type="String" MaxLength="3000" FixedLength="false" Unicode="true" />
-          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DateLastModified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Customer" Relationship="Self.FK_ProductReview_CustomerID" FromRole="ProductReview" ToRole="Customer" />
           <NavigationProperty Name="Product" Relationship="Self.FK_ProductReview_ProductID" FromRole="ProductReview" ToRole="Product" />
         </EntityType>

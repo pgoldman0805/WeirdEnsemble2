@@ -34,8 +34,8 @@ namespace WeirdEnsemble2.Models
         public string EmailAddress { get; set; }
         public Nullable<bool> EmailPromotion { get; set; }
         public string PasswordHash { get; set; }
-        public System.DateTime DateCreated { get; set; }
-        public System.DateTime DateLastModified { get; set; }
+        public Nullable<System.DateTime> DateCreated { get; set; }
+        public Nullable<System.DateTime> DateLastModified { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cart> Carts { get; set; }

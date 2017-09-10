@@ -10,8 +10,8 @@
     [EmailAddress]     NVARCHAR (256) NOT NULL,
     [EmailPromotion]   BIT            NULL,
     [PasswordHash]     VARCHAR (200)  NOT NULL,
-    [DateCreated]      DATETIME       DEFAULT (getutcdate()) NOT NULL,
-    [DateLastModified] DATETIME       DEFAULT (getUtcDate()) NOT NULL,
+    [DateCreated]      DATETIME       DEFAULT (getutcdate()) NULL,
+    [DateLastModified] DATETIME       DEFAULT (getUtcDate()) NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 

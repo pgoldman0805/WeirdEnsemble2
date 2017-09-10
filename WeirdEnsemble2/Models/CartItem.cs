@@ -17,8 +17,8 @@ namespace WeirdEnsemble2.Models
         public int CartId { get; set; }
         public int ProductId { get; set; }
         public int Quantity { get; set; }
-        public System.DateTime DateCreated { get; set; }
-        public System.DateTime DateLastModified { get; set; }
+        public Nullable<System.DateTime> DateCreated { get; set; }
+        public Nullable<System.DateTime> DateLastModified { get; set; }
     
         public virtual Cart Cart { get; set; }
         public virtual Product Product { get; set; }

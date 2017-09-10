@@ -17,7 +17,7 @@ namespace WeirdEnsemble2.Models
         public int ProductId { get; set; }
         public int ProductImageId { get; set; }
         public bool Primary { get; set; }
-        public System.DateTime DateLastModified { get; set; }
+        public Nullable<System.DateTime> DateLastModified { get; set; }
     
         public virtual Product Product { get; set; }
         public virtual ProductImage ProductImage { get; set; }
