@@ -37,5 +37,29 @@ namespace WeirdEnsemble2.Controllers
             }
             return View(cart);
         }
+
+        // POST: Index --> When item gets removed from cart
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(int prodId)
+        {
+
+            // access the current user's cart
+            if (Request.Cookies.AllKeys.Contains("CartName"))
+            {
+                string cartName = Request.Cookies["CartName"].Value;
+                Cart cart = db.Carts.Single(x => x.Name == cartName);
+
+                //target the item to deleted
+                CartItem itemToDelete = cart.CartItems.Single(x => x.ProductId == prodId);
+                string itemName = itemToDelete.Product.Name;
+                // delete and save
+                cart.CartItems.Remove(itemToDelete);
+                db.SaveChanges();
+                TempData["Message"] = string.Format("{0} successfully removed", itemName);
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }

@@ -3,6 +3,13 @@
     ViewBag.Title = "My Cart";
 }
 
+@if (TempData.ContainsKey("Message"))
+{
+    <div class="alert alert-success">
+        @TempData["Message"]
+    </div>
+}
+
 <h2>MY SHOPPING CART</h2>
 <table class="table table-striped">
     <thead>
@@ -18,7 +25,13 @@
         @foreach (var item in Model.CartItems)
         {
             <tr>
-                <th></th>
+                <th>
+                    @using (Html.BeginForm("Index", "Cart", new { prodId = item.ProductId },FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <button class="btn btn-danger">Remove</button>
+                    }
+                </th>
                 <td>
                     @item.Product.Name
                 </td>
@@ -38,8 +51,8 @@
     <tfoot>
         <tr>
             <td colspan="3"></td>
-            <td>Subtotal:</td>
-            <td>@((Model.CartItems.Sum(x => x.Quantity * x.Product.ListPrice) ?? 0).ToString("C"))</td>
+            <td><strong>Subtotal:</strong></td>
+            <td><strong>@((Model.CartItems.Sum(x => x.Quantity * x.Product.ListPrice) ?? 0).ToString("C"))</strong></td>
              
         </tr>
     </tfoot>
