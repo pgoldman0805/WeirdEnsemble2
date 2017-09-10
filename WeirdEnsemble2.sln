@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeirdEnsemble2", "WeirdEnsemble2\WeirdEnsemble2.csproj", "{C134DD4E-21A3-43D8-A9D0-95C47BC1C27C}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "WeirdEnsembleDB", "WeirdEnsembleDB\WeirdEnsembleDB.sqlproj", "{B460EDF5-7087-4BC8-AB33-8534F2732538}"
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "WeirdEnsemble2DB", "WeirdEnsemble2DB\WeirdEnsemble2DB.sqlproj", "{F1034B06-6691-4735-B1FC-1F44D3775A6F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,12 +17,12 @@ Global
 		{C134DD4E-21A3-43D8-A9D0-95C47BC1C27C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C134DD4E-21A3-43D8-A9D0-95C47BC1C27C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C134DD4E-21A3-43D8-A9D0-95C47BC1C27C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B460EDF5-7087-4BC8-AB33-8534F2732538}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B460EDF5-7087-4BC8-AB33-8534F2732538}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B460EDF5-7087-4BC8-AB33-8534F2732538}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{B460EDF5-7087-4BC8-AB33-8534F2732538}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B460EDF5-7087-4BC8-AB33-8534F2732538}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B460EDF5-7087-4BC8-AB33-8534F2732538}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{F1034B06-6691-4735-B1FC-1F44D3775A6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1034B06-6691-4735-B1FC-1F44D3775A6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1034B06-6691-4735-B1FC-1F44D3775A6F}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{F1034B06-6691-4735-B1FC-1F44D3775A6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1034B06-6691-4735-B1FC-1F44D3775A6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1034B06-6691-4735-B1FC-1F44D3775A6F}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

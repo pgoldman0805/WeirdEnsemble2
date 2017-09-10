@@ -1,24 +1,19 @@
-﻿
-@model IEnumerable<WeirdEnsemble2.Models.Product>
+﻿@model IEnumerable<WeirdEnsemble2.Models.Product>
 
 @{
     ViewBag.Title = "Products";
 }
-
+@if (TempData.ContainsKey("Message"))
+{
+    <div class="alert alert-success">
+        @TempData["Message"]
+    </div>
+}
 <div class="row">
     <h2 class="text-center">Products</h2>
    @foreach (var p in Model)
    {
        @Html.Partial("_ProductContainer",p);
-       @*<div class="panel">
-           <div class="panel-heading">
-               @p.Name
-           </div>
-           <div class="panel-body">
-               <p>@p.Description</p>
-               @Html.ActionLink("View Details","Details", new { id = p.Id }, new { @class = "btn btn-primary"})
-           </div>
-       </div>*@
+
    }
 </div>
-

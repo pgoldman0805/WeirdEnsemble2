@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0623f3dfb6164570862f1f758457b23c" Name="Diagram1">
+        <EntityTypeShape EntityType="WeirdEnsemble2DBModel.Address" Width="1.5" PointX="1.5" PointY="23.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeirdEnsemble2DBModel.Category" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeirdEnsemble2DBModel.Customer" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeirdEnsemble2DBModel.CustomerAddress" Width="1.5" PointX="5.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeirdEnsemble2DBModel.Order" Width="1.5" PointX="0.75" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeirdEnsemble2DBModel.OrderItem" Width="1.5" PointX="3" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeirdEnsemble2DBModel.Product" Width="1.5" PointX="0.75" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeirdEnsemble2DBModel.ProductCategory" Width="1.5" PointX="6" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeirdEnsemble2DBModel.ProductImage" Width="1.5" PointX="3" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeirdEnsemble2DBModel.ProductProductImage" Width="1.5" PointX="5.25" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeirdEnsemble2DBModel.ProductReview" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeirdEnsemble2DBModel.ProductInventory" Width="1.5" PointX="3" PointY="20.375" IsExpanded="true" />
+        <AssociationConnector Association="WeirdEnsemble2DBModel.FK_CustomerAddress_AddressID" ManuallyRouted="false" />
+        <AssociationConnector Association="WeirdEnsemble2DBModel.FK_Order_BillToAddressID" ManuallyRouted="false" />
+        <AssociationConnector Association="WeirdEnsemble2DBModel.FK_Order_ShipToAddressID" ManuallyRouted="false" />
+        <AssociationConnector Association="WeirdEnsemble2DBModel.CK_Category_ParentID" ManuallyRouted="false" />
+        <AssociationConnector Association="WeirdEnsemble2DBModel.FK_ProductCategory_CategoryID" ManuallyRouted="false" />
+        <AssociationConnector Association="WeirdEnsemble2DBModel.FK_CustomerAddress_CustomerID" ManuallyRouted="false" />
+        <AssociationConnector Association="WeirdEnsemble2DBModel.FK_Order_CustomerID" ManuallyRouted="false" />
+        <AssociationConnector Association="WeirdEnsemble2DBModel.FK_ProductReview_CustomerID" ManuallyRouted="false" />
+        <AssociationConnector Association="WeirdEnsemble2DBModel.FK_OrderItem_OrderId" ManuallyRouted="false" />
+        <AssociationConnector Association="WeirdEnsemble2DBModel.FK_OrderItem_ProductId" ManuallyRouted="false" />
+        <AssociationConnector Association="WeirdEnsemble2DBModel.FK_ProductCategory_ProductID" ManuallyRouted="false" />
+        <AssociationConnector Association="WeirdEnsemble2DBModel.FK_ProductImage_ProductID" ManuallyRouted="false" />
+        <AssociationConnector Association="WeirdEnsemble2DBModel.FK_ProductInventory_ProductId" ManuallyRouted="false" />
+        <AssociationConnector Association="WeirdEnsemble2DBModel.FK_ProductProductImage_ProductId" ManuallyRouted="false" />
+        <AssociationConnector Association="WeirdEnsemble2DBModel.FK_ProductReview_ProductID" ManuallyRouted="false" />
+        <AssociationConnector Association="WeirdEnsemble2DBModel.FK_ProductProductImage_ProductImageId" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

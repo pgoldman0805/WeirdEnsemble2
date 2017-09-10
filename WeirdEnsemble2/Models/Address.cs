@@ -29,7 +29,7 @@ namespace WeirdEnsemble2.Models
         public string StateProvince { get; set; }
         public string ZipCode { get; set; }
         public System.DateTime DateCreated { get; set; }
-        public Nullable<System.DateTime> DateLastModified { get; set; }
+        public System.DateTime DateLastModified { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CustomerAddress> CustomerAddresses { get; set; }

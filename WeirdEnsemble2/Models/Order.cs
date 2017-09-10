@@ -26,7 +26,7 @@ namespace WeirdEnsemble2.Models
         public int ShipToAddressID { get; set; }
         public System.DateTime DatePlaced { get; set; }
         public Nullable<System.DateTime> DateShipped { get; set; }
-        public Nullable<System.DateTime> DateLastModified { get; set; }
+        public System.DateTime DateLastModified { get; set; }
     
         public virtual Address Address { get; set; }
         public virtual Address Address1 { get; set; }

@@ -1,5 +1,47 @@
-﻿@{
+﻿@model WeirdEnsemble2.Models.Cart
+@{
     ViewBag.Title = "My Cart";
 }
 
 <h2>MY SHOPPING CART</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Name</th>
+            <th>List Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.CartItems)
+        {
+            <tr>
+                <th></th>
+                <td>
+                    @item.Product.Name
+                </td>
+                <td>
+                    @((item.Product.ListPrice ?? 0).ToString("C"))
+                </td>
+                <td>
+                    @item.Quantity
+                </td>
+                <td>
+                    @((item.Quantity * (item.Product.ListPrice ?? 0)).ToString("C"))
+                </td>
+
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3"></td>
+            <td>Subtotal:</td>
+            <td>@((Model.CartItems.Sum(x => x.Quantity * x.Product.ListPrice) ?? 0).ToString("C"))</td>
+             
+        </tr>
+    </tfoot>
+    
+</table>

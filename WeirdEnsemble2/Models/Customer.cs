@@ -17,6 +17,7 @@ namespace WeirdEnsemble2.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Customer()
         {
+            this.Carts = new HashSet<Cart>();
             this.CustomerAddresses = new HashSet<CustomerAddress>();
             this.Orders = new HashSet<Order>();
             this.ProductReviews = new HashSet<ProductReview>();
@@ -34,8 +35,10 @@ namespace WeirdEnsemble2.Models
         public Nullable<bool> EmailPromotion { get; set; }
         public string PasswordHash { get; set; }
         public System.DateTime DateCreated { get; set; }
-        public Nullable<System.DateTime> DateLastModified { get; set; }
+        public System.DateTime DateLastModified { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Cart> Carts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CustomerAddress> CustomerAddresses { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -6,7 +6,10 @@
         <a href="@Url.Action("Detail","Product",new { id = Model.Id } )">
             
             <div class="panel-body">
-                <img class="productImg" src="@(Model.ProductProductImages.FirstOrDefault(m => m.Primary).ProductImage.ImagePath)" />
+                @if (Model.ProductProductImages.Any())
+                {
+                    <img class="productImg" src="@(Model.ProductProductImages.FirstOrDefault(m => m.Primary).ProductImage.ImagePath)" />
+                }
 
                 <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
                     <h4 class="productBrand">@Model.Brand</h4>
@@ -14,14 +17,11 @@
 
                     <div class="productRating">
 
-                    @if (Model.Rating != null)
+                    @if (Model.ProductReviews.Any())
                     {
                         <h5>
-                            <text>Rating:</text>
-                            @for (var i = 0; i < Model.Rating; i++)
-                            {
-                                <span class="glyphicon glyphicon-star gold tiny-star" aria-hidden="true"></span>
-                            }
+                            <text>Rating:  @(Model.ProductReviews.Average(m => m.Rating)) / 5</text>
+
                         </h5>
                     }
                     </div>

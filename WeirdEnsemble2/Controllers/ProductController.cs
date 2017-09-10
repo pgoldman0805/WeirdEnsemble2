@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using WeirdEnsemble2.Models;
 
@@ -9,67 +8,21 @@ namespace WeirdEnsemble2.Controllers
 {
     public class ProductController : Controller
     {
-        WeirdEnsembleDBEntities db = new WeirdEnsembleDBEntities();
+        private Entities db = new Entities();
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
                 db.Dispose();
-
             }
             base.Dispose(disposing);
         }
 
-        //[NonAction]
-        //public static void InitializeProducts()
-        //{
-        //    //products.Add(new Product
-        //    //{
-        //    //    ID = 1,
-        //    //    Brand = "Roland",
-        //    //    Category = "Accordion",
-        //    //    Description = "In 2004, after several years of research, a dream of Roland founder Mr. Ikutaro Kakehashi came true: the V-Accordion was born. This instrument was the world’s first fully digital accordion, powered by the groundbreaking new Physical Behavior Modeling technology. Bringing together the playability of a fine acoustic accordion with all the conveniences of a modern digital instrument, the V-Accordion was immediately embraced by players around the world. Today, the V-Accordion lineup has grown to include a wide range of models, from student instruments to full-featured professional accordions.",
-        //    //    Name = "FR18 VAccordion",
-        //    //    Price = 149.99m,
-        //    //    ImagePath = "/Content/images/products/accordion/Roland_FR18_VAccordion.jpg",
-        //    //    Rating = 5,
-        //    //    Website_Link = "http://www.rolandus.com/go/v-accordion/"
-        //    //});
-        //    //products.Add(new Product
-        //    //{
-        //    //    ID = 2,
-        //    //    Brand = null,
-        //    //    Category = "Annoying",
-        //    //    Description = "A Stadium Horn for Every Event! Pump up the volume at your event with this Air Horn. A great way to spice up any party. Measures 29½\" long x 4½\" wide and compacts down to 15¾\" long! Made of plastic .Obnoxious air horn sound! A noisemaker is an ideal party favor give-a-way for your next New Year's party or Mardi Gras event. Plus they also make a great prize for any carnival. Great for parties & sporting events... ",
-        //    //    Name = "Vuvuzela",
-        //    //    Price = 28.93m,
-        //    //    ImagePath = "/Content/images/products/vuvuzela/vuvuzela_1.jpeg",
-        //    //    Rating = 3
-        //    //});
-        //    //products.Add(new Product
-        //    //{
-        //    //    ID = 3,
-        //    //    Brand = "Deering",
-        //    //    Category = "Banjo",
-        //    //    Description = "The Classic Goodtime Special Openback is louder and brighter than the original Goodtime model because it has the patent pending Special Tone Ring and is great for players who like to jam and want to be heard. The rich brown stain, planetary tuners, and Deering peghead shape gives the classic look of a vintage banjo.",
-        //    //    Name = "Classic Goodtime Special Open Back Banjo",
-        //    //    Price = 715.50m,
-        //    //    ImagePath = "/Content/images/products/banjo/Deering-Classic-Goodtime-Special-Openback-Banjo_1.jpg",
-        //    //    Rating = null
-        //    //});
-        //}
-
-        
-
-
-
         // GET: Product
-
-
         public ActionResult Index()
         {
-            return View(db.Products);             
+            return View(db.Products);
         }
 
         // GET: Product Detail on specified ID
@@ -85,7 +38,87 @@ namespace WeirdEnsemble2.Controllers
             }
 
             return View("Detail", db.Products.Find(id));
+        }
 
+        //POST: Details 
+        // When someone adds an item to their cart
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Detail(int id,int quantity)
+        {
+            if (ModelState.IsValid)
+            {
+                string cartName = "";
+                Cart cart = null;
+                
+                // Check to see if there is an existing cookie for the cart
+                // The cookie name is arbitrary!
+                if (Request.Cookies.AllKeys.Contains("CartName"))
+                {
+                    //Basket name is going to be a GUID
+                    //e.g. FAD1F8B0-F3F1-40B1-B552-109AD15F1649
+                    cartName = Request.Cookies["CartName"].Value;
+                    cart = db.Carts.Single(x => x.Name == cartName);
+                }
+                else
+                {
+                    // If a user doesn't have a cart yet, lets generate a GUID 
+                    // to identify the cart
+                    cartName = Guid.NewGuid().ToString();
+
+                    // create a new cart item and assign it's name
+                    cart = new Cart()
+                    {
+                        Name = cartName,
+                        DateCreated = DateTime.UtcNow
+                    };
+
+                    // This will queue up the cart for insertion into the database
+                    // It won't actually get added until I "save" the DB
+                    db.Carts.Add(cart);
+
+                    //Finally, I add a cookie to the "response" object
+                    //Every subsequent request to this site should include this cookie
+                    // until it expires (in one month). This cookie is saved on the end user's computer
+                    Response.SetCookie(new System.Web.HttpCookie("CartName", cartName)
+                    {
+                        Expires = DateTime.UtcNow.AddMonths(1)
+                    });           
+                }
+
+                //Time-stamp this cart
+                cart.DateLastModified = DateTime.UtcNow;
+
+                // Check if I've already added this type of item to my cart
+                var cartItem = cart.CartItems.FirstOrDefault(x => x.ProductId == id);
+
+                // If I haven't added this item yet, create the new item and add to cart
+                if (cartItem == null)
+                {
+                    cartItem = new CartItem()
+                    {
+                        ProductId = id,
+                        DateCreated = DateTime.UtcNow
+                    };
+                    // Add item to cart
+                    cart.CartItems.Add(cartItem);
+                }
+
+                // Add the quantity selected
+                cartItem.Quantity += quantity;
+
+                //Updated the timestamp
+                cartItem.DateLastModified = DateTime.UtcNow;
+
+                // Finally, save changes to the DB 
+                db.SaveChanges();
+
+                TempData["Message"] = string.Format("{0} item{1} added to your cart!", quantity, (quantity > 1 ? "s" : ""));
+                
+                return RedirectToAction("Index", "Product");
+
+            }
+            return View(db.Products.Find(id));
         }
     }
 }
