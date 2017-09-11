@@ -1,16 +1,9 @@
 ﻿
 .panel-body {
-    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f7efff+0,f8f3ff+50,f7f1ff+60,faf7ff+100 */
-    background: rgb(247, 239, 255);
-    /* Old browsers */
-    background: -moz-linear-gradient(top, rgba(247, 239, 255, 1) 0%, rgba(248, 243, 255, 1) 50%, rgba(247, 241, 255, 1) 60%, rgba(250, 247, 255, 1) 100%);
-    /* FF3.6-15 */
-    background: -webkit-linear-gradient(top, rgba(247, 239, 255, 1) 0%, rgba(248, 243, 255, 1) 50%, rgba(247, 241, 255, 1) 60%, rgba(250, 247, 255, 1) 100%);
-    /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom, rgba(247, 239, 255, 1) 0%, rgba(248, 243, 255, 1) 50%, rgba(247, 241, 255, 1) 60%, rgba(250, 247, 255, 1) 100%);
-    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7efff', endColorstr='#faf7ff', GradientType=0);
-    /* IE6-9 */
+    &:hover {
+        outline: 1px solid black;
+    }
+
     height: auto;
     min-height: 350px;
     height: auto !important;
@@ -19,7 +12,15 @@
     /*outline: 1px solid #222;*/
 }
 
+.product-panel-link{
+    color: black;
 
+}
+.productPrice h6 {
+    color: green;
+    font-size: 2em;
+
+}
 .productImg {
     /*    margin: 1.5em;*/
     width: 50%;

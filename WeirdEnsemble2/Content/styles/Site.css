@@ -58,23 +58,21 @@ p.register-password-text {
   margin-top: 1.2em; }
 
 .panel-body {
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f7efff+0,f8f3ff+50,f7f1ff+60,faf7ff+100 */
-  background: #f7efff;
-  /* Old browsers */
-  background: -moz-linear-gradient(top, #f7efff 0%, #f8f3ff 50%, #f7f1ff 60%, #faf7ff 100%);
-  /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, #f7efff 0%, #f8f3ff 50%, #f7f1ff 60%, #faf7ff 100%);
-  /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, #f7efff 0%, #f8f3ff 50%, #f7f1ff 60%, #faf7ff 100%);
-  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7efff', endColorstr='#faf7ff', GradientType=0);
-  /* IE6-9 */
   height: auto;
   min-height: 350px;
   height: auto !important;
   /* for IE as it does not support min-height */
   /*    height: 300px;*/
   /*outline: 1px solid #222;*/ }
+  .panel-body:hover {
+    outline: 1px solid black; }
+
+.product-panel-link {
+  color: black; }
+
+.productPrice h6 {
+  color: green;
+  font-size: 2em; }
 
 .productImg {
   /*    margin: 1.5em;*/
