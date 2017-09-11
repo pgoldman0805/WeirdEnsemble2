@@ -61,7 +61,7 @@ namespace WeirdEnsemble2.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Brand,Name,Description,ListPrice,ProductLink,BrandLink,DateCreated,DateLastModified")] Product product)
+        public ActionResult Create([Bind(Include = "Id,Brand,Name,Description,ListPrice,ProductLink,BrandLink,DateCreated,DateLastModified")] Product product, HttpPostedFileBase picture)
         {
             if (ModelState.IsValid)
             {
