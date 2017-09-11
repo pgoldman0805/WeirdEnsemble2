@@ -113,6 +113,9 @@
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
+    <Reference Include="SendGrid, Version=9.8.0.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sendgrid.9.9.0\lib\net452\SendGrid.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.2.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -282,6 +285,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="appSettings.config" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -291,20 +295,10 @@
     <None Include="Content\styles\layout\_Header.scss" />
     <Content Include="Content\images\bg\Logo.png" />
     <Content Include="Content\images\bg\WeirdEnsembleBanner.png" />
-    <Content Include="Content\styles\libraries\bootstrap-theme.css" />
-    <Content Include="Content\styles\libraries\bootstrap-theme.min.css" />
-    <Content Include="Content\styles\libraries\bootstrap.css" />
-    <Content Include="Content\styles\libraries\bootstrap.min.css" />
-    <Content Include="Content\images\bg\bg_blue_circles.jpeg" />
-    <Content Include="Content\images\bg\bg_organ_cart.jpg" />
-    <Content Include="Content\images\bg\bg_speaker_grill.jpg" />
-    <Content Include="Content\images\people\accordion_man.jpg" />
-    <Content Include="Content\images\people\bagpipes_man.jpg" />
-    <Content Include="Content\images\people\bagpipes_man_good.jpg" />
-    <Content Include="Content\images\people\hurdy_gurdy_lady.jpg" />
     <Content Include="Content\images\products\accordion\Hohner_SteveJordan_TexMex_Rockordeon.jpg" />
     <Content Include="Content\images\products\accordion\Pietro_Premier_Combo2.JPG" />
     <Content Include="Content\images\products\accordion\Roland_FR18_VAccordion.jpg" />
+    <Content Include="Content\images\products\accordion\Roland_FR18_VAccordion2.jpg" />
     <Content Include="Content\images\products\accordion\Roland_fr8x_dallape.jpg" />
     <Content Include="Content\images\products\banjo\Deering-Classic-Goodtime-Special-Openback-Banjo_1.jpg" />
     <Content Include="Content\images\products\banjo\Fender_concertTone_54.jpg" />
@@ -319,12 +313,23 @@
     <Content Include="Content\images\products\melodica\Hohner_student32_melodica.jpg" />
     <Content Include="Content\images\products\misc\Acme_SlideWhistle_TH472.jpg" />
     <Content Include="Content\images\products\misc\Ludwig_LM138_Vibraslap.jpg" />
+    <Content Include="Content\images\products\misc\vuvuzela_1.jpeg" />
     <Content Include="Content\images\products\otomatone\otamatone_back.jpg" />
     <Content Include="Content\images\products\otomatone\otamatone_group.jpg" />
     <Content Include="Content\images\products\otomatone\otamatone_hands.jpg" />
     <Content Include="Content\images\products\stylophone\stylophone-hands.jpg" />
     <Content Include="Content\images\products\stylophone\stylophone.jpg" />
-    <Content Include="Content\images\products\vuvuzela\vuvuzela_1.jpeg" />
+    <Content Include="Content\styles\libraries\bootstrap-theme.css" />
+    <Content Include="Content\styles\libraries\bootstrap-theme.min.css" />
+    <Content Include="Content\styles\libraries\bootstrap.css" />
+    <Content Include="Content\styles\libraries\bootstrap.min.css" />
+    <Content Include="Content\images\bg\bg_blue_circles.jpeg" />
+    <Content Include="Content\images\bg\bg_organ_cart.jpg" />
+    <Content Include="Content\images\bg\bg_speaker_grill.jpg" />
+    <Content Include="Content\images\people\accordion_man.jpg" />
+    <Content Include="Content\images\people\bagpipes_man.jpg" />
+    <Content Include="Content\images\people\bagpipes_man_good.jpg" />
+    <Content Include="Content\images\people\hurdy_gurdy_lady.jpg" />
     <Content Include="Content\styles\Site.css">
       <DependentUpon>Site.scss</DependentUpon>
     </Content>
@@ -414,10 +419,13 @@
     <Content Include="Views\ProductsAdmin\Details.cshtml" />
     <Content Include="Views\ProductsAdmin\Edit.cshtml" />
     <Content Include="Views\ProductsAdmin\Index.cshtml" />
+    <Content Include="Views\Account\SignIn.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordSent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Account\" />
     <Folder Include="Views\ProductImages\" />
   </ItemGroup>
   <ItemGroup>

@@ -20,12 +20,24 @@
                 <li>@Html.ActionLink("Contact", "Index", "Contact")</li>
             </ul>
             <ul class="nav navbar-nav pull-right">
-                <li>
-                    <a href="@Url.Action("Index","Login")">
-                        <i class="glyphicon glyphicon-log-in"></i> Sign In / Register
-                        <span class="sr-only">Sign In or Register</span>
-                    </a>
-                </li>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li>@Html.ActionLink("Sign out as " + User.Identity.Name, "SignOut","Account")</li>
+                }
+                else
+                {
+                    <li>
+                        <a href="@Url.Action("SignIn","Account")">
+                            <i class="glyphicon glyphicon-log-in"></i> Sign In
+                            <span class="sr-only">Sign Inr</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Register","Account")">Register
+                        </a>
+                    </li>
+                }
+                
                 <li>
                     <a href="@Url.Action("Index","Cart")">
                         <i class="glyphicon glyphicon-shopping-cart"></i> Cart

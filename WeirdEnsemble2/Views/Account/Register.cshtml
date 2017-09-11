@@ -1,37 +1,26 @@
-﻿
-
-@{
-
+﻿@{
     ViewBag.Title = "Register";
-
 }
-@if (ViewBag.Error != null)
-
+<h2>Register</h2>
+@{
+    ViewBag.Title = "Register";
+}
+@if (ViewBag.Errors != null)
 {
-
-    foreach (string s in (IEnumerable<string>)ViewBag.Error)
-
+    foreach (string s in (IEnumerable<string>)ViewBag.Errors)
     {
-
         <div>Error: @s</div>
-
     }
-
 }
 @using (Html.BeginForm())
-
 {
-
     <div>
         <label for="username">Username</label>
         <input name="username" type="text" />
     </div>
-
     <div>
         <label for="password">Password</label>
         <input name="password" type="password" />
     </div>
-
     <input type="submit" value="Create Account" />
-
 }

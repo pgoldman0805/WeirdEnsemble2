@@ -8,7 +8,10 @@
             <div class="panel-body">
                 @if (Model.ProductProductImages.Any())
                 {
-                    <img class="productImg" src="@(Model.ProductProductImages.FirstOrDefault(m => m.Primary).ProductImage.ImagePath)" />
+                    @*<img class="productImg" src="@(Model.ProductProductImages.FirstOrDefault(m => m.ProductId == Model.Id).ProductImage.ImagePath)" 
+                         alt="@(Model.ProductProductImages.FirstOrDefault(m => m.ProductId == Model.Id).ProductImage.AlternateText)" />*@
+                    <img class="productImg" src="@(Model.ProductImages.FirstOrDefault(m => m.ProductID == Model.Id).ImagePath)" 
+                         alt="@(Model.ProductImages.FirstOrDefault(m => m.ProductID == Model.Id).AlternateText)"/>
                 }
 
                 <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">

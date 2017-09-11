@@ -1,34 +1,41 @@
 ﻿
 @{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "Sign In";
 }
 
 <div class="row">
-    <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
-        <div class="well">
-            <h1 class="text-center">Sign In</h1>
-            <form id="login">
-                <div class="form-group">
-                    <label for="email">E-mail address</label>
-                    <input type="email" class="form-control" id="email" placeholder="abc@123.com">
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password">
-                </div>
-                <div class="checkbox pull-left">
-                    <label><input type="checkbox"> Remember me</label>
-                </div>
-
-                <h6 class="forgot-password pull-right"><a href="#">Forgot password?</a></h6>
-                <button type="submit" class="btn btn-primary btn-block">Submit</button>
-
-                <hr />
-                <h4>New to WeirdEnsemble? </h4>
-                @Html.ActionLink("Create an account","Register",null, new { @class = "btn btn-block btn-info"})
-                @*<button class="btn btn-default btn-block">Create an account</button>*@
-            </form>
+    @if(ViewBag.Errors != null)
+    {
+        <div class="alert alert-danger">
+            <ul>
+                @foreach(string error in ViewBag.Errors)
+                {
+                    <li>@error</li>
+                }
+            </ul>
         </div>
-    </div>
+    }
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            <label for="username" class="control-label">Username</label>
+            @Html.TextBox("username", "",new { placeholder = "username or email address", @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label for="password" class="control-label">Password</label>
+            @Html.Password("password", "", new { placeholder = "password", @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.CheckBox("rememberMe",false)
+            <label for="rememberMe" class="control-label">Remember Me</label>
+        </div>
+        <input type="submit" value="Sign In" class="btn btn-default" />
+
+        @Html.ActionLink("Register","Register",null,new { @class = "btn btn-info"})
+        @Html.ActionLink("Forgot Password?", "ForgotPassword", null, new { @class = "btn btn-info" })
+
+    }
 </div>
 

@@ -11,7 +11,7 @@ using WeirdEnsemble2.Models;
 namespace WeirdEnsemble2.Controllers
 {
     // DECLARATIVE CHECKING
-    //[Authorize(Roles = "Admin", Users = "pgoldman0805@gmail.com")]
+    [Authorize]
     public class ProductsAdminController : Controller
     {
         private Entities db = new Entities();
@@ -107,13 +107,15 @@ namespace WeirdEnsemble2.Controllers
             {
                 if (!string.IsNullOrEmpty(path) && !string.IsNullOrEmpty(altText))
                 {
-                    db.ProductImages.Add(new ProductImage
+                    ProductImage newImage = new ProductImage()
                     {
                         ProductID = product.Id,
                         ImagePath = path,
                         AlternateText = altText,
                         DateCreated = DateTime.UtcNow
-                    });
+                    };
+
+                    db.ProductImages.Add(newImage);
                 }
                 
                 db.Entry(product).State = EntityState.Modified;
