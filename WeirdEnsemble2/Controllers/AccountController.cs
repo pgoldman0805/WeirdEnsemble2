@@ -174,6 +174,12 @@ namespace WeirdEnsemble2.Controllers
                 var userManager = HttpContext.GetOwinContext().GetUserManager<UserManager<IdentityUser>>();
                 IdentityUser user = userManager.FindByEmail(email);
 
+                // : if unrecognized email is entered, display error message and return the same view
+                if (user == null)
+                {
+                    ViewBag.Message = email + " isn't a registered emailed address.";
+                    return View();
+                }
                 string resetToken = userManager.GeneratePasswordResetToken(user.Id);
                 string sendGridApiKey = System.Configuration.ConfigurationManager.AppSettings["SendGrid.ApiKey"];
 

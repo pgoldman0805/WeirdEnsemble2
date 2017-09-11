@@ -21,6 +21,12 @@
             @TempData["PasswordReset"]
         </div>
     }
+    @if (TempData.ContainsKey("ConfirmEmail"))
+    {
+        <div class="alert alert-success">
+            @TempData["ConfirmEmail"]
+        </div>
+    }
     <h2 class="text-center">Sign In</h2>
     <div class="col-md-6 col-md-offset-3">
         @using (Html.BeginForm())
