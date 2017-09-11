@@ -89,6 +89,9 @@ namespace WeirdEnsemble2.Controllers
         {
             var manager = HttpContext.GetOwinContext().GetUserManager<UserManager<IdentityUser>>();
             IdentityUser newUser = new IdentityUser(username);
+
+            // set the Email to be the username
+            newUser.Email = username;
             //This can fail - password might not be complex enough, or username might already be in use
 
             IdentityResult result = manager.Create(newUser, password);
@@ -125,8 +128,25 @@ namespace WeirdEnsemble2.Controllers
                 string resetToken = userManager.GeneratePasswordResetToken(user.Id);
                 string sendGridApiKey = System.Configuration.ConfigurationManager.AppSettings["SendGrid.ApiKey"];
 
+                // instantiate SendGrid client using the API Key
                 SendGrid.SendGridClient client = new SendGrid.SendGridClient(sendGridApiKey);
-                
+
+                // create a message to be sent
+                SendGrid.Helpers.Mail.SendGridMessage message = new SendGrid.Helpers.Mail.SendGridMessage();
+
+                // set message fields
+                message.AddTo(email);
+                message.Subject = "Reset your WeirdEnsemble.com Password";
+                message.SetFrom("no-reply@codingtemple.com");
+                string body = string.Format(
+                    "<a href=\"{0}/account/resetpassword?email={1}&token={2}\">Reset your password</a>",
+                    Request.Url.GetLeftPart(UriPartial.Authority),
+                    email,
+                    resetToken);
+                message.AddContent("text/html", body);
+                message.SetTemplateId("9f449d8f-c608-4336-9cbf-8a73ca391f3e");
+
+                var response = client.SendEmailAsync(message).Result;
 
                 return RedirectToAction("ForgotPasswordSent");
             }
@@ -135,6 +155,30 @@ namespace WeirdEnsemble2.Controllers
 
         public ActionResult ForgotPasswordSent()
         {
+            return View();
+        }
+
+        public ActionResult ResetPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ResetPassword(string email, string token, string newPassword)
+        {
+            if (ModelState.IsValid)
+            {
+                var manager = HttpContext.GetOwinContext().GetUserManager<UserManager<IdentityUser>>();
+                IdentityUser user = manager.FindByEmail(email);
+                IdentityResult result = manager.ResetPassword(user.Id, token, newPassword);
+                if (result.Succeeded)
+                {
+                    TempData["PasswordReset"] = "Your password has been reset successfully";
+                    return RedirectToAction("SignIn");
+                }
+                ViewBag.Errors = result.Errors;
+            }
             return View();
         }
     }

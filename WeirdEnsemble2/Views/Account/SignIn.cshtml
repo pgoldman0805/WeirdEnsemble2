@@ -15,6 +15,12 @@
             </ul>
         </div>
     }
+    @if (TempData.ContainsKey("PasswordReset"))
+    {
+        <div class="alert alert-success">
+            @TempData["PasswordReset"]
+        </div>
+    }
 
     @using (Html.BeginForm())
     {

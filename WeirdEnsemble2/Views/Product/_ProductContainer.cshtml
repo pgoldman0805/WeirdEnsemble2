@@ -6,7 +6,7 @@
         <a href="@Url.Action("Detail","Product",new { id = Model.Id } )">
             
             <div class="panel-body">
-                @if (Model.ProductProductImages.Any())
+                @if (Model.ProductImages.Any())
                 {
                     @*<img class="productImg" src="@(Model.ProductProductImages.FirstOrDefault(m => m.ProductId == Model.Id).ProductImage.ImagePath)" 
                          alt="@(Model.ProductProductImages.FirstOrDefault(m => m.ProductId == Model.Id).ProductImage.AlternateText)" />*@

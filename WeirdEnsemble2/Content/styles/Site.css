@@ -79,9 +79,10 @@ p.register-password-text {
 .productImg {
   /*    margin: 1.5em;*/
   width: 50%;
-  height: auto;
+  /*height: auto;*/
   /*max-height: 150px;*/
   min-height: 150px;
+  max-height: 200px;
   display: block;
   /*outline: 1px solid black;*/
   box-shadow: 1px 4px 15px lightgray;

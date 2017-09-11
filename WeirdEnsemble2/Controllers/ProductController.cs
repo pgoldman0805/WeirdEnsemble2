@@ -22,6 +22,7 @@ namespace WeirdEnsemble2.Controllers
         // GET: Product
         public ActionResult Index()
         {
+            
             return View(db.Products);
         }
 
@@ -36,6 +37,7 @@ namespace WeirdEnsemble2.Controllers
             {
                 return HttpNotFound();
             }
+            ProductImage image = db.Products.Find(id).ProductImages.FirstOrDefault(m => m.ProductID == id);
 
             return View("Detail", db.Products.Find(id));
         }
