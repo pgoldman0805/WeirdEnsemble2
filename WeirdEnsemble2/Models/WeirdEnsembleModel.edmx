@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -130,14 +130,11 @@
           <Property Name="FirstName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="MiddleName" Type="nvarchar" MaxLength="100" />
           <Property Name="LastName" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Suffix" Type="nvarchar" MaxLength="8" />
           <Property Name="DateOfBirth" Type="datetime" />
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="100" />
-          <Property Name="EmailAddress" Type="nvarchar" MaxLength="256" Nullable="false" />
-          <Property Name="EmailPromotion" Type="bit" />
-          <Property Name="PasswordHash" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" />
           <Property Name="DateLastModified" Type="datetime" />
+          <Property Name="AspNetUserID" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
         <EntityType Name="CustomerAddress">
           <Key>
@@ -216,15 +213,6 @@
           <Property Name="DateCreated" Type="datetime" />
           <Property Name="DateLastModified" Type="datetime" />
         </EntityType>
-        <EntityType Name="ProductProductImage">
-          <Key>
-            <PropertyRef Name="ProductId" />
-            <PropertyRef Name="ProductImageId" />
-          </Key>
-          <Property Name="ProductId" Type="int" Nullable="false" />
-          <Property Name="ProductImageId" Type="int" Nullable="false" />
-          <Property Name="DateLastModified" Type="datetime" />
-        </EntityType>
         <EntityType Name="ProductReview">
           <Key>
             <PropertyRef Name="Id" />
@@ -282,6 +270,18 @@
             </Principal>
             <Dependent Role="CartItem">
               <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="AspNetUserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -475,30 +475,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProductProductImage_ProductId">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
-          <End Role="ProductProductImage" Type="Self.ProductProductImage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ProductProductImage">
-              <PropertyRef Name="ProductId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ProductProductImage_ProductImageId">
-          <End Role="ProductImage" Type="Self.ProductImage" Multiplicity="1" />
-          <End Role="ProductProductImage" Type="Self.ProductProductImage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProductImage">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ProductProductImage">
-              <PropertyRef Name="ProductImageId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ProductReview_CustomerID">
           <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
           <End Role="ProductReview" Type="Self.ProductReview" Multiplicity="*" />
@@ -543,7 +519,6 @@
           <EntitySet Name="ProductCategory" EntityType="Self.ProductCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductImage" EntityType="Self.ProductImage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductInventory" EntityType="Self.ProductInventory" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ProductProductImage" EntityType="Self.ProductProductImage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductReview" EntityType="Self.ProductReview" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="CK_Category_ParentID" Association="Self.CK_Category_ParentID">
             <End Role="Category" EntitySet="Category" />
@@ -560,6 +535,10 @@
           <AssociationSet Name="FK_CartItem_ProductId" Association="Self.FK_CartItem_ProductId">
             <End Role="Product" EntitySet="Product" />
             <End Role="CartItem" EntitySet="CartItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_AspNetUsers" Association="Self.FK_Customer_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Customer" EntitySet="Customer" />
           </AssociationSet>
           <AssociationSet Name="FK_CustomerAddress_AddressID" Association="Self.FK_CustomerAddress_AddressID">
             <End Role="Address" EntitySet="Address" />
@@ -621,14 +600,6 @@
             <End Role="Product" EntitySet="Product" />
             <End Role="ProductInventory" EntitySet="ProductInventory" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProductProductImage_ProductId" Association="Self.FK_ProductProductImage_ProductId">
-            <End Role="Product" EntitySet="Product" />
-            <End Role="ProductProductImage" EntitySet="ProductProductImage" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProductProductImage_ProductImageId" Association="Self.FK_ProductProductImage_ProductImageId">
-            <End Role="ProductImage" EntitySet="ProductImage" />
-            <End Role="ProductProductImage" EntitySet="ProductProductImage" />
-          </AssociationSet>
           <AssociationSet Name="FK_ProductReview_CustomerID" Association="Self.FK_ProductReview_CustomerID">
             <End Role="Customer" EntitySet="Customer" />
             <End Role="ProductReview" EntitySet="ProductReview" />
@@ -638,7 +609,8 @@
             <End Role="ProductReview" EntitySet="ProductReview" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -715,6 +687,7 @@
           <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="Customers" Relationship="Self.FK_Customer_AspNetUsers" FromRole="AspNetUsers" ToRole="Customer" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
         </EntityType>
         <EntityType Name="Cart">
@@ -775,14 +748,12 @@
           <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="MiddleName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Suffix" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
           <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
           <Property Name="PhoneNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="EmailAddress" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="EmailPromotion" Type="Boolean" />
-          <Property Name="PasswordHash" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="DateCreated" Type="DateTime" Precision="3" />
           <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="AspNetUserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_Customer_AspNetUsers" FromRole="Customer" ToRole="AspNetUsers" />
           <NavigationProperty Name="Carts" Relationship="Self.FK_Cart_CustomerId" FromRole="Customer" ToRole="Cart" />
           <NavigationProperty Name="CustomerAddresses" Relationship="Self.FK_CustomerAddress_CustomerID" FromRole="Customer" ToRole="CustomerAddress" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Order_CustomerID" FromRole="Customer" ToRole="Order" />
@@ -847,7 +818,6 @@
           <NavigationProperty Name="ProductCategories" Relationship="Self.FK_ProductCategory_ProductID" FromRole="Product" ToRole="ProductCategory" />
           <NavigationProperty Name="ProductImages" Relationship="Self.FK_ProductImage_ProductID" FromRole="Product" ToRole="ProductImage" />
           <NavigationProperty Name="ProductInventory" Relationship="Self.FK_ProductInventory_ProductId" FromRole="Product" ToRole="ProductInventory" />
-          <NavigationProperty Name="ProductProductImages" Relationship="Self.FK_ProductProductImage_ProductId" FromRole="Product" ToRole="ProductProductImage" />
           <NavigationProperty Name="ProductReviews" Relationship="Self.FK_ProductReview_ProductID" FromRole="Product" ToRole="ProductReview" />
         </EntityType>
         <EntityType Name="ProductCategory">
@@ -873,7 +843,6 @@
           <Property Name="DateCreated" Type="DateTime" Precision="3" />
           <Property Name="DateLastModified" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Product" Relationship="Self.FK_ProductImage_ProductID" FromRole="ProductImage" ToRole="Product" />
-          <NavigationProperty Name="ProductProductImages" Relationship="Self.FK_ProductProductImage_ProductImageId" FromRole="ProductImage" ToRole="ProductProductImage" />
         </EntityType>
         <EntityType Name="ProductInventory">
           <Key>
@@ -884,17 +853,6 @@
           <Property Name="DateCreated" Type="DateTime" Precision="3" />
           <Property Name="DateLastModified" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Product" Relationship="Self.FK_ProductInventory_ProductId" FromRole="ProductInventory" ToRole="Product" />
-        </EntityType>
-        <EntityType Name="ProductProductImage">
-          <Key>
-            <PropertyRef Name="ProductId" />
-            <PropertyRef Name="ProductImageId" />
-          </Key>
-          <Property Name="ProductId" Type="Int32" Nullable="false" />
-          <Property Name="ProductImageId" Type="Int32" Nullable="false" />
-          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_ProductProductImage_ProductId" FromRole="ProductProductImage" ToRole="Product" />
-          <NavigationProperty Name="ProductImage" Relationship="Self.FK_ProductProductImage_ProductImageId" FromRole="ProductProductImage" ToRole="ProductImage" />
         </EntityType>
         <EntityType Name="ProductReview">
           <Key>
@@ -971,6 +929,18 @@
             </Principal>
             <Dependent Role="AspNetUserLogins">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="AspNetUserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1132,18 +1102,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProductProductImage_ProductId">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
-          <End Role="ProductProductImage" Type="Self.ProductProductImage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ProductProductImage">
-              <PropertyRef Name="ProductId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ProductReview_ProductID">
           <End Role="Product" Type="Self.Product" Multiplicity="1" />
           <End Role="ProductReview" Type="Self.ProductReview" Multiplicity="*" />
@@ -1153,18 +1111,6 @@
             </Principal>
             <Dependent Role="ProductReview">
               <PropertyRef Name="ProductID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ProductProductImage_ProductImageId">
-          <End Role="ProductImage" Type="Self.ProductImage" Multiplicity="1" />
-          <End Role="ProductProductImage" Type="Self.ProductProductImage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProductImage">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ProductProductImage">
-              <PropertyRef Name="ProductImageId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1191,7 +1137,6 @@
           <EntitySet Name="ProductCategories" EntityType="Self.ProductCategory" />
           <EntitySet Name="ProductImages" EntityType="Self.ProductImage" />
           <EntitySet Name="ProductInventories" EntityType="Self.ProductInventory" />
-          <EntitySet Name="ProductProductImages" EntityType="Self.ProductProductImage" />
           <EntitySet Name="ProductReviews" EntityType="Self.ProductReview" />
           <AssociationSet Name="FK_CustomerAddress_AddressID" Association="Self.FK_CustomerAddress_AddressID">
             <End Role="Address" EntitySet="Addresses" />
@@ -1212,6 +1157,10 @@
           <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_AspNetUsers" Association="Self.FK_Customer_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Customer" EntitySet="Customers" />
           </AssociationSet>
           <AssociationSet Name="FK_Cart_CustomerId" Association="Self.FK_Cart_CustomerId">
             <End Role="Customer" EntitySet="Customers" />
@@ -1265,17 +1214,9 @@
             <End Role="Product" EntitySet="Products" />
             <End Role="ProductInventory" EntitySet="ProductInventories" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProductProductImage_ProductId" Association="Self.FK_ProductProductImage_ProductId">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="ProductProductImage" EntitySet="ProductProductImages" />
-          </AssociationSet>
           <AssociationSet Name="FK_ProductReview_ProductID" Association="Self.FK_ProductReview_ProductID">
             <End Role="Product" EntitySet="Products" />
             <End Role="ProductReview" EntitySet="ProductReviews" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProductProductImage_ProductImageId" Association="Self.FK_ProductProductImage_ProductImageId">
-            <End Role="ProductImage" EntitySet="ProductImages" />
-            <End Role="ProductProductImage" EntitySet="ProductProductImages" />
           </AssociationSet>
           <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
@@ -1410,14 +1351,11 @@
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="Suffix" ColumnName="Suffix" />
                 <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
-                <ScalarProperty Name="EmailPromotion" ColumnName="EmailPromotion" />
-                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="AspNetUserID" ColumnName="AspNetUserID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1499,15 +1437,6 @@
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ProductProductImages">
-            <EntityTypeMapping TypeName="Model.ProductProductImage">
-              <MappingFragment StoreEntitySet="ProductProductImage">
-                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-                <ScalarProperty Name="ProductImageId" ColumnName="ProductImageId" />
                 <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
               </MappingFragment>
             </EntityTypeMapping>

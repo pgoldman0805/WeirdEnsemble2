@@ -4,32 +4,32 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e507a9f4b9444dc681c5d58410fc08df" Name="Diagram1">
-        <EntityTypeShape EntityType="Model.C__MigrationHistory" Width="1.5" PointX="5.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Address" Width="1.5" PointX="1.5" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.AspNetRole" Width="1.5" PointX="5.75" PointY="2.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.AspNetUserClaim" Width="1.5" PointX="10.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.AspNetUserLogin" Width="1.5" PointX="10.25" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.AspNetUser" Width="1.5" PointX="8" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Cart" Width="1.5" PointX="0.75" PointY="14.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.CartItem" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Category" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Contact" Width="1.5" PointX="8.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Customer" Width="1.5" PointX="1.5" PointY="24.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.CustomerAddress" Width="1.5" PointX="5.75" PointY="17.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Order" Width="1.5" PointX="3.75" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.OrderItem" Width="1.5" PointX="6" PointY="9.5" IsExpanded="true" />
+      <Diagram DiagramId="61692d0c7a1e464f846cd2da3f39f5ee" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.C__MigrationHistory" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Address" Width="1.5" PointX="1.5" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.AspNetRole" Width="1.5" PointX="1.5" PointY="34" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.AspNetUserClaim" Width="1.5" PointX="3.75" PointY="28.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.AspNetUserLogin" Width="1.5" PointX="3.75" PointY="31.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.AspNetUser" Width="1.5" PointX="1.5" PointY="28.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Cart" Width="1.5" PointX="0.75" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.CartItem" Width="1.5" PointX="3" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Category" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Contact" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Customer" Width="1.5" PointX="1.5" PointY="23.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.CustomerAddress" Width="1.5" PointX="5.75" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Order" Width="1.5" PointX="3.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.OrderItem" Width="1.5" PointX="6" PointY="9.375" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.Product" Width="1.5" PointX="0.75" PointY="8.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.ProductCategory" Width="1.5" PointX="3" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ProductCategory" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.ProductImage" Width="1.5" PointX="3" PointY="17.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.ProductInventory" Width="1.5" PointX="3" PointY="21.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.ProductProductImage" Width="1.5" PointX="5.25" PointY="13.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.ProductReview" Width="1.5" PointX="3" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ProductInventory" Width="1.5" PointX="3" PointY="20.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ProductReview" Width="1.5" PointX="3" PointY="13.375" IsExpanded="true" />
         <AssociationConnector Association="Model.FK_CustomerAddress_AddressID" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_Order_BillToAddressID" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_Order_ShipToAddressID" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Customer_AspNetUsers" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_Cart_CustomerId" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_CartItem_CartId" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_CartItem_ProductId" ManuallyRouted="false" />
@@ -43,9 +43,7 @@
         <AssociationConnector Association="Model.FK_ProductCategory_ProductID" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_ProductImage_ProductID" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_ProductInventory_ProductId" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK_ProductProductImage_ProductId" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_ProductReview_ProductID" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK_ProductProductImage_ProductImageId" ManuallyRouted="false" />
         <AssociationConnector Association="Model.AspNetUserRoles" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>

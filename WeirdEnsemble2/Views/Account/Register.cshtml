@@ -1,26 +1,56 @@
 ﻿@{
     ViewBag.Title = "Register";
 }
-<h2>Register</h2>
+<h2 class="text-center">Register</h2>
 @{
     ViewBag.Title = "Register";
 }
-@if (ViewBag.Errors != null)
-{
-    foreach (string s in (IEnumerable<string>)ViewBag.Errors)
+
+<div class="col-md-6 col-md-offset-3">
+    @if (ViewBag.Errors != null)
     {
-        <div>Error: @s</div>
+        foreach (string s in (IEnumerable<string>)ViewBag.Errors)
+        {
+            <div class="alert alert-danger">Error: @s</div>
+        }
     }
-}
-@using (Html.BeginForm())
-{
-    <div>
-        <label for="username">Username</label>
-        <input name="username" type="text" />
-    </div>
-    <div>
-        <label for="password">Password</label>
-        <input name="password" type="password" />
-    </div>
-    <input type="submit" value="Create Account" />
-}
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            @*<label for="title" class="control-label">Title | </label><br />*@
+            Mr. <input name="title" type="radio" value="Mr." />
+            Mrs. <input name="title" type="radio" value="Mrs." />
+            Ms. <input name="title" type="radio" value="Ms." />
+        </div>
+        <div class="form-group">
+            <label for="fname" class="control-label">First Name</label>
+            <input name="fname" type="text" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="mname" class="control-label">Middle Name</label>
+            <input name="mname" type="text" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="lname" class="control-label">Last Name</label>
+            <input name="lname" type="text" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="dateOfBirth" class="control-label">Date Of Birth</label>
+            <input name="dateOfBirth" class="form-control" type="date" />
+        </div>
+        <div class="form-group">
+            <label for="phone" class="control-label">Phone Number</label>
+            <input name="phone" type="tel" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="username" class="control-label">Email</label>
+            <input name="username" type="text" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="password" class="control-label">Password</label>
+            <input name="password" type="password" class="form-control" />
+        </div>
+        <input type="submit" value="Create Account" class="btn btn-success btn-block" />
+    }
+</div>

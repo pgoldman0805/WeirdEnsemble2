@@ -43,7 +43,6 @@ namespace WeirdEnsemble2.Models
         public virtual DbSet<ProductCategory> ProductCategories { get; set; }
         public virtual DbSet<ProductImage> ProductImages { get; set; }
         public virtual DbSet<ProductInventory> ProductInventories { get; set; }
-        public virtual DbSet<ProductProductImage> ProductProductImages { get; set; }
         public virtual DbSet<ProductReview> ProductReviews { get; set; }
     }
 }

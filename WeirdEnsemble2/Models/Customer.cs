@@ -28,15 +28,13 @@ namespace WeirdEnsemble2.Models
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
-        public string Suffix { get; set; }
         public Nullable<System.DateTime> DateOfBirth { get; set; }
         public string PhoneNumber { get; set; }
-        public string EmailAddress { get; set; }
-        public Nullable<bool> EmailPromotion { get; set; }
-        public string PasswordHash { get; set; }
         public Nullable<System.DateTime> DateCreated { get; set; }
         public Nullable<System.DateTime> DateLastModified { get; set; }
+        public string AspNetUserID { get; set; }
     
+        public virtual AspNetUser AspNetUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cart> Carts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

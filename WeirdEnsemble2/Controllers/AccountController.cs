@@ -14,11 +14,25 @@ using System.Linq;
 using System.Web;
 
 using System.Web.Mvc;
+using WeirdEnsemble2.Models;
 
 namespace WeirdEnsemble2.Controllers
 {
     public class AccountController : Controller
     {
+
+        Entities db = new Entities();
+
+        //Type override and hit tab
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
         // GET: Account
         public ActionResult Index()
         {
@@ -85,14 +99,15 @@ namespace WeirdEnsemble2.Controllers
         }
 
         [HttpPost]
-        public ActionResult Register(string username, string password)
+        [ValidateAntiForgeryToken]
+        public ActionResult Register(string username, string title, string fname, string mname, string lname, DateTime dateOfBirth, string phone, string password)
         {
             var manager = HttpContext.GetOwinContext().GetUserManager<UserManager<IdentityUser>>();
-            IdentityUser newUser = new IdentityUser(username);
-
-            // set the Email to be the username
-            newUser.Email = username;
-            //This can fail - password might not be complex enough, or username might already be in use
+            IdentityUser newUser = new IdentityUser(username)
+            {
+                // set the Email to be the username
+                Email = username
+            };
 
             IdentityResult result = manager.Create(newUser, password);
 
@@ -101,14 +116,48 @@ namespace WeirdEnsemble2.Controllers
                 ViewBag.Errors = result.Errors;
                 return View();
             }
+
+            db.Customers.Add(new Customer
+            {
+                AspNetUserID = newUser.Id,
+                Title = title,
+                FirstName = fname,
+                MiddleName = mname,
+                LastName = lname,
+                DateOfBirth = dateOfBirth,
+                PhoneNumber = phone
+            });
+
+            db.SaveChanges();
             //If the user creation succeeded, use the code below to set the sign-in cookie:
             //TODO: Most sites require you to confirm email before letting you sign-in.
-            var authenticationManager = HttpContext.GetOwinContext().Authentication;
-            var userIdentity = manager.CreateIdentity(newUser, DefaultAuthenticationTypes.ApplicationCookie);
 
-            authenticationManager.SignIn(new Microsoft.Owin.Security.AuthenticationProperties(),userIdentity);
+            string token = manager.GenerateEmailConfirmationToken(newUser.Id);
+            string sendGridApiKey = System.Configuration.ConfigurationManager.AppSettings["SendGrid.ApiKey"];
+            // instantiate SendGrid client using the API Key
+            SendGrid.SendGridClient client = new SendGrid.SendGridClient(sendGridApiKey);
 
-            return RedirectToAction("Index", "Home");
+            // create a message to be sent
+            SendGrid.Helpers.Mail.SendGridMessage message = new SendGrid.Helpers.Mail.SendGridMessage();
+
+            // set message fields
+            message.AddTo(username);
+            message.Subject = "Confirm your WeirdEnsemble.com Account";
+            message.SetFrom("no-reply@codingtemple.com");
+            string body = string.Format(
+                "<a href=\"{0}/account/confirmaccount?email={1}&token={2}\">Confirm your account</a>",
+                Request.Url.GetLeftPart(UriPartial.Authority),
+                username,
+                token);
+            message.AddContent("text/html", body);
+            message.SetTemplateId("9f449d8f-c608-4336-9cbf-8a73ca391f3e");
+
+            var response = client.SendEmailAsync(message).Result;
+
+            TempData["ConfirmEmail"] = "Account created. Please check your email inbox to confirm your account!";
+
+            return RedirectToAction("SignIn");
+
         }
 
         public ActionResult ForgotPassword()
@@ -179,6 +228,11 @@ namespace WeirdEnsemble2.Controllers
                 }
                 ViewBag.Errors = result.Errors;
             }
+            return View();
+        }
+
+        public ActionResult ConfirmAccount()
+        {
             return View();
         }
     }

@@ -38,11 +38,7 @@ INSERT INTO Product (Brand,[Name],[Description],ListPrice,ProductLink,BrandLink)
 INSERT INTO ProductImage (ProductID,ImagePath,AlternateText) VALUES ((SELECT ID FROM Product WHERE [Name] = 'FR18 VAccordion') ,'/Content/images/products/accordion/Roland_FR18_VAccordion.jpg','This is a picture of the Roland FR18 VA Accordion');
 INSERT INTO ProductImage (ProductID,ImagePath,AlternateText) VALUES ((SELECT ID FROM Product WHERE [Name] = 'FR18 VAccordion') ,'/Content/images/products/accordion/Roland_FR18_VAccordion2.jpg','This is the second picture of the Roland FR18 VA Accordion');
 INSERT INTO ProductImage (ProductID,ImagePath,AlternateText) VALUES ((SELECT ID FROM Product WHERE [Name] = 'Classic Goodtime Special Open Back Banjo') ,'/Content/images/products/banjo/Deering-Classic-Goodtime-Special-Openback-Banjo_1.jpg','Heeeere''s a banjo!');
-INSERT INTO ProductImage (ProductID,ImagePath,AlternateText) VALUES ((SELECT ID FROM Product WHERE [Name] = 'Vuvuzela'), '/Content/images/products/vuvuzela/vuvuzela_1.jpeg','This is a picture of a vuvuzela');
-INSERT INTO ProductProductImage (ProductId, ProductImageId, [Primary]) VALUES ((SELECT ID FROM Product WHERE [Name] = 'FR18 VAccordion'),1,0);
-INSERT INTO ProductProductImage (ProductId, ProductImageId, [Primary]) VALUES ((SELECT ID FROM Product WHERE [Name] = 'FR18 VAccordion'),2,1);
-INSERT INTO ProductProductImage (ProductId, ProductImageId, [Primary]) VALUES ((SELECT ID FROM Product WHERE [Name] = 'Vuvuzela'),4,1);
-INSERT INTO ProductProductImage (ProductId, ProductImageId, [Primary]) VALUES ((SELECT ID FROM Product WHERE [Name] = 'Classic Goodtime Special Open Back Banjo'),3,1);
+INSERT INTO ProductImage (ProductID,ImagePath,AlternateText) VALUES ((SELECT ID FROM Product WHERE [Name] = 'Vuvuzela'), '/Content/images/products/misc/vuvuzela_1.jpeg','This is a picture of a vuvuzela');
 INSERT INTO ProductInventory (ProductId, Quantity) VALUES ((SELECT ID FROM Product WHERE [Name] = 'FR18 VAccordion'), 3);
 INSERT INTO ProductInventory (ProductId, Quantity) VALUES ((SELECT ID FROM Product WHERE [Name] = 'Vuvuzela'), 25);
 INSERT INTO ProductInventory (ProductId, Quantity) VALUES ((SELECT ID FROM Product WHERE [Name] = 'Classic Goodtime Special Open Back Banjo'), 1);

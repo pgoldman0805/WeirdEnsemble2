@@ -26,6 +26,13 @@ namespace WeirdEnsemble2.Controllers
             {
                 string cartName = Request.Cookies["CartName"].Value;
                 cart = db.Carts.Single(x => x.Name == cartName);
+
+                if (User.Identity.IsAuthenticated)
+                {
+                    cart.CustomerId = db.AspNetUsers.Single(x => x.UserName == User.Identity.Name)
+                        .Customers.First().Id;
+                    db.SaveChanges();
+                }
             }
             else
             {

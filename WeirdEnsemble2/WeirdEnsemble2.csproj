@@ -199,10 +199,8 @@
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ProductsAdminController.cs" />
-    <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -258,9 +256,6 @@
       <DependentUpon>WeirdEnsembleModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProductInventory.cs">
-      <DependentUpon>WeirdEnsembleModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ProductProductImage.cs">
       <DependentUpon>WeirdEnsembleModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProductReview.cs">
@@ -404,8 +399,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\About\Index.cshtml" />
-    <Content Include="Views\Login\Index.cshtml" />
-    <Content Include="Views\Register\Index.cshtml" />
     <Content Include="Views\Contact\Index.cshtml" />
     <Content Include="Views\Product\Detail.cshtml" />
     <Content Include="Views\Shared\_HeaderNavBar.cshtml" />
@@ -424,6 +417,7 @@
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Account\ForgotPasswordSent.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ConfirmAccount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
