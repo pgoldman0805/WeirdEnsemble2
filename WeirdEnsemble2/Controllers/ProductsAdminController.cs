@@ -101,10 +101,21 @@ namespace WeirdEnsemble2.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Brand,Name,Description,ListPrice,ProductLink,BrandLink")] Product product)
+        public ActionResult Edit(Product product, string path, string altText)
         {
             if (ModelState.IsValid)
             {
+                if (!string.IsNullOrEmpty(path) && !string.IsNullOrEmpty(altText))
+                {
+                    db.ProductImages.Add(new ProductImage
+                    {
+                        ProductID = product.Id,
+                        ImagePath = path,
+                        AlternateText = altText,
+                        DateCreated = DateTime.UtcNow
+                    });
+                }
+                
                 db.Entry(product).State = EntityState.Modified;
 
                 product.DateLastModified = DateTime.UtcNow;

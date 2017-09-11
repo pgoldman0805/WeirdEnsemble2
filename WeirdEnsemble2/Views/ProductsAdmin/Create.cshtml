@@ -63,6 +63,21 @@
         </div>
 
         <div class="form-group">
+            <label for="path" class="col-md-2 control-label">Image Path</label>
+            <div class="col-md-10">
+                <input type="text" name="path" class="form-control" />
+                @*@Html.ValidationMessageFor(model => model.BrandLink, "", new { @class = "text-danger" })*@
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="altText" class="col-md-2 control-label">Alternate Image Text</label>
+            <div class="col-md-10">
+                <input type="text" name="altText" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
