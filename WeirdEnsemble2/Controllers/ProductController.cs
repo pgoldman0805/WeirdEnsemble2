@@ -122,7 +122,5 @@ namespace WeirdEnsemble2.Controllers
             }
             return View(db.Products.Find(id));
         }
-
-        
     }
 }
