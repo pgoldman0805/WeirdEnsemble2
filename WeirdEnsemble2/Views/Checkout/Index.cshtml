@@ -1,0 +1,124 @@
+﻿@model WeirdEnsemble2.Models.CheckoutViewModel
+@{
+    ViewBag.Title = "Checkout";
+    var months = (new[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }).Select(x => new SelectListItem { Text = x, Value = x });
+    var yearsInt = new int[6];
+    int currentYear = DateTime.Now.Year;
+    for (int i = 0; i < 6; i++)
+    {
+        yearsInt[i] = currentYear + i;
+    }
+    var years = yearsInt.Select(x => new SelectListItem { Text = x.ToString(), Value = x.ToString() });
+}
+
+<h2>Checkout</h2>
+
+<table class="table table-striped">
+    <tbody>
+        @foreach (var item in Model.CurrentCart.CartItems)
+        {
+            <tr>
+                <td>@item.Product.Name</td>
+                <td>@item.Quantity</td>
+            </tr>
+        }
+        
+    </tbody>
+</table>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Contact Information</div>
+        <div class="panel-body">
+            <div class="form-group">
+                @Html.LabelFor(m => m.EmailAddress, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.EmailAddress, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.EmailAddress)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.PhoneNumber, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.PhoneNumber)
+            </div>
+
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Shipping Information</div>
+        <div class="panel-body">
+            <div class="form-group">
+                @Html.LabelFor(m => m.ShippingRecipient, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.ShippingRecipient, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ShippingRecipient)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ShippingAddressLine1, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.ShippingAddressLine1, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ShippingAddressLine1)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ShippingAddressLine2, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.ShippingAddressLine2, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ShippingAddressLine2)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ShippingCity, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.ShippingCity, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ShippingCity)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ShippingState, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.ShippingState, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ShippingState)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ShippingPostalCode, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.ShippingPostalCode, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ShippingPostalCode)
+            </div>
+
+            <input type="submit" value="Complete checkout" class="btn btn-info" />
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Payment Information</div>
+        <div class="panel-body">
+            <div class="form-group">
+                @Html.LabelFor(m => m.CreditCardNumber, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.CreditCardNumber, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.CreditCardNumber)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.CreditCardVerificationValue, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.CreditCardVerificationValue, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.CreditCardVerificationValue)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.CreditCardHolder, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.CreditCardHolder, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.CreditCardHolder)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.CreditCardExpirationMonth, new { @class = "control-label" })
+                @Html.DropDownListFor(m => m.CreditCardExpirationMonth, months, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.CreditCardExpirationMonth)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.CreditCardExpirationYear, new { @class = "control-label" })
+                @Html.DropDownListFor(m => m.CreditCardExpirationYear, years, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.CreditCardExpirationYear)
+            </div>
+
+            <input type="submit" value="Complete checkout" class="btn btn-info" />
+        </div>
+    </div>
+
+}
+

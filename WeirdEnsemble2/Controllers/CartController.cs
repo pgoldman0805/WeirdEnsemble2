@@ -7,6 +7,7 @@ namespace WeirdEnsemble2.Controllers
 {
     public class CartController : Controller
     {
+        
         Entities db = new Entities();
 
         //Type override and hit tab
@@ -22,26 +23,52 @@ namespace WeirdEnsemble2.Controllers
         public ActionResult Index()
         {
             Cart cart = null;
-            if (Request.Cookies.AllKeys.Contains("CartName"))
-            {
-                string cartName = Request.Cookies["CartName"].Value;
-                cart = db.Carts.Single(x => x.Name == cartName);
 
-                if (User.Identity.IsAuthenticated)
+            // if user is logged in, try to retrieve their existing cart
+            // if they don't have a cart, create a new one and assign that cart to the user's id
+            if (User.Identity.IsAuthenticated)
+            {
+                var customerId = db.AspNetUsers.Single(x => x.UserName == User.Identity.Name).Customers.First().Id;
+                cart = db.Carts.FirstOrDefault(x => x.Id == customerId);
+                if (cart != null)
                 {
-                    cart.CustomerId = db.AspNetUsers.Single(x => x.UserName == User.Identity.Name)
-                        .Customers.First().Id;
-                    db.SaveChanges();
+                    return View(cart);
+                }
+                else
+                {
+                    // create an empty cart
+                    cart = new Cart()
+                    {
+                        CartItems = new CartItem[0]
+                    };
                 }
             }
+
+            // If user is NOT logged in
             else
             {
-                // create an empty cart
-                cart = new Cart()
+                if (Request.Cookies.AllKeys.Contains("CartName"))
                 {
-                    CartItems = new CartItem[0]
-                };
+                    string cartName = Request.Cookies["CartName"].Value;
+                    cart = db.Carts.Single(x => x.Name == cartName);
+
+                    //if (User.Identity.IsAuthenticated)
+                    //{
+                    //    cart.CustomerId = db.AspNetUsers.Single(x => x.UserName == User.Identity.Name)
+                    //        .Customers.First().Id;
+                    //    db.SaveChanges();
+                    //}
+                }
+                else
+                {
+                    // create an empty cart
+                    cart = new Cart()
+                    {
+                        CartItems = new CartItem[0]
+                    };
+                }
             }
+            
             return View(cart);
         }
 

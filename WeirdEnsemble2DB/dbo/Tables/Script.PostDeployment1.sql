@@ -9,10 +9,6 @@ Post-Deployment Script Template
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
 */
-INSERT INTO [Address] (Line1,Line2,City,StateProvince,ZipCode) VALUES ('4912 Jarvis',null,'Skokie','Illinois','60077');
-INSERT INTO [Address] (Line1,Line2,City,StateProvince,ZipCode) VALUES ('4840 Elm St','Apt 2','Skokie','Illinois','60076');
-INSERT INTO [Address] (Line1,Line2,City,StateProvince,ZipCode) VALUES ('222 W Ontario','#403','Chicago','Illinois','39483');
-INSERT INTO [Address] (Line1,Line2,City,StateProvince,ZipCode) VALUES ('123 Street St',null,'Atlanta','Georgia','23423-3424');
 INSERT INTO Category ([Name]) VALUES ('Electronic Instruments'),('Wind Instruments'),('String Instruments'),('Keyboard Instruments'),('Percussion'),('Brass Instruments');
 INSERT INTO Category ([Name]) VALUES ('Misc');
 INSERT INTO Category ([Name],ParentID) VALUES ('Slide Whistle', (SELECT ID FROM Category WHERE [Name] = 'Misc'));
@@ -26,10 +22,6 @@ INSERT INTO Category ([Name],ParentID) VALUES ('Accordion', (SELECT ID FROM Cate
 INSERT INTO Category ([Name],ParentID) VALUES ('Keytar', (SELECT ID FROM Category WHERE [Name] = 'Keyboard Instruments'));
 INSERT INTO Category ([Name],ParentID) VALUES ('Melodica', (SELECT ID FROM Category WHERE [Name] = 'Keyboard Instruments'));
 INSERT INTO Category ([Name],ParentID) VALUES ('Tuba', (SELECT ID FROM Category WHERE [Name] = 'Brass Instruments'));
-INSERT INTO Customer (Title,FirstName,MiddleName,LastName,Suffix,DateOfBirth,PhoneNumber,EmailAddress,EmailPromotion,PasswordHash) VALUES ('Mr','Paul','I','Goldman',null,'08/05/1988','123-456-7890','abc@example.com',0,'hashashhas');
-INSERT INTO Customer (Title,FirstName,MiddleName,LastName,Suffix,DateOfBirth,PhoneNumber,EmailAddress,EmailPromotion,PasswordHash) VALUES (null,'Joe',null,'Johnson','Jr','01/02/1934','222-222-2222','joe@joseph.com',1,'hashashasdkjhhas');
-INSERT INTO Customer (Title,FirstName,MiddleName,LastName,Suffix,DateOfBirth,PhoneNumber,EmailAddress,EmailPromotion,PasswordHash) VALUES ('Mrs','Marina',null,'Goldman',null,'02/03/1966','203-234-2043','marina@example.com',0,'asdasdasd');
-INSERT INTO Customer (Title,FirstName,MiddleName,LastName,Suffix,DateOfBirth,PhoneNumber,EmailAddress,EmailPromotion,PasswordHash) VALUES ('Ms','Renee','Lynn','Dippel',null,'07/29/1982','123-123-1231','renee@asd.com',0,'asdasedfxcb');
 INSERT INTO Product (Brand,[Name],[Description],ListPrice,ProductLink,BrandLink) VALUES ('Roland','FR18 VAccordion','In 2004, after several years of research, a dream of Roland founder Mr. Ikutaro Kakehashi came true: the V-Accordion was born. This instrument was the world’s first fully digital accordion, powered by the groundbreaking new Physical Behavior Modeling technology. Bringing together the playability of a fine acoustic accordion with all the conveniences of a modern digital instrument, the V-Accordion was immediately embraced by players around the world. Today, the V-Accordion lineup has grown to include a wide range of models, from student instruments to full-featured professional accordions.',1489.99, 'http://www.rolandus.com/go/v-accordion/','https://www.roland.com/us/');
 INSERT INTO Product (Brand,[Name],[Description],ListPrice,ProductLink,BrandLink) VALUES ('Roland','FR-8X VAccordion','With their new FR-8x V-Accordion, Roland has perfected the synergy between traditional accordion playability and modern digital power. The latest flagship piano-type V-Accordion is jam packed with features and enhancements developed with input from the world’s top players, bringing a previously unattained level of expression and versatility to every accordionist. Innovative Dynamic Bellows Behavior technology delivers the true bellows response of an acoustic accordion, while the expanded sound set, four powerful multi-effects, an onboard looper, and much more offer a treasure chest of tools for dynamic musical exploration. Seamlessly fusing top-level technology with familiar acoustic tradition, the FR-8x V-Accordion ushers in a new era of creative freedom for players everywhere.',1349.99, 'http://www.rolandus.com/go/v-accordion/','https://www.roland.com/us/');
 
@@ -42,4 +34,3 @@ INSERT INTO ProductImage (ProductID,ImagePath,AlternateText) VALUES ((SELECT ID 
 INSERT INTO ProductInventory (ProductId, Quantity) VALUES ((SELECT ID FROM Product WHERE [Name] = 'FR18 VAccordion'), 3);
 INSERT INTO ProductInventory (ProductId, Quantity) VALUES ((SELECT ID FROM Product WHERE [Name] = 'Vuvuzela'), 25);
 INSERT INTO ProductInventory (ProductId, Quantity) VALUES ((SELECT ID FROM Product WHERE [Name] = 'Classic Goodtime Special Open Back Banjo'), 1);
-INSERT INTO ProductReview (ProductID,CustomerID,Rating,Comments) VALUES ((SELECT ID FROM PRODUCT WHERE [Name] = 'FR18 VAccordion'), (SELECT ID FROM CUSTOMER WHERE [FirstName] = 'Renee' AND [LastName] = 'Dippel'),4,'Bestest accordion evar!!! LOL');

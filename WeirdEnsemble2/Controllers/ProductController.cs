@@ -53,43 +53,68 @@ namespace WeirdEnsemble2.Controllers
                 string cartName = "";
                 Cart cart = null;
                 
-                // Check to see if there is an existing cookie for the cart
-                // The cookie name is arbitrary!
-                if (Request.Cookies.AllKeys.Contains("CartName"))
+
+                // CHECK TO SEE IF USER IS LOGGED IN
+                // IF THEY ARE, CHECK IF THEY ALREADY HAVE A CART
+                // OTHERWISE, CREATE AND ASSIGN A CART TO THAT USER
+
+                if (User.Identity.IsAuthenticated)
                 {
-                    //Basket name is going to be a GUID
-                    //e.g. FAD1F8B0-F3F1-40B1-B552-109AD15F1649
-                    cartName = Request.Cookies["CartName"].Value;
-                    cart = db.Carts.Single(x => x.Name == cartName);
+                    var customerId = db.AspNetUsers.Single(x => x.UserName == User.Identity.Name).Customers.First().Id;
+                    cart = db.Carts.FirstOrDefault(x => x.Id == customerId);
+                    if (cart == null)
+                    {
+                        // If a user doesn't have a cart yet, lets generate a GUID 
+                        // to identify the cart
+                        cartName = Guid.NewGuid().ToString();
+                        // create a new cart item and assign it's name
+                        cart = new Cart()
+                        {
+                            Name = cartName,
+                            DateCreated = DateTime.UtcNow,
+                            CustomerId = customerId,
+                        };
+                        db.Carts.Add(cart);
+                    }
                 }
                 else
                 {
-                    // If a user doesn't have a cart yet, lets generate a GUID 
-                    // to identify the cart
-                    cartName = Guid.NewGuid().ToString();
-
-                    // create a new cart item and assign it's name
-                    cart = new Cart()
+                    // Check to see if there is an existing cookie for the cart
+                    // The cookie name is arbitrary!
+                    if (Request.Cookies.AllKeys.Contains("CartName"))
                     {
-                        Name = cartName,
-                        DateCreated = DateTime.UtcNow
-                    };
-
-                    // This will queue up the cart for insertion into the database
-                    // It won't actually get added until I "save" the DB
-                    db.Carts.Add(cart);
-
-                    //Finally, I add a cookie to the "response" object
-                    //Every subsequent request to this site should include this cookie
-                    // until it expires (in one month). This cookie is saved on the end user's computer
-                    Response.SetCookie(new System.Web.HttpCookie("CartName", cartName)
+                        //Cart name is going to be a GUID
+                        //e.g. FAD1F8B0-F3F1-40B1-B552-109AD15F1649
+                        cartName = Request.Cookies["CartName"].Value;
+                        cart = db.Carts.Single(x => x.Name == cartName);
+                    }
+                    else
                     {
-                        Expires = DateTime.UtcNow.AddMonths(1)
-                    });           
+                        // If a user doesn't have a cart yet, lets generate a GUID 
+                        // to identify the cart
+                        cartName = Guid.NewGuid().ToString();
+
+                        // create a new cart item and assign it's name
+                        cart = new Cart()
+                        {
+                            Name = cartName,
+                            DateCreated = DateTime.UtcNow,
+                            DateLastModified = DateTime.UtcNow
+                        };
+
+                        // This will queue up the cart for insertion into the database
+                        // It won't actually get added until I "save" the DB
+                        db.Carts.Add(cart);
+
+                        //Finally, I add a cookie to the "response" object
+                        //Every subsequent request to this site should include this cookie
+                        // until it expires (in one month). This cookie is saved on the end user's computer
+                        Response.SetCookie(new System.Web.HttpCookie("CartName", cartName)
+                        {
+                            Expires = DateTime.UtcNow.AddMonths(1)
+                        });
+                    }
                 }
-
-                //Time-stamp this cart
-                cart.DateLastModified = DateTime.UtcNow;
 
                 // Check if I've already added this type of item to my cart
                 var cartItem = cart.CartItems.FirstOrDefault(x => x.ProductId == id);
@@ -109,12 +134,8 @@ namespace WeirdEnsemble2.Controllers
                 // Add the quantity selected
                 cartItem.Quantity += quantity;
 
-                //Updated the timestamp
-                cartItem.DateLastModified = DateTime.UtcNow;
-
                 // Finally, save changes to the DB 
                 db.SaveChanges();
-
                 TempData["Message"] = string.Format("{0} item{1} added to your cart!", quantity, (quantity > 1 ? "s" : ""));
                 
                 return RedirectToAction("Index", "Product");

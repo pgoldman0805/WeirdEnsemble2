@@ -22,14 +22,11 @@ namespace WeirdEnsemble2.Models
     
         public int Id { get; set; }
         public int CustomerID { get; set; }
-        public int BillToAddressID { get; set; }
-        public int ShipToAddressID { get; set; }
-        public Nullable<System.DateTime> DatePlaced { get; set; }
+        public System.DateTime DatePlaced { get; set; }
         public Nullable<System.DateTime> DateShipped { get; set; }
         public Nullable<System.DateTime> DateLastModified { get; set; }
+        public string ShippingAddressLine1 { get; set; }
     
-        public virtual Address Address { get; set; }
-        public virtual Address Address1 { get; set; }
         public virtual Customer Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderItem> OrderItems { get; set; }

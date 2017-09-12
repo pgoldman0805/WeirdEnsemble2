@@ -20,7 +20,12 @@ namespace WeirdEnsemble2.Controllers
         // GET: ProductsAdmin
         public ActionResult Index()
         {
-            
+            //if (User.Identity.IsAuthenticated)
+            //{
+            //    var claimsIdentity = (System.Security.Claims.ClaimsPrincipal)User.Identity;
+            //    var roleClaims = claimsIdentity.Claims.Where(x => x.Type == System.Security.Claims.ClaimTypes.Role);
+            //}
+
             // IMPERATIVE CHECKING
             //if (User.Identity.IsAuthenticated)
             //{

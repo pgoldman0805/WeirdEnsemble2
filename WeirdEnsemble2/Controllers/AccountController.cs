@@ -46,7 +46,7 @@ namespace WeirdEnsemble2.Controllers
             return View();
         }
 
-        // POST: Account/SignIN
+        // POST: Account/SignIn
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult SignIn(string username, string password, bool? rememberMe, string returnUrl)

@@ -18,8 +18,6 @@ namespace WeirdEnsemble2.Models
         public Address()
         {
             this.CustomerAddresses = new HashSet<CustomerAddress>();
-            this.Orders = new HashSet<Order>();
-            this.Orders1 = new HashSet<Order>();
         }
     
         public int Id { get; set; }
@@ -33,9 +31,5 @@ namespace WeirdEnsemble2.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CustomerAddress> CustomerAddresses { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Orders { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Orders1 { get; set; }
     }
 }

@@ -197,6 +197,7 @@
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
@@ -228,6 +229,7 @@
     <Compile Include="Models\Category.cs">
       <DependentUpon>WeirdEnsembleModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CheckoutViewModel.cs" />
     <Compile Include="Models\Contact.cs">
       <DependentUpon>WeirdEnsembleModel.tt</DependentUpon>
     </Compile>
@@ -418,11 +420,10 @@
     <Content Include="Views\Account\ForgotPasswordSent.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\ConfirmAccount.cshtml" />
+    <Content Include="Views\Checkout\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\ProductImages\" />
-    <Folder Include="Views\Review\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
