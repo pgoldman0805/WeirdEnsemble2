@@ -26,7 +26,7 @@ namespace WeirdEnsemble2.Controllers
             return View(db.Products);
         }
 
-        // GET: Product Detail on specified ID
+        // GET: Product/Detail/{id}
         public ActionResult Detail(int? id)
         {
             if (id == null)
@@ -37,12 +37,12 @@ namespace WeirdEnsemble2.Controllers
             {
                 return HttpNotFound();
             }
-            ProductImage image = db.Products.Find(id).ProductImages.FirstOrDefault(m => m.ProductID == id);
+            //ProductImage image = db.Products.Find(id).ProductImages.FirstOrDefault(m => m.ProductID == id);
 
             return View("Detail", db.Products.Find(id));
         }
 
-        //POST: Details 
+        //POST: Product/Details/{id}
         // When someone adds an item to their cart
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -121,6 +121,55 @@ namespace WeirdEnsemble2.Controllers
 
             }
             return View(db.Products.Find(id));
+        }
+
+        //GET: Product/Review/{id}
+        public ActionResult Review(int? id)
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                TempData["UnauthorizedReview"] = "You must be signed in to leave a review.";
+                return RedirectToAction("SignIn", "Account");
+            }
+            if (id == null)
+            {
+                return RedirectToAction("Index");
+            }
+            if (!db.Products.Any(m => m.Id == id))
+            {
+                return HttpNotFound();
+            }
+            return View(db.Products.Find(id));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Review(int prodId, int rating, string comment)
+        {
+            if (ModelState.IsValid)
+            {
+                if (User.Identity.IsAuthenticated)
+                {
+                    var customerID = db.AspNetUsers.Single(x => x.UserName == User.Identity.Name).Customers.First().Id;
+                    ProductReview newReview = new ProductReview()
+                    {
+                        ProductID = prodId,
+                        CustomerID = customerID,
+                        Rating = rating,
+                        Comments = comment,
+                        DateCreated = DateTime.UtcNow
+                    };
+
+                    db.ProductReviews.Add(newReview);
+                    db.SaveChanges();
+                    string productName = db.Products.FirstOrDefault(x => x.Id == prodId).Name;
+                    TempData["AddedReview"] = "Thanks for reviewing " + productName + "!";
+                    return RedirectToAction("Detail",prodId);
+                }
+                
+            }
+            return View();
+            
         }
     }
 }

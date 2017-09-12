@@ -27,6 +27,12 @@
             @TempData["ConfirmEmail"]
         </div>
     }
+    @if (TempData.ContainsKey("UnauthorizedReview"))
+    {
+        <div class="alert alert-warning">
+            @TempData["UnauthorizedReview"]
+        </div>
+    }
     <h2 class="text-center">Sign In</h2>
     <div class="col-md-6 col-md-offset-3">
         @using (Html.BeginForm())

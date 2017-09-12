@@ -10,6 +10,12 @@
     });
 
 }
+@if (TempData.ContainsKey("AddedReview"))
+{
+    <div class="alert alert-success">
+        @TempData["AddedReview"]
+    </div>
+}
 
 <h2 class="text-center details-title">@(Model.Brand + " " + Model.Name)</h2>
 <div class="row">
@@ -38,7 +44,8 @@
             @Html.HiddenFor(m => m.DateCreated)
             <label for="quantity">Quantity:  </label>
             @Html.DropDownList("Quantity",quantity,new { @class = "form-control"})
-            <button class="btn btn-success pull-right add-to-cart">Add To Cart</button>
+            <button class="btn btn-success pull-right detail-button">Add To Cart</button>
+            @Html.ActionLink("Write a Review","Review",new { id = Model.Id},new { @class="btn btn-primary pull-right detail-button"})
         }
         <br />
         <button id="review-button" class="accordion">Reviews </button>
