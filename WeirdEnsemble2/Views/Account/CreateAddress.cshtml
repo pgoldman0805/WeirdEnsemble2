@@ -1,0 +1,33 @@
+﻿@model Braintree.Address
+@{
+    ViewBag.Title = "CreateAddress";
+}
+<h2>CreateAddress</h2>
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        @Html.Label("First Name")
+        @Html.TextBox("fname")
+    </div>
+    <div class="form-group">
+        @Html.Label("LastName")
+        @Html.TextBox("lname")
+    </div>
+    <div class="form-group">
+        @Html.Label("Street Address")
+        @Html.TextBox("streetAddress")
+    </div>
+    <div class="form-group">
+        @Html.Label("City")
+        @Html.TextBox("locality")
+    </div>
+    <div class="form-group">
+        @Html.Label("State")
+        @Html.TextBox("region")
+    </div>
+    <div class="form-group">
+        @Html.Label("Zip Code")
+        @Html.TextBox("postalCode")
+    </div>
+    <input type="submit" />
+}

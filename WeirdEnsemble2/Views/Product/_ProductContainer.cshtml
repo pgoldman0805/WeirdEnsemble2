@@ -13,7 +13,9 @@
                     <img class="productImg" src="@(Model.ProductImages.FirstOrDefault(m => m.ProductID == Model.Id).ImagePath)" 
                          alt="@(Model.ProductImages.FirstOrDefault(m => m.ProductID == Model.Id).AlternateText)"/>
                 }
-
+                <div class="productPrice text-center">
+                    <h6><span class="dollar-sign">$</span>@((Model.ListPrice ?? 0).ToString("#,##0.00"))</h6>
+                </div>
                 <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
                     <h5 class="productBrand">@Model.Brand</h5>
                     <h5 class="productName">@Model.Name</h5>
@@ -28,9 +30,7 @@
                         </h6>
                     }
                     </div>
-                    <div class="productPrice">
-                        <h6><span class="dollar-sign">$</span>@((Model.ListPrice ?? 0).ToString("0.00"))</h6>
-                    </div>
+
                 </div>    
                 
             </div>

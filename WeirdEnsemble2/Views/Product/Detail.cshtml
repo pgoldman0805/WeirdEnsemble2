@@ -8,7 +8,7 @@
         Text = x.ToString(),
         Value = x.ToString()
     });
-
+    var formattedDollars = String.Format("{0:#,##0.##}", Model.ListPrice);
 }
 @if (TempData.ContainsKey("AddedReview"))
 {
@@ -37,7 +37,7 @@
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
         <div class="price-container">
             <span class="dollar-sign">$</span>
-            <span class="dollars">@(Model.ListPrice.ToString().Split('.')[0])</span>
+            <span class="dollars">@(formattedDollars.Split('.')[0])</span>
             <span class="cents">.@(Model.ListPrice.ToString().Split('.')[1].Substring(0,2))</span>
         </div>
         <div class="desc-container">
@@ -51,9 +51,11 @@
             <label for="quantity">Quantity:  </label>
             @Html.DropDownList("Quantity",quantity,new { @class = "form-control"})
             <button class="btn btn-success pull-right detail-button">Add To Cart</button>
-            @Html.ActionLink("Write a Review","Review",new { id = Model.Id},new { @class="btn btn-primary pull-right detail-button"})
+            <hr />
+           
+            @Html.ActionLink("Write a Review","Review",new { id = Model.Id},new { @class="btn btn-primary btn-block"})
         }
-        <br />
+
         <button id="review-button" class="accordion">Reviews </button>
         <div class="panel review-container">
             @foreach (var review in Model.ProductReviews)

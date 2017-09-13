@@ -65,14 +65,18 @@ p.register-password-text {
   /*    height: 300px;*/
   /*outline: 1px solid #222;*/ }
   .panel-body:hover {
-    outline: 1px solid black; }
+    /*outline: 1px solid black;*/ }
 
 .product-panel-link {
   color: black; }
+  .product-panel-link:hover {
+    text-decoration: none; }
 
 .productPrice h6 {
   color: green;
   font-size: 2em; }
+  .productPrice h6:hover {
+    text-decoration: none; }
 
 .productImg {
   /*    margin: 1.5em;*/

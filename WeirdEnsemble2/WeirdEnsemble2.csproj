@@ -318,6 +318,7 @@
     <Content Include="Content\images\products\melodica\Gear4music_melodica.jpg" />
     <Content Include="Content\images\products\melodica\Hohner_student32_melodica.jpg" />
     <Content Include="Content\images\products\misc\Acme_SlideWhistle_TH472.jpg" />
+    <Content Include="Content\images\products\misc\Kazoobie_Kazoo.jpg" />
     <Content Include="Content\images\products\misc\Ludwig_LM138_Vibraslap.jpg" />
     <Content Include="Content\images\products\misc\vuvuzela_1.jpeg" />
     <Content Include="Content\images\products\otomatone\otamatone_back.jpg" />
@@ -432,6 +433,7 @@
     <Content Include="Views\Account\ConfirmAccount.cshtml" />
     <Content Include="Views\Checkout\Index.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Account\CreateAddress.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

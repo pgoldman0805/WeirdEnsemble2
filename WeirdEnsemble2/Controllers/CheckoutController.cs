@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Configuration;
 using WeirdEnsemble2.Models;
+using System.Threading.Tasks;
 
 namespace WeirdEnsemble2.Controllers
 {
@@ -50,7 +51,7 @@ namespace WeirdEnsemble2.Controllers
         // POST: Checkout
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(CheckoutViewModel model)
+        public async Task<ActionResult> Index(CheckoutViewModel model)
         {
             // check if current customer is logged in
             // if not, redirect them to 
@@ -65,7 +66,7 @@ namespace WeirdEnsemble2.Controllers
                     DateCreated = DateTime.UtcNow
                 };
                 db.Customers.Add(currentCustomer);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
 
             if (Request.Cookies.AllKeys.Contains("CartName"))
@@ -95,7 +96,7 @@ namespace WeirdEnsemble2.Controllers
                     ExpirationYear = model.CreditCardExpirationYear.ToString()
                 };
 
-                Braintree.Result<Braintree.Transaction> result = braintreeGateway.Transaction.Sale(request);
+                Braintree.Result<Braintree.Transaction> result = await braintreeGateway.Transaction.SaleAsync(request);
 
 
                 if (result.Errors == null || result.Errors.Count == 0)
@@ -125,7 +126,7 @@ namespace WeirdEnsemble2.Controllers
                     db.CartItems.RemoveRange(model.CurrentCart.CartItems);
                     db.Carts.Remove(model.CurrentCart);
 
-                    db.SaveChanges();
+                    await db.SaveChangesAsync();
 
                     //REmove the basket cookie!
                     Response.SetCookie(new HttpCookie("CartName")

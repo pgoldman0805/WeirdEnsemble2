@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using WeirdEnsemble2.Models;
+using System.Threading.Tasks;
 
 namespace WeirdEnsemble2.Controllers
 {
@@ -46,7 +47,7 @@ namespace WeirdEnsemble2.Controllers
         // When someone adds an item to their cart
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Detail(int id,int quantity)
+        public async Task<ActionResult> Detail(int id,int quantity)
         {
             if (ModelState.IsValid)
             {
@@ -135,7 +136,7 @@ namespace WeirdEnsemble2.Controllers
                 cartItem.Quantity += quantity;
 
                 // Finally, save changes to the DB 
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 TempData["Message"] = string.Format("{0} item{1} added to your cart!", quantity, (quantity > 1 ? "s" : ""));
                 
                 return RedirectToAction("Index", "Product");
@@ -166,7 +167,7 @@ namespace WeirdEnsemble2.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Review(int prodId, int rating, string comment)
+        public async Task<ActionResult> Review(int prodId, int rating, string comment)
         {
             if (ModelState.IsValid)
             {
@@ -183,7 +184,7 @@ namespace WeirdEnsemble2.Controllers
                     };
 
                     db.ProductReviews.Add(newReview);
-                    db.SaveChanges();
+                    await db.SaveChangesAsync();
                     string productName = db.Products.FirstOrDefault(x => x.Id == prodId).Name;
                     TempData["AddedReview"] = "Thanks for reviewing " + productName + "!";
                     return RedirectToAction("Detail",prodId);

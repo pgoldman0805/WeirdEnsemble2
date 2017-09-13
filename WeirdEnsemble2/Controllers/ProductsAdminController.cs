@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Threading.Tasks;
 using WeirdEnsemble2.Models;
 
 
@@ -67,7 +68,7 @@ namespace WeirdEnsemble2.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Brand,Name,Description,ListPrice,ProductLink,BrandLink,DateCreated,DateLastModified")] Product product, HttpPostedFileBase picture)
+        public async Task<ActionResult> Create(Product product)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +79,7 @@ namespace WeirdEnsemble2.Controllers
                 product.DateCreated = DateTime.UtcNow;
                 product.DateLastModified = DateTime.UtcNow;
                 db.Products.Add(product);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
@@ -107,7 +108,7 @@ namespace WeirdEnsemble2.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Product product, string path, string altText)
+        public async Task<ActionResult> Edit(Product product, string path, string altText)
         {
             if (ModelState.IsValid)
             {
@@ -127,7 +128,7 @@ namespace WeirdEnsemble2.Controllers
                 db.Entry(product).State = EntityState.Modified;
 
                 product.DateLastModified = DateTime.UtcNow;
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             ViewBag.Id = new SelectList(db.ProductInventories, "ProductId", "ProductId", product.Id);
@@ -152,11 +153,11 @@ namespace WeirdEnsemble2.Controllers
         // POST: ProductsAdmin/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
             Product product = db.Products.Find(id);
             db.Products.Remove(product);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 

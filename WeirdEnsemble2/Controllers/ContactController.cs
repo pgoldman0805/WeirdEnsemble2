@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using System.Web;
-
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using WeirdEnsemble2.Models;
 
@@ -39,7 +39,7 @@ namespace WeirdEnsemble2.Controllers
 
         //POST: Contact
         [HttpPost]
-        public ActionResult Index(string fname, string lname, string email, string comment)
+        public async Task<ActionResult> Index(string fname, string lname, string email, string comment)
         {
             if (ModelState.IsValid)
             {
@@ -52,7 +52,7 @@ namespace WeirdEnsemble2.Controllers
                     DateCreated = DateTime.UtcNow
                 };
                 db.Contacts.Add(contact);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 TempData["ContactConfirmation"] = "Thanks for your comments! We will reply soon.";
                 return RedirectToAction("Index","Home");
             }

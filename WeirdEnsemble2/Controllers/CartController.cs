@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using WeirdEnsemble2.Models;
 using System.Web;
+using System.Threading.Tasks;
 namespace WeirdEnsemble2.Controllers
 {
     public class CartController : Controller
@@ -75,7 +76,7 @@ namespace WeirdEnsemble2.Controllers
         // POST: Index --> When item gets removed from cart
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(int prodId)
+        public async Task<ActionResult> Index(int prodId)
         {
 
             // access the current user's cart
@@ -89,7 +90,7 @@ namespace WeirdEnsemble2.Controllers
                 string itemName = itemToDelete.Product.Name;
                 // delete and save
                 cart.CartItems.Remove(itemToDelete);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 TempData["Message"] = string.Format("{0} successfully removed", itemName);
             }
 

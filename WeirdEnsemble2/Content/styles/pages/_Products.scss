@@ -1,7 +1,7 @@
 ﻿
 .panel-body {
     &:hover {
-        outline: 1px solid black;
+        /*outline: 1px solid black;*/
     }
 
     height: auto;
@@ -14,11 +14,17 @@
 
 .product-panel-link{
     color: black;
+    &:hover{
+        text-decoration: none;
+    }
 
 }
 .productPrice h6 {
     color: green;
     font-size: 2em;
+    &:hover{
+        text-decoration: none;
+    }
 
 }
 .productImg {
