@@ -180,6 +180,15 @@ div.review-container {
   overflow: hidden;
   transition: max-height 0.2s ease-out; }
 
+.checkout-table {
+  border: 1px solid black; }
+
+.checkout-info-container .panel-body {
+  height: auto;
+  min-height: 0; }
+  .checkout-info-container .panel-body:hover {
+    outline: none; }
+
 .body-content {
   margin-top: 6%; }
 

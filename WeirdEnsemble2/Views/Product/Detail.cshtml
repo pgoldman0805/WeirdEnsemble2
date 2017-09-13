@@ -16,6 +16,12 @@
         @TempData["AddedReview"]
     </div>
 }
+@if (TempData.ContainsKey("UnauthorizedReview"))
+{
+    <div class="alert alert-warning">
+        @TempData["UnauthorizedReview"]
+    </div>
+}
 
 <h2 class="text-center details-title">@(Model.Brand + " " + Model.Name)</h2>
 <div class="row">

@@ -1,5 +1,29 @@
-﻿@{
-    ViewBag.Title = "My Account";
+﻿@model WeirdEnsemble2.Models.Customer
+@{
+    ViewBag.Title = "Index";
+    var addresses = ViewBag.Addresses as Braintree.Address[];
 }
 
-<h2> MY ACCOUNT</h2>
+<h2>Index</h2>
+@Model.FirstName
+@Model.LastName
+@Html.ActionLink("Create Address", "CreateAddress", null, new { @class="btn btn-default"})
+@if(addresses != null)
+{
+    foreach(var address in addresses)
+    {
+        <div class="row">
+            <div class="col-xs-3">
+                <div class="well">
+                    <address>
+                        @address.FirstName @address.LastName<br />
+                        @address.StreetAddress<br />
+                        @address.ExtendedAddress<br />
+                        @address.Locality, @address.Region @address.CountryName<br />
+                    </address>
+                </div>
+            </div>
+        </div>
+        @Html.ActionLink("Delete Address","DeleteAddress", new { id = address.Id }, new { @class="btn btn-danger"})
+    }
+}

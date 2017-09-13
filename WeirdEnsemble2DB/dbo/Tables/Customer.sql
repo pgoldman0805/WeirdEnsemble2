@@ -8,7 +8,7 @@
     [PhoneNumber]      NVARCHAR (100) NULL,
     [DateCreated]      DATETIME       DEFAULT (getutcdate()) NULL,
     [DateLastModified] DATETIME       DEFAULT (getUtcDate()) NULL,
-    [AspNetUserID] NVARCHAR(128) NOT NULL, 
+    [AspNetUserID] NVARCHAR(128) NULL, 
     PRIMARY KEY CLUSTERED ([Id] ASC), 
     CONSTRAINT [FK_Customer_AspNetUsers] FOREIGN KEY (AspNetUserID) REFERENCES AspNetUsers(Id)
 );

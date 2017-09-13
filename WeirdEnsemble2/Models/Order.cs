@@ -26,6 +26,7 @@ namespace WeirdEnsemble2.Models
         public Nullable<System.DateTime> DateShipped { get; set; }
         public Nullable<System.DateTime> DateLastModified { get; set; }
         public string ShippingAddressLine1 { get; set; }
+        public string TransactionID { get; set; }
     
         public virtual Customer Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

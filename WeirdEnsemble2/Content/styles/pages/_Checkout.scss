@@ -1,0 +1,13 @@
+﻿.checkout-table{
+    border:1px solid black;
+}
+
+.checkout-info-container{
+    .panel-body{
+        height: auto;
+        min-height: 0;
+        &:hover{
+            outline: none;
+        }
+    }
+}

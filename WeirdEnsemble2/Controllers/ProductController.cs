@@ -147,11 +147,7 @@ namespace WeirdEnsemble2.Controllers
         //GET: Product/Review/{id}
         public ActionResult Review(int? id)
         {
-            if (!User.Identity.IsAuthenticated)
-            {
-                TempData["UnauthorizedReview"] = "You must be signed in to leave a review.";
-                return RedirectToAction("SignIn", "Account");
-            }
+            
             if (id == null)
             {
                 return RedirectToAction("Index");
@@ -159,6 +155,11 @@ namespace WeirdEnsemble2.Controllers
             if (!db.Products.Any(m => m.Id == id))
             {
                 return HttpNotFound();
+            }
+            if (!User.Identity.IsAuthenticated)
+            {
+                TempData["UnauthorizedReview"] = "You must be signed in to leave a review.";
+                return RedirectToAction("Detail", db.Products.Find(id));
             }
             return View(db.Products.Find(id));
         }

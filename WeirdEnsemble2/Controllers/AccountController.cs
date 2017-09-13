@@ -1,18 +1,12 @@
-﻿
-using Microsoft.AspNet.Identity;
-
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-
 using Microsoft.AspNet.Identity.Owin;
-
+using Microsoft.Owin.Security;
 using System;
-
 using System.Collections.Generic;
-
 using System.Linq;
-
 using System.Web;
-
+using System.Configuration;
 using System.Web.Mvc;
 using WeirdEnsemble2.Models;
 
@@ -22,23 +16,123 @@ namespace WeirdEnsemble2.Controllers
     {
 
         Entities db = new Entities();
-
+        private UserManager<IdentityUser> _userManager;
+        private IAuthenticationManager _authenticationManager;
+        protected UserManager<IdentityUser> UserManager
+        {
+            get
+            {
+                if (_userManager == null)
+                {
+                    _userManager = HttpContext.GetOwinContext().GetUserManager<UserManager<IdentityUser>>();
+                }
+                return _userManager;
+            }
+        }
+        protected IAuthenticationManager AuthenticationManager
+        {
+            get
+            {
+                if (_authenticationManager == null)
+                {
+                    _authenticationManager = HttpContext.GetOwinContext().Authentication;
+                }
+                return _authenticationManager;
+            }
+        }
         //Type override and hit tab
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
                 db.Dispose();
+                if (UserManager != null)
+                {
+                    UserManager.Dispose();
+                }
             }
             base.Dispose(disposing);
         }
-
         // GET: Account
+        [Authorize]
         public ActionResult Index()
+        {
+            string merchantId = ConfigurationManager.AppSettings["Braintree.MerchantID"];
+            string publicKey = ConfigurationManager.AppSettings["Braintree.PublicKey"];
+            string privateKey = ConfigurationManager.AppSettings["Braintree.PrivateKey"];
+            string environment = ConfigurationManager.AppSettings["Braintree.Environment"];
+            Braintree.BraintreeGateway braintreeGateway = new Braintree.BraintreeGateway
+                (environment, merchantId, publicKey, privateKey);
+            Braintree.CustomerSearchRequest search = new Braintree.CustomerSearchRequest();
+            search.Email.Equals(User.Identity.Name);
+            var customers = braintreeGateway.Customer.Search(search);
+            if (customers.Ids != null)
+            {
+                var customer = customers.FirstItem;
+                ViewBag.Addresses = customer.Addresses;
+                ViewBag.CreditCards = customer.CreditCards;
+            }
+            return View(db.Customers.FirstOrDefault(x => x.AspNetUser.UserName == User.Identity.Name));
+        }
+
+        [Authorize]
+        public ActionResult DeleteAddress(string id)
+        {
+            string merchantId = System.Configuration.ConfigurationManager.AppSettings["Braintree.MerchantID"];
+            string environment = ConfigurationManager.AppSettings["Braintree.Environment"];
+            string publicKey = ConfigurationManager.AppSettings["Braintree.PublicKey"];
+            string privateKey = ConfigurationManager.AppSettings["Braintree.PrivateKey"];
+            Braintree.BraintreeGateway braintreeGateway = new Braintree.BraintreeGateway(environment, merchantId, publicKey, privateKey);
+            Braintree.CustomerSearchRequest search = new Braintree.CustomerSearchRequest();
+            search.Email.Equals(User.Identity.Name);
+            var customers = braintreeGateway.Customer.Search(search);
+            if (customers.Ids != null)
+            {
+                var customer = customers.FirstItem;
+                braintreeGateway.Address.Delete(customer.Id, id);
+                TempData["Message"] = "Address Deleted";
+            }
+            return RedirectToAction("Index");
+        }
+
+
+
+        public ActionResult CreateAddress()
         {
             return View();
         }
-
+        [HttpPost]
+        [Authorize]
+        public ActionResult CreateAddress(string fname, string lname, string region, string locality, string postalCode, string countryName, string streetAddress)
+        {
+            
+            if (ModelState.IsValid)
+            {
+                string merchantId = ConfigurationManager.AppSettings["Braintree.MerchantID"];
+                string publicKey = ConfigurationManager.AppSettings["Braintree.PublicKey"];
+                string privateKey = ConfigurationManager.AppSettings["Braintree.PrivateKey"];
+                string environment = ConfigurationManager.AppSettings["Braintree.Environment"];
+                Braintree.BraintreeGateway braintreeGateway = new Braintree.BraintreeGateway
+                    (environment, merchantId, publicKey, privateKey);
+                Braintree.CustomerSearchRequest search = new Braintree.CustomerSearchRequest();
+                search.Email.Equals(User.Identity.Name);
+                var customers = braintreeGateway.Customer.Search(search);
+                if (customers != null)
+                {
+                    var customer = customers.FirstItem;
+                    braintreeGateway.Address.Create(customer.Id, new Braintree.AddressRequest {
+                        FirstName = fname,
+                        LastName = lname,
+                        StreetAddress = streetAddress,
+                        Locality = locality,
+                        Region = region,
+                        CountryName = countryName
+                    });
+                }
+                TempData["Message"] = "Address created";
+            }
+            return View();
+        }
         // GET: Account/SignIn
         [HttpGet]
         public ActionResult SignIn()
@@ -53,15 +147,13 @@ namespace WeirdEnsemble2.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userManager = HttpContext.GetOwinContext().GetUserManager<UserManager<IdentityUser>>();
-                IdentityUser user = userManager.FindByName(username);
+                IdentityUser user = UserManager.FindByName(username);
                 if (user != null)
                 {
-                    if (userManager.CheckPassword(user,password))
+                    if (UserManager.CheckPassword(user,password))
                     {
-                        var userIdentity = userManager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
-                        var authenticationManager = HttpContext.GetOwinContext().Authentication;
-                        authenticationManager.SignIn(new Microsoft.Owin.Security.AuthenticationProperties()
+                        var userIdentity = UserManager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
+                        AuthenticationManager.SignIn(new AuthenticationProperties()
                         {
                             IsPersistent = rememberMe ?? false,
                             ExpiresUtc = new DateTimeOffset(DateTime.UtcNow.AddDays(7))
@@ -88,8 +180,7 @@ namespace WeirdEnsemble2.Controllers
 
         public ActionResult SignOut()
         {
-            var authenticationManager = HttpContext.GetOwinContext().Authentication;
-            authenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }
 
@@ -102,22 +193,20 @@ namespace WeirdEnsemble2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Register(string username, string title, string fname, string mname, string lname, DateTime dateOfBirth, string phone, string password)
         {
-            var manager = HttpContext.GetOwinContext().GetUserManager<UserManager<IdentityUser>>();
             IdentityUser newUser = new IdentityUser(username)
             {
                 // set the Email to be the username
                 Email = username
             };
 
-            IdentityResult result = manager.Create(newUser, password);
+            IdentityResult result = UserManager.Create(newUser, password);
 
             if (!result.Succeeded)
             {
                 ViewBag.Errors = result.Errors;
                 return View();
             }
-
-            db.Customers.Add(new Customer
+            var newCustomer = new Customer
             {
                 AspNetUserID = newUser.Id,
                 Title = title,
@@ -126,33 +215,43 @@ namespace WeirdEnsemble2.Controllers
                 LastName = lname,
                 DateOfBirth = dateOfBirth,
                 PhoneNumber = phone
-            });
-
+            };
+            db.Customers.Add(newCustomer);
             db.SaveChanges();
-            //If the user creation succeeded, use the code below to set the sign-in cookie:
-            //TODO: Most sites require you to confirm email before letting you sign-in.
 
-            string token = manager.GenerateEmailConfirmationToken(newUser.Id);
-            string sendGridApiKey = System.Configuration.ConfigurationManager.AppSettings["SendGrid.ApiKey"];
-            // instantiate SendGrid client using the API Key
-            SendGrid.SendGridClient client = new SendGrid.SendGridClient(sendGridApiKey);
+            string merchantId = ConfigurationManager.AppSettings["Braintree.MerchantID"];
+            string publicKey = ConfigurationManager.AppSettings["Braintree.PublicKey"];
+            string privateKey = ConfigurationManager.AppSettings["Braintree.PrivateKey"];
+            string environment = ConfigurationManager.AppSettings["Braintree.Environment"];
+            Braintree.BraintreeGateway braintreeGateway = new Braintree.BraintreeGateway
+                (environment, merchantId, publicKey, privateKey);
 
-            // create a message to be sent
-            SendGrid.Helpers.Mail.SendGridMessage message = new SendGrid.Helpers.Mail.SendGridMessage();
+            Braintree.CustomerSearchRequest search = new Braintree.CustomerSearchRequest();
+            search.Email.Equals(username);
 
-            // set message fields
-            message.AddTo(username);
-            message.Subject = "Confirm your WeirdEnsemble.com Account";
-            message.SetFrom("no-reply@codingtemple.com");
+            var existingCustomers = braintreeGateway.Customer.Search(search);
+            if (existingCustomers != null || !existingCustomers.Ids.Any())
+            {
+                var creationResult = braintreeGateway.Customer.Create(new Braintree.CustomerRequest
+                {
+                    FirstName = fname,
+                    LastName = lname,
+                    CustomerId = newCustomer.Id.ToString(),
+                    Email = username,
+                    Phone = phone
+                });
+            }
+
+
+            string token = UserManager.GenerateEmailConfirmationToken(newUser.Id);
             string body = string.Format(
-                "<a href=\"{0}/account/confirmaccount?email={1}&token={2}\">Confirm your account</a>",
+                "<a href=\"{0}/account/confirmaccount?email={1}&token={2}\">Confirm Your Account</a>",
                 Request.Url.GetLeftPart(UriPartial.Authority),
                 username,
                 token);
-            message.AddContent("text/html", body);
-            message.SetTemplateId("9f449d8f-c608-4336-9cbf-8a73ca391f3e");
 
-            var response = client.SendEmailAsync(message).Result;
+            UserManager.SendEmail(newUser.Id, "Confirm Your WeirdEnsemble Account", body);
+
 
             TempData["ConfirmEmail"] = "Account created. Please check your email inbox to confirm your account!";
 
@@ -171,8 +270,7 @@ namespace WeirdEnsemble2.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userManager = HttpContext.GetOwinContext().GetUserManager<UserManager<IdentityUser>>();
-                IdentityUser user = userManager.FindByEmail(email);
+                IdentityUser user = UserManager.FindByEmail(email);
 
                 // : if unrecognized email is entered, display error message and return the same view
                 if (user == null)
@@ -180,28 +278,14 @@ namespace WeirdEnsemble2.Controllers
                     ViewBag.Message = email + " isn't a registered emailed address.";
                     return View();
                 }
-                string resetToken = userManager.GeneratePasswordResetToken(user.Id);
-                string sendGridApiKey = System.Configuration.ConfigurationManager.AppSettings["SendGrid.ApiKey"];
-
-                // instantiate SendGrid client using the API Key
-                SendGrid.SendGridClient client = new SendGrid.SendGridClient(sendGridApiKey);
-
-                // create a message to be sent
-                SendGrid.Helpers.Mail.SendGridMessage message = new SendGrid.Helpers.Mail.SendGridMessage();
-
-                // set message fields
-                message.AddTo(email);
-                message.Subject = "Reset your WeirdEnsemble.com Password";
-                message.SetFrom("no-reply@codingtemple.com");
+                string resetToken = UserManager.GeneratePasswordResetToken(user.Id);
+                
                 string body = string.Format(
                     "<a href=\"{0}/account/resetpassword?email={1}&token={2}\">Reset your password</a>",
                     Request.Url.GetLeftPart(UriPartial.Authority),
                     email,
                     resetToken);
-                message.AddContent("text/html", body);
-                message.SetTemplateId("9f449d8f-c608-4336-9cbf-8a73ca391f3e");
-
-                var response = client.SendEmailAsync(message).Result;
+                UserManager.SendEmail(user.Id, "Reset Your WeirdEnsemble.com Password", body);
 
                 return RedirectToAction("ForgotPasswordSent");
             }
@@ -224,9 +308,8 @@ namespace WeirdEnsemble2.Controllers
         {
             if (ModelState.IsValid)
             {
-                var manager = HttpContext.GetOwinContext().GetUserManager<UserManager<IdentityUser>>();
-                IdentityUser user = manager.FindByEmail(email);
-                IdentityResult result = manager.ResetPassword(user.Id, token, newPassword);
+                IdentityUser user = UserManager.FindByEmail(email);
+                IdentityResult result = UserManager.ResetPassword(user.Id, token, newPassword);
                 if (result.Succeeded)
                 {
                     TempData["PasswordReset"] = "Your password has been reset successfully";
@@ -237,9 +320,18 @@ namespace WeirdEnsemble2.Controllers
             return View();
         }
 
-        public ActionResult ConfirmAccount()
+        public ActionResult ConfirmAccount(string email, string token)
         {
-            return View();
+            IdentityUser user = UserManager.FindByEmail(email);
+            if (user != null)
+            {
+                IdentityResult confirmResult = UserManager.ConfirmEmail(user.Id, token);
+                if (confirmResult.Succeeded)
+                {
+                    TempData["AccountMessage"] = "Your email address has been confirmed";
+                }
+            }
+            return RedirectToAction("SignIn");
         }
     }
 }

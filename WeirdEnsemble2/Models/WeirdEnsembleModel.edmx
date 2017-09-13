@@ -15,6 +15,12 @@
           <Property Name="Model" Type="varbinary(max)" Nullable="false" />
           <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
         </EntityType>
+        <EntityType Name="__RefactorLog">
+          <Key>
+            <PropertyRef Name="OperationKey" />
+          </Key>
+          <Property Name="OperationKey" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
         <EntityType Name="Address">
           <Key>
             <PropertyRef Name="Id" />
@@ -134,7 +140,7 @@
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="100" />
           <Property Name="DateCreated" Type="datetime" />
           <Property Name="DateLastModified" Type="datetime" />
-          <Property Name="AspNetUserID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="AspNetUserID" Type="nvarchar" MaxLength="128" />
         </EntityType>
         <EntityType Name="CustomerAddress">
           <Key>
@@ -155,6 +161,7 @@
           <Property Name="DateShipped" Type="datetime" />
           <Property Name="DateLastModified" Type="datetime" />
           <Property Name="ShippingAddressLine1" Type="nvarchar" MaxLength="200" />
+          <Property Name="TransactionID" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="OrderItem">
           <Key>
@@ -164,7 +171,7 @@
           <Property Name="OrderId" Type="int" Nullable="false" />
           <Property Name="ProductId" Type="int" Nullable="false" />
           <Property Name="Quantity" Type="int" Nullable="false" />
-          <Property Name="PurchasePrice" Type="smallmoney" Nullable="false" />
+          <Property Name="PurchasePrice" Type="money" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" />
           <Property Name="DateLastModified" Type="datetime" />
         </EntityType>
@@ -273,7 +280,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Customer_AspNetUsers">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
           <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
@@ -476,6 +483,7 @@
         </Association>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="__RefactorLog" EntityType="Self.__RefactorLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
@@ -590,6 +598,12 @@
           <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
           <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="C__RefactorLog">
+          <Key>
+            <PropertyRef Name="OperationKey" />
+          </Key>
+          <Property Name="OperationKey" Type="Guid" Nullable="false" />
         </EntityType>
         <EntityType Name="Address">
           <Key>
@@ -717,7 +731,7 @@
           <Property Name="PhoneNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="DateCreated" Type="DateTime" Precision="3" />
           <Property Name="DateLastModified" Type="DateTime" Precision="3" />
-          <Property Name="AspNetUserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AspNetUserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUser" Relationship="Self.FK_Customer_AspNetUsers" FromRole="Customer" ToRole="AspNetUsers" />
           <NavigationProperty Name="Carts" Relationship="Self.FK_Cart_CustomerId" FromRole="Customer" ToRole="Cart" />
           <NavigationProperty Name="CustomerAddresses" Relationship="Self.FK_CustomerAddress_CustomerID" FromRole="Customer" ToRole="CustomerAddress" />
@@ -745,6 +759,7 @@
           <Property Name="DateShipped" Type="DateTime" Precision="3" />
           <Property Name="DateLastModified" Type="DateTime" Precision="3" />
           <Property Name="ShippingAddressLine1" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="TransactionID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Customer" Relationship="Self.FK_Order_CustomerID" FromRole="Order" ToRole="Customer" />
           <NavigationProperty Name="OrderItems" Relationship="Self.FK_OrderItem_OrderId" FromRole="Order" ToRole="OrderItem" />
         </EntityType>
@@ -756,7 +771,7 @@
           <Property Name="OrderId" Type="Int32" Nullable="false" />
           <Property Name="ProductId" Type="Int32" Nullable="false" />
           <Property Name="Quantity" Type="Int32" Nullable="false" />
-          <Property Name="PurchasePrice" Type="Decimal" Precision="10" Scale="4" Nullable="false" />
+          <Property Name="PurchasePrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="DateCreated" Type="DateTime" Precision="3" />
           <Property Name="DateLastModified" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Order" Relationship="Self.FK_OrderItem_OrderId" FromRole="OrderItem" ToRole="Order" />
@@ -871,7 +886,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Customer_AspNetUsers">
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
           <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
@@ -1058,6 +1073,7 @@
         </Association>
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+          <EntitySet Name="C__RefactorLog" EntityType="Self.C__RefactorLog" />
           <EntitySet Name="Addresses" EntityType="Self.Address" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
@@ -1166,6 +1182,13 @@
                 <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
                 <ScalarProperty Name="Model" ColumnName="Model" />
                 <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C__RefactorLog">
+            <EntityTypeMapping TypeName="Model.C__RefactorLog">
+              <MappingFragment StoreEntitySet="__RefactorLog">
+                <ScalarProperty Name="OperationKey" ColumnName="OperationKey" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1307,6 +1330,7 @@
                 <ScalarProperty Name="DateShipped" ColumnName="DateShipped" />
                 <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
                 <ScalarProperty Name="ShippingAddressLine1" ColumnName="ShippingAddressLine1" />
+                <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
