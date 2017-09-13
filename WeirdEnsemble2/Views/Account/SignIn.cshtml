@@ -4,15 +4,17 @@
 }
 
 <div class="row">
-    @if(ViewBag.Errors != null)
+    @if(ViewBag.Error != null)
     {
         <div class="alert alert-danger">
-            <ul>
+
+            @*<ul>
                 @foreach(string error in ViewBag.Errors)
                 {
                     <li>@error</li>
                 }
-            </ul>
+            </ul>*@
+            @ViewBag.Error
         </div>
     }
     @if (TempData.ContainsKey("PasswordReset"))

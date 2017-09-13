@@ -97,6 +97,42 @@ namespace WeirdEnsemble2.Controllers
         }
 
 
+        public ActionResult ValidateAddress(string streetAddress, string locality, string region, string postalCode)
+        {
+            if (ModelState.IsValid)
+            {
+                string smartyStreetsAuthID = ConfigurationManager.AppSettings["SmartyStreets.AuthID"];
+                string smartyStreetsAuthToken = ConfigurationManager.AppSettings["SmartyStreets.AuthToken"];
+                SmartyStreets.ClientBuilder builder = new SmartyStreets.ClientBuilder(smartyStreetsAuthID, smartyStreetsAuthToken);
+                var smartyClient = builder.BuildUsStreetApiClient();
+
+                SmartyStreets.USStreetApi.Lookup lookup = new SmartyStreets.USStreetApi.Lookup();
+                lookup.City = locality;
+                lookup.State = region;
+                lookup.Street = streetAddress;
+                lookup.ZipCode = postalCode;
+
+                smartyClient.Send(lookup);
+                return Json(lookup.Result.Select(x => new
+                {
+                    Locality = x.Components.CityName,
+                    Street = x.DeliveryLine1,
+                    Region = x.Components.State,
+                    PostalCode = x.Components.ZipCode + "-" + x.Components.Plus4Code
+                }), JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.BadRequest;
+                return Json(new
+                {
+                    Message = ModelState.FirstOrDefault(x => x.Value.Errors.Any()).Value.Errors
+                    .FirstOrDefault()
+                }, JsonRequestBehavior.AllowGet);
+            }
+            
+        }
+        [Authorize]
         public ActionResult CreateAddress()
         {
             return View();
@@ -108,6 +144,26 @@ namespace WeirdEnsemble2.Controllers
             
             if (ModelState.IsValid)
             {
+                string smartyStreetsAuthID = ConfigurationManager.AppSettings["SmartyStreets.AuthID"];
+                string smartyStreetsAuthToken = ConfigurationManager.AppSettings["SmartyStreets.AuthToken"];
+                SmartyStreets.ClientBuilder builder = new SmartyStreets.ClientBuilder(smartyStreetsAuthID, smartyStreetsAuthToken);
+                var smartyClient = builder.BuildUsStreetApiClient();
+
+                SmartyStreets.USStreetApi.Lookup lookup = new SmartyStreets.USStreetApi.Lookup();
+                lookup.City = locality;
+                lookup.State = region;
+                lookup.Street = streetAddress;
+                lookup.ZipCode = postalCode;
+
+                smartyClient.Send(lookup);
+
+                if (!lookup.Result.Any())
+                {
+                    ViewBag.Errors = "Address doesn't appear to be valid.";
+                    return View();
+
+                }
+
                 string merchantId = ConfigurationManager.AppSettings["Braintree.MerchantID"];
                 string publicKey = ConfigurationManager.AppSettings["Braintree.PublicKey"];
                 string privateKey = ConfigurationManager.AppSettings["Braintree.PrivateKey"];
@@ -171,10 +227,11 @@ namespace WeirdEnsemble2.Controllers
                     }
                     else
                     {
-                        ViewBag.Errors = new string[] { "Could not sign in with this username / password" };
+                        ViewBag.Error = "Could not sign in with this username / password";
                     }
                 }
             }
+            ViewBag.Error = "Could not sign in with this username / password";
             return View();
         }
 

@@ -18,17 +18,15 @@ namespace WeirdEnsemble2.Models
         public Customer()
         {
             this.Carts = new HashSet<Cart>();
-            this.CustomerAddresses = new HashSet<CustomerAddress>();
             this.Orders = new HashSet<Order>();
             this.ProductReviews = new HashSet<ProductReview>();
         }
     
         public int Id { get; set; }
-        public string Title { get; set; }
         public string FirstName { get; set; }
-        public string MiddleName { get; set; }
         public string LastName { get; set; }
         public Nullable<System.DateTime> DateOfBirth { get; set; }
+        public string EmailAddress { get; set; }
         public string PhoneNumber { get; set; }
         public Nullable<System.DateTime> DateCreated { get; set; }
         public Nullable<System.DateTime> DateLastModified { get; set; }
@@ -37,8 +35,6 @@ namespace WeirdEnsemble2.Models
         public virtual AspNetUser AspNetUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cart> Carts { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CustomerAddress> CustomerAddresses { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -1,4 +1,5 @@
-﻿<nav id="mainNav" class="navbar navbar-fixed-top">
+﻿@*@model WeirdEnsemble2.Models.Cart*@
+<nav id="mainNav" class="navbar navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -23,6 +24,12 @@
                 @if (User.Identity.IsAuthenticated)
                 {
                     <li>@Html.ActionLink("Sign out as " + User.Identity.Name, "SignOut","Account")</li>
+                    <li>
+                        <a href="@Url.Action("Index","Account")">
+                            <i class="glyphicon glyphicon-user"></i> My Account
+                            <span class="sr-only">My Account</span>
+                        </a>
+                    </li>
                 }
                 else
                 {
@@ -43,6 +50,10 @@
                 <li>
                     <a href="@Url.Action("Index","Cart")">
                         <i class="glyphicon glyphicon-shopping-cart"></i> Cart
+                        @*@if (Model.CartItems.Count() > 0)
+                        {
+                            <text>(@(Model.CartItems.Count()))</text>
+                        }*@
                         <span class="sr-only">Cart</span>
                     </a>
                 </li>

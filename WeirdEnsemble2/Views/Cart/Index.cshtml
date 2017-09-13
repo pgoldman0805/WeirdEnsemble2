@@ -25,13 +25,13 @@
         @foreach (var item in Model.CartItems)
         {
             <tr>
-                <th>
+                <td>
                     @using (Html.BeginForm("Index", "Cart", new { prodId = item.ProductId },FormMethod.Post))
                     {
                         @Html.AntiForgeryToken()
                         <button class="btn btn-danger">Remove</button>
                     }
-                </th>
+                </td>
                 <td>
                     @item.Product.Name
                 </td>
@@ -59,4 +59,4 @@
     
 </table>
 
-@Html.ActionLink("Check Out","Index","Checkout",null,new { @class="btn btn-success"})
+@Html.ActionLink("Check Out","Index","Checkout",null,new { @class="btn btn-success pull-right"})

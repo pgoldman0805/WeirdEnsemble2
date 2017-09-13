@@ -3,7 +3,7 @@
     ViewBag.Title = "CreateAddress";
 }
 <h2>CreateAddress</h2>
-@using (Html.BeginForm())
+@using (Html.BeginForm("CreateAddress","Account",null,FormMethod.Post, new { onsubmit = "return validateAddress()"}))
 {
     <div class="form-group">
         @Html.Label("First Name")
@@ -31,3 +31,33 @@
     </div>
     <input type="submit" />
 }
+@section scripts{
+    <script type="text/javascript">
+        function validateAddress() {
+            console.log("Validate called");
+            var locality = document.getElementsByName("locality")[0].value;
+            var region = document.getElementsByName("region")[0].value;
+            var postalCode = document.getElementsByName("postalCode")[0].value;
+            var streetAddress = document.getElementsByName("streetAddress")[0].value;
+            var url = "/Account/ValidateAddress?";
+            if (locality !== "") {
+                url += "locality=" + locality + "&";
+            }
+            if (region !== "") {
+                url += "region=" + region + "&";
+            }
+            if (postalCode !== "") {
+                url += "postalCode=" + postalCode + "&";
+            }
+            if (streetAddress !== "") {
+                url += "streetAddress=" + streetAddress + "&";
+            }
+            $.getJSON(url, function (data, textStatus, jqXHR) {
+                console.log(data);
+            }).fail(function (message) {
+                    console.log(message);
+                });
+            return false;
+        }
+    </script>
+    }

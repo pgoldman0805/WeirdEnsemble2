@@ -5,6 +5,7 @@
 }
 
 <h2>Index</h2>
+
 @Model.FirstName
 @Model.LastName
 @Html.ActionLink("Create Address", "CreateAddress", null, new { @class="btn btn-default"})
@@ -19,7 +20,7 @@
                         @address.FirstName @address.LastName<br />
                         @address.StreetAddress<br />
                         @address.ExtendedAddress<br />
-                        @address.Locality, @address.Region @address.CountryName<br />
+                        @address.Locality, @address.Region @address.PostalCode<br />
                     </address>
                 </div>
             </div>

@@ -53,16 +53,18 @@ namespace WeirdEnsemble2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Index(CheckoutViewModel model)
         {
-            // check if current customer is logged in
-            // if not, redirect them to 
-
+            // Try to find an existing customer
             Customer currentCustomer = db.Customers.FirstOrDefault(x => x.AspNetUser.UserName == User.Identity.Name);
+
+            // if this is an anonymous customer, create a new Customer record for them
             if (currentCustomer == null)
             {
                 currentCustomer = new Customer
                 {
                     FirstName = model.FirstName,
                     LastName = model.LastName,
+                    EmailAddress = model.EmailAddress,
+                    PhoneNumber = model.PhoneNumber,
                     DateCreated = DateTime.UtcNow
                 };
                 db.Customers.Add(currentCustomer);
@@ -113,26 +115,36 @@ namespace WeirdEnsemble2.Controllers
                             DateLastModified = DateTime.UtcNow,
                             Quantity = x.Quantity,
                             ProductId = x.ProductId,
-                            PurchasePrice = (decimal)x.Product.ListPrice
+                            PurchasePrice = x.Product.ListPrice ?? 0
                         }).ToArray(),
                         ShippingAddressLine1 = model.ShippingAddressLine1,
                         TransactionID = transactionId
 
                     };
 
-                    db.Orders.Add(order);
-
                     // Remove the cart form the database and convert it to an order
                     db.CartItems.RemoveRange(model.CurrentCart.CartItems);
                     db.Carts.Remove(model.CurrentCart);
-
+                    db.Orders.Add(order);
                     await db.SaveChangesAsync();
 
-                    //REmove the basket cookie!
+                    //Remove the basket cookie!
                     Response.SetCookie(new HttpCookie("CartName")
                     {
                         Expires = DateTime.UtcNow
                     });
+
+                    // Send the user an e-mail with their order receipt
+                    
+                    SendGridEmailService mail = new SendGridEmailService();
+                    await mail.SendAsync(new Microsoft.AspNet.Identity.IdentityMessage
+                    {
+                        Destination = order.Customer.EmailAddress,
+                        Subject = "Your WeirdEnsemble Order #" + order.Id + " Receipt",
+                        Body = "TODO: ADD RECEIPT TEMPLATE\n\n" + "Anyway, your total price for order #" + order.Id + "is:\n"
+                                                                  + request.Amount + "!"
+                    });
+
 
                     return RedirectToAction("Index", "Receipt", new { id = order.Id });
                 }

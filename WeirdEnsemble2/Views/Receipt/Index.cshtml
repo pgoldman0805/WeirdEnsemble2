@@ -1,0 +1,36 @@
+﻿@model WeirdEnsemble2.Models.Order
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Receipt For Order #@Model.Id</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>List Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.OrderItems)
+    {
+        <tr>
+            <td>
+                @item.Product.Name
+            </td>
+            <td>
+                @((item.Product.ListPrice ?? 0).ToString("C"))
+            </td>
+            <td>
+                @item.Quantity
+            </td>
+            <td>
+                @((item.Quantity * (item.Product.ListPrice ?? 0)).ToString("C"))
+            </td>
+
+        </tr>
+    }
+</table>
+

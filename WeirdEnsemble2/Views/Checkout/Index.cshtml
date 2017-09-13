@@ -16,6 +16,7 @@
 <table class="table table-striped checkout-table">
     <thead>
         <tr>
+            <th></th>
             <th>Name</th>
             <th>List Price</th>
             <th>Quantity</th>
@@ -26,6 +27,13 @@
         @foreach (var item in Model.CurrentCart.CartItems)
         {
             <tr>
+                <td>
+                    @using (Html.BeginForm("Index", "Cart", new { prodId = item.ProductId }, FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <button class="btn btn-danger">Remove</button>
+                    }
+                </td>
                 <td>@item.Product.Name</td>
                 <td>@((item.Product.ListPrice ?? 0).ToString("C"))</td>
                 <td>@item.Quantity</td>
@@ -36,7 +44,7 @@
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="2"></td>
+            <td colspan="3"></td>
             <td><strong>Subtotal:</strong></td>
             <td><strong>@((Model.CurrentCart.CartItems.Sum(x => x.Quantity * x.Product.ListPrice) ?? 0).ToString("C"))</strong></td>
         </tr>
@@ -142,7 +150,7 @@
                     @Html.ValidationMessageFor(m => m.CreditCardExpirationYear)
                 </div>
 
-                <input type="submit" value="Complete checkout" class="btn btn-info" />
+                <input type="submit" value="Complete Checkout" class="btn btn-primary btn-block" />
             </div>
         </div>
     </div>
