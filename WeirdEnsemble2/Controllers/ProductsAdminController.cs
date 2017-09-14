@@ -68,14 +68,22 @@ namespace WeirdEnsemble2.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Product product)
+        public async Task<ActionResult> Create(Product product, string path, string altText)
         {
             if (ModelState.IsValid)
             {
-                //var highestId = db.Products.Max(x => x.Id);
-                //product.Id = highestId + 1;
+                if (!string.IsNullOrEmpty(path))
+                {
+                    ProductImage newImage = new ProductImage()
+                    {
+                        ProductID = product.Id,
+                        ImagePath = path,
+                        AlternateText = altText ?? "",
+                        DateCreated = DateTime.UtcNow
+                    };
 
-
+                    db.ProductImages.Add(newImage);
+                }
                 product.DateCreated = DateTime.UtcNow;
                 product.DateLastModified = DateTime.UtcNow;
                 db.Products.Add(product);
@@ -112,17 +120,12 @@ namespace WeirdEnsemble2.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (!string.IsNullOrEmpty(path) && !string.IsNullOrEmpty(altText))
+                if (!string.IsNullOrEmpty(path))
                 {
-                    ProductImage newImage = new ProductImage()
-                    {
-                        ProductID = product.Id,
-                        ImagePath = path,
-                        AlternateText = altText,
-                        DateCreated = DateTime.UtcNow
-                    };
-
-                    db.ProductImages.Add(newImage);
+                    ProductImage img = db.ProductImages.Single(i => i.ProductID == product.Id);
+                    img.ImagePath = path;
+                    img.AlternateText = altText ?? "";
+                    img.DateLastModified = DateTime.UtcNow;
                 }
                 
                 db.Entry(product).State = EntityState.Modified;

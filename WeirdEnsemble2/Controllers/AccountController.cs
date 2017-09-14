@@ -107,11 +107,11 @@ namespace WeirdEnsemble2.Controllers
                 var smartyClient = builder.BuildUsStreetApiClient();
 
                 SmartyStreets.USStreetApi.Lookup lookup = new SmartyStreets.USStreetApi.Lookup();
-                lookup.City = locality;
-                lookup.State = region;
-                lookup.Street = street1;
-                lookup.Street2 = street2;
-                lookup.ZipCode = postalCode;
+                lookup.City = locality?? "";
+                lookup.State = region ?? "";
+                lookup.Street = street1 ?? "";
+                lookup.Street2 = street2 ?? "";
+                lookup.ZipCode = postalCode ?? "";
 
                 smartyClient.Send(lookup);
                 return Json(lookup.Result.Select(x => new
@@ -142,30 +142,11 @@ namespace WeirdEnsemble2.Controllers
         }
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult> CreateAddress(string fname, string lname, string region, string locality, string postalCode, string streetAddress)
+        public async Task<ActionResult> CreateAddress(string fname, string lname, string region, string locality, string postalCode, string street1, string street2)
         {
             
             if (ModelState.IsValid)
             {
-                string smartyStreetsAuthID = ConfigurationManager.AppSettings["SmartyStreets.AuthID"];
-                string smartyStreetsAuthToken = ConfigurationManager.AppSettings["SmartyStreets.AuthToken"];
-                SmartyStreets.ClientBuilder builder = new SmartyStreets.ClientBuilder(smartyStreetsAuthID, smartyStreetsAuthToken);
-                var smartyClient = builder.BuildUsStreetApiClient();
-
-                SmartyStreets.USStreetApi.Lookup lookup = new SmartyStreets.USStreetApi.Lookup();
-                lookup.City = locality;
-                lookup.State = region;
-                lookup.Street = streetAddress;
-                lookup.ZipCode = postalCode;
-
-                smartyClient.Send(lookup);
-
-                if (!lookup.Result.Any())
-                {
-                    ViewBag.Errors = "Address doesn't appear to be valid.";
-                    return View();
-
-                }
 
                 string merchantId = ConfigurationManager.AppSettings["Braintree.MerchantID"];
                 string publicKey = ConfigurationManager.AppSettings["Braintree.PublicKey"];
@@ -182,7 +163,7 @@ namespace WeirdEnsemble2.Controllers
                     await braintreeGateway.Address.CreateAsync(customer.Id, new Braintree.AddressRequest {
                         FirstName = fname,
                         LastName = lname,
-                        StreetAddress = streetAddress,
+                        StreetAddress = street1 + " " + street2,
                         Locality = locality,
                         Region = region,
                         

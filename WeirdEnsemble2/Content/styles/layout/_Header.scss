@@ -9,11 +9,11 @@
     background: linear-gradient(135deg, rgba(230, 241, 246, 1) 0%, rgba(177, 204, 235, 1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6f1f6', endColorstr='#b1cceb', GradientType=1);*/
     background-color:#0072C6;
-
+    padding: 0.7em 0;
     box-shadow: 0 -1px 4px RGBA(0,0,0,0.6), 0 1px 16px rgba(34,25,25,0.4);
 
 
-    .navbar-brand {
+    /*.navbar-brand {
         text-transform: uppercase;
 
         img {
@@ -24,14 +24,16 @@
         &:hover {
             text-decoration: none !important;
         }
-    }
+    }*/
 
     li a:not(span), a.navbar-brand {
         color: #F9FDFC;
+        font-size: 1.2em;
+        font-family: 'Varela Round',sans-serif;
 
         &:hover {
             background-color: transparent;
-            opacity: 0.7;
+            color: #abcdef;
             /*text-decoration-style:wavy;*/
             /*text-decoration: underline;*/
             /*background-color: rgba(255, 255, 255, 0.5);*/

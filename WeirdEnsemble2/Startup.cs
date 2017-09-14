@@ -14,7 +14,7 @@ namespace WeirdEnsemble2
     {
         // My startup class contains a configuration method
         // which will "set-up" authentication for my app.
-        public void Configuration(Owin.IAppBuilder app)
+        public void Configuration(IAppBuilder app)
         {
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
@@ -24,8 +24,10 @@ namespace WeirdEnsemble2
             app.CreatePerOwinContext(() =>
             {
                 UserStore<IdentityUser> store = new UserStore<IdentityUser>();
+
                 UserManager<IdentityUser> manager = new UserManager<IdentityUser>(store)
                 {
+                    
                     UserTokenProvider = new EmailTokenProvider<IdentityUser>(),
                     PasswordValidator = new PasswordValidator
                     {
@@ -36,6 +38,17 @@ namespace WeirdEnsemble2
                         RequireNonLetterOrDigit = false
                     }
                 };
+
+                // create a role for admins
+                var RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(store.Context));
+                if (!RoleManager.RoleExists("Admin"))
+                {
+                    RoleManager.Create(new IdentityRole
+                    {
+                        Name = "Admin"
+                    });
+                }
+
                 return manager;
             });
         }

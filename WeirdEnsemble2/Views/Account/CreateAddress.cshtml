@@ -1,44 +1,112 @@
 ﻿@model Braintree.Address
 @{
-    ViewBag.Title = "CreateAddress";
+    ViewBag.Title = "Create Address";
 }
-<h2>CreateAddress</h2>
-@using (Html.BeginForm("CreateAddress","Account",null,FormMethod.Post, new { onsubmit = "return validateAddress()"}))
-{
-    <div class="form-group">
-        @Html.Label("First Name")
-        @Html.TextBox("fname")
+<h2 class="text-center">CreateAddress</h2>
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="well">
+            @using (Html.BeginForm("CreateAddress", "Account", null, FormMethod.Post))
+            {
+                <div class="form-group">
+                    @Html.Label("First Name")
+                    @Html.TextBox("fname")
+                </div>
+                <div class="form-group">
+                    @Html.Label("LastName")
+                    @Html.TextBox("lname")
+                </div>
+                <div class="form-group">
+                    @Html.Label("Street Address Line 1")
+                    @Html.TextBox("street1")
+                </div>
+                <div class="form-group">
+                    @Html.Label("Street Address Line 2")
+                    @Html.TextBox("street2")
+                </div>
+                <div class="form-group">
+                    @Html.Label("City")
+                    @Html.TextBox("locality")
+                </div>
+                <div class="form-group">
+                    @Html.Label("State")
+                    @Html.TextBox("region")
+                </div>
+                <div class="form-group">
+                    @Html.Label("Zip Code")
+                    @Html.TextBox("postalCode")
+                </div>
+                <button id="ValidateAddressButton" name="ValidateAddress" onclick="return validateAddress()">Validate Address</button>
+                <input id="submitButton" type="submit" class="hidden"/>
+            }
+        </div>
     </div>
-    <div class="form-group">
-        @Html.Label("LastName")
-        @Html.TextBox("lname")
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Address Validation</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-4">
+                        <div class="well">
+                            <dl class="address">
+                                <dt>@Html.LabelFor(x => x.StreetAddress)</dt>
+                                <dd class="address1"></dd>
+                                <dt>@Html.LabelFor(x => x.ExtendedAddress)</dt>
+                                <dd class="address2"></dd>
+                                <dt>@Html.LabelFor(x => x.Locality)</dt>
+                                <dd class="city"></dd>
+                                <dt>@Html.LabelFor(x => x.Region)</dt>
+                                <dd class="state"></dd>
+                                <dt>@Html.LabelFor(x => x.PostalCode)</dt>
+                                <dd class="zip"></dd>
+                                <dt>Selected</dt>
+                                <dd><input type="radio" name="shipping" /></dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="addressSave" onclick="return saveAddress()">Save changes</button>
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        @Html.Label("Street Address")
-        @Html.TextBox("streetAddress")
-    </div>
-    <div class="form-group">
-        @Html.Label("City")
-        @Html.TextBox("locality")
-    </div>
-    <div class="form-group">
-        @Html.Label("State")
-        @Html.TextBox("region")
-    </div>
-    <div class="form-group">
-        @Html.Label("Zip Code")
-        @Html.TextBox("postalCode")
-    </div>
-    <input type="submit" />
-}
+</div>
+
+
+
 @section scripts{
     <script type="text/javascript">
+        function saveAddress() {
+            var selectedAddress = $('input[name=shipping]:checked').parent().parent();
+            $('#street1').val(selectedAddress.children(".address1").text());
+            $('#street2').val(selectedAddress.children(".address2").text());
+            $('#locality').val(selectedAddress.children(".city").text());
+            $('#region').val(selectedAddress.children(".state").text());
+            $('#postalCode').val(selectedAddress.children(".zip").text());
+            $('#ValidateAddressButton').addClass("hidden");
+            $('#submitButton').removeClass("hidden");  
+            $('#myModal').modal('toggle');
+
+            $('.input-validation-error').parents('.form-group').addClass('has-error');
+            $('.field-validation-error').addClass('text-danger');
+            return false;
+        }
         function validateAddress() {
-            console.log("Validate called");
             var locality = document.getElementsByName("locality")[0].value;
             var region = document.getElementsByName("region")[0].value;
             var postalCode = document.getElementsByName("postalCode")[0].value;
-            var streetAddress = document.getElementsByName("streetAddress")[0].value;
+            var street1 = document.getElementsByName("street1")[0].value;
+            var street2 = document.getElementsByName("street2")[0].value;
             var url = "/Account/ValidateAddress?";
             if (locality !== "") {
                 url += "locality=" + locality + "&";
@@ -49,15 +117,37 @@
             if (postalCode !== "") {
                 url += "postalCode=" + postalCode + "&";
             }
-            if (streetAddress !== "") {
-                url += "streetAddress=" + streetAddress + "&";
+            if (street1 !== "") {
+                url += "street1=" + street1 + "&";
+            }
+            if (street2 !== "") {
+                url += "street2=" + street2 + "&";
             }
             $.getJSON(url, function (data, textStatus, jqXHR) {
                 console.log(data);
             }).fail(function (message) {
-                    console.log(message);
-                });
+                console.log(message);
+            }).done(function (data) {
+                console.log(data);
+                $('.address1').text(street1);
+                $('.address2').text(street2);
+                $('.city').text(locality);
+                $('.state').text(region);
+                $('.zip').text(postalCode);
+                var addressTemplate = $('dl.address').parent().parent();
+                var addressContainer = addressTemplate.parent();
+                for (var i = 0; i < data.length; i++) {
+                    var clone = addressTemplate.clone();
+                    clone.find('.address1').text(data[i].Street);
+                    clone.find('.address2').text(data[i].Street2);
+                    clone.find('.city').text(data[i].City);
+                    clone.find('.state').text(data[i].State);
+                    clone.find('.zip').text(data[i].ZipCode);
+                    clone.appendTo(addressContainer);
+                }
+                $('#myModal').modal('toggle');
+            });
             return false;
         }
     </script>
-    }
+}
