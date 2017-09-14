@@ -37,29 +37,32 @@
     }
     <h2 class="text-center">Sign In</h2>
     <div class="col-md-6 col-md-offset-3">
-        @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
-            <div class="form-group">
-                <label for="username" class="control-label">Email</label>
-                @Html.TextBox("username", "", new { placeholder = "Email address", @class = "form-control" })
-            </div>
-            <div class="form-group">
-                <label for="password" class="control-label">Password</label>
-                @Html.Password("password", "", new { placeholder = "password", @class = "form-control" })
-            </div>
-            <div class="form-group">
-                @Html.CheckBox("rememberMe", false)
-                <label for="rememberMe" class="control-label">Remember Me</label>
-                @Html.ActionLink("Forgot Password?", "ForgotPassword", null, new { @class = "pull-right" })
-            </div>
-            <input type="submit" value="Sign In" class="btn btn-info btn-block" />
-            <hr />
-            <h5 class="text-center">New customer?</h5>
-            @Html.ActionLink("Register", "Register", null, new { @class = "btn btn-success btn-block" })
-            
+        <div class="well">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+                    <label for="username" class="control-label">Email</label>
+                    @Html.TextBox("username", "", new { placeholder = "Email address", @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <label for="password" class="control-label">Password</label>
+                    @Html.Password("password", "", new { placeholder = "password", @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    @Html.CheckBox("rememberMe", false)
+                    <label for="rememberMe" class="control-label">Remember Me</label>
+                    @Html.ActionLink("Forgot Password?", "ForgotPassword", null, new { @class = "pull-right" })
+                </div>
+                <input type="submit" value="Sign In" class="btn btn-info btn-block" />
+                <hr />
+                <h5 class="text-center">New customer?</h5>
+                @Html.ActionLink("Register", "Register", null, new { @class = "btn btn-success btn-block" })
 
-        }
+
+            }
+        </div>
+        
     </div>
     
 </div>

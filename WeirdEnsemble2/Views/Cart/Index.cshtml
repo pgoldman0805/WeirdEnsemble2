@@ -10,7 +10,7 @@
     </div>
 }
 
-<h2>MY SHOPPING CART</h2>
+<h2 class="text-center">My Cart</h2>
 <table class="table table-striped">
     <thead>
         <tr>
@@ -58,5 +58,7 @@
     </tfoot>
     
 </table>
-
-@Html.ActionLink("Check Out","Index","Checkout",null,new { @class="btn btn-success pull-right"})
+@if (Model.CartItems.Count() > 0)
+{
+    @Html.ActionLink("Check Out", "Index", "Checkout", null, new { @class = "btn btn-success pull-right" })
+}

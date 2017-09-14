@@ -135,14 +135,30 @@ namespace WeirdEnsemble2.Controllers
                     });
 
                     // Send the user an e-mail with their order receipt
-                    
+                    string body = "<h2>Receipt For WeirdEnsemble.com Order #" + order.TransactionID + "</h2><br/><br/>";
+                    body += "<table><thead><tr><th>Item</th><th>List Price</th><th>Quantity</th><th>Total</th></tr></thead>";
+                    body += "<tbody>";
+                    foreach (var item in order.OrderItems)
+                    {
+                        body += "<tr>";
+                        body += "<td>" + item.Product.Name + "</td>";
+                        body += "<td>" + (item.Product.ListPrice ?? 0).ToString("C") + "</td>";
+                        body += "<td>" + item.Quantity + "</td>";
+                        body += "<td>" + (item.Quantity * (item.Product.ListPrice ?? 0)).ToString("C") + "</td>";
+                        body += "</tr>";
+                    }
+                    body += "</tbody><tfoot><tr><td colspan=\"2\">";
+                    body += "<td><strong>Total:</strong></td>";
+                    body += "<td><strong>" + (order.OrderItems.Sum(x => x.Quantity * x.Product.ListPrice) ?? 0).ToString("C") + "</strong></td>";
+                    body += "</tr></tfoot></table>";
+
                     SendGridEmailService mail = new SendGridEmailService();
                     await mail.SendAsync(new Microsoft.AspNet.Identity.IdentityMessage
                     {
+
                         Destination = order.Customer.EmailAddress,
                         Subject = "Your WeirdEnsemble Order #" + order.TransactionID + " Receipt",
-                        Body = "Your total price for order #" + order.TransactionID + " is:\n"
-                                                                  + request.Amount + "!"
+                        Body = body
                     });
 
 

@@ -342,6 +342,7 @@ namespace WeirdEnsemble2.Controllers
                     email,
                     resetToken);
                 await UserManager.SendEmailAsync(user.Id, "Reset Your WeirdEnsemble.com Password", body);
+                
 
                 return RedirectToAction("ForgotPasswordSent");
             }
