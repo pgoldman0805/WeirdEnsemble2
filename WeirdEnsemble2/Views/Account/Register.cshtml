@@ -17,19 +17,10 @@
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-        <div class="form-group">
-            @*<label for="title" class="control-label">Title | </label><br />*@
-            Mr. <input name="title" type="radio" value="Mr." />
-            Mrs. <input name="title" type="radio" value="Mrs." />
-            Ms. <input name="title" type="radio" value="Ms." />
-        </div>
+
         <div class="form-group">
             <label for="fname" class="control-label">First Name</label>
             <input name="fname" type="text" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label for="mname" class="control-label">Middle Name</label>
-            <input name="mname" type="text" class="form-control" />
         </div>
         <div class="form-group">
             <label for="lname" class="control-label">Last Name</label>

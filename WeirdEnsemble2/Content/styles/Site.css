@@ -31,6 +31,7 @@
     background-color: black; }
 
 footer {
+  /*margin-top: 6%;*/
   background-color: #fff; }
   footer .footer-contact {
     background-color: #EFEFEF; }
@@ -194,5 +195,6 @@ div.review-container {
     outline: none; }
 
 .body-content {
-  margin-top: 6%; }
+  margin-top: 6%;
+  padding-bottom: 6%; }
 

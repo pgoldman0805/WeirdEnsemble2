@@ -140,13 +140,13 @@ namespace WeirdEnsemble2.Controllers
                     await mail.SendAsync(new Microsoft.AspNet.Identity.IdentityMessage
                     {
                         Destination = order.Customer.EmailAddress,
-                        Subject = "Your WeirdEnsemble Order #" + order.Id + " Receipt",
-                        Body = "TODO: ADD RECEIPT TEMPLATE\n\n" + "Anyway, your total price for order #" + order.Id + "is:\n"
+                        Subject = "Your WeirdEnsemble Order #" + order.TransactionID + " Receipt",
+                        Body = "Your total price for order #" + order.TransactionID + " is:\n"
                                                                   + request.Amount + "!"
                     });
 
 
-                    return RedirectToAction("Index", "Receipt", new { id = order.Id });
+                    return RedirectToAction("Index", "Receipt", new { id = order.TransactionID });
                 }
                 else
                 {

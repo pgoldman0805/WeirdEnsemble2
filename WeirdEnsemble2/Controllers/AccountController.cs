@@ -97,7 +97,7 @@ namespace WeirdEnsemble2.Controllers
         }
 
 
-        public ActionResult ValidateAddress(string streetAddress, string locality, string region, string postalCode)
+        public ActionResult ValidateAddress(string street1, string street2, string locality, string region, string postalCode)
         {
             if (ModelState.IsValid)
             {
@@ -109,16 +109,19 @@ namespace WeirdEnsemble2.Controllers
                 SmartyStreets.USStreetApi.Lookup lookup = new SmartyStreets.USStreetApi.Lookup();
                 lookup.City = locality;
                 lookup.State = region;
-                lookup.Street = streetAddress;
+                lookup.Street = street1;
+                lookup.Street2 = street2;
                 lookup.ZipCode = postalCode;
 
                 smartyClient.Send(lookup);
                 return Json(lookup.Result.Select(x => new
                 {
-                    Locality = x.Components.CityName,
+                    
+                    City = x.Components.CityName,
                     Street = x.DeliveryLine1,
-                    Region = x.Components.State,
-                    PostalCode = x.Components.ZipCode + "-" + x.Components.Plus4Code
+                    Street2 = x.DeliveryLine2,
+                    State = x.Components.State,
+                    ZipCode = x.Components.ZipCode + "-" + x.Components.Plus4Code
                 }), JsonRequestBehavior.AllowGet);
             }
             else
@@ -248,7 +251,7 @@ namespace WeirdEnsemble2.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(string username, string title, string fname, string mname, string lname, DateTime dateOfBirth, string phone, string password)
+        public async Task<ActionResult> Register(string username, string fname, string lname, DateTime dateOfBirth, string phone, string password)
         {
             IdentityUser newUser = new IdentityUser(username)
             {
@@ -266,12 +269,11 @@ namespace WeirdEnsemble2.Controllers
             var newCustomer = new Customer
             {
                 AspNetUserID = newUser.Id,
-                Title = title,
                 FirstName = fname,
-                MiddleName = mname,
                 LastName = lname,
                 DateOfBirth = dateOfBirth,
-                PhoneNumber = phone
+                PhoneNumber = phone,
+                EmailAddress = username
             };
             db.Customers.Add(newCustomer);
             await db.SaveChangesAsync();

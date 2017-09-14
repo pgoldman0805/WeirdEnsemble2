@@ -33,6 +33,7 @@ namespace WeirdEnsemble2.Models
         [Required]
         [Display(Name = "Ship to Street Address")]
         public string ShippingAddressLine1 { get; set; }
+
         [Display(Name = "Ship to Apartment/Unit #")]
         public string ShippingAddressLine2 { get; set; }
 

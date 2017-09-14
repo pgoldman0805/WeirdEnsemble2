@@ -119,7 +119,11 @@
                     @Html.ValidationMessageFor(m => m.ShippingPostalCode)
                 </div>
             </div>
+            <div class="row text-center">
+                <button name="validateshipping" id="validateshipping" class="btn btn-default">Validate Address</button>
+            </div>
         </div>
+
 
         <div class="panel panel-default">
             <div class="panel-heading text-center">Payment Information</div>
@@ -154,7 +158,121 @@
             </div>
         </div>
     </div>
-    
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Address Validation</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-4">
+                            <div class="well">
+                                <dl class="address">
+                                    <dt>@Html.LabelFor(x => x.ShippingAddressLine1)</dt>
+                                    <dd class="address1"></dd>
+                                    <dt>@Html.LabelFor(x => x.ShippingAddressLine2)</dt>
+                                    <dd class="address2"></dd>
+                                    <dt>@Html.LabelFor(x => x.ShippingCity)</dt>
+                                    <dd class="city"></dd>
+                                    <dt>@Html.LabelFor(x => x.ShippingState)</dt>
+                                    <dd class="state"></dd>
+                                    <dt>@Html.LabelFor(x => x.ShippingPostalCode)</dt>
+                                    <dd class="zip"></dd>
+                                    <dt>Selected</dt>
+                                    <dd><input type="radio" name="shipping" /></dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="addressSave">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 }
 
+@section Scripts{
+    <script type="text/javascript">
+    $(document).ready(function () {
+        $('#validateshipping').click(function (event) {
+            var street1 = $('#ShippingAddressLine1').val();
+            var street2 = $('#ShippingAddressLine2').val();
+            var city = $('#ShippingCity').val();
+            var state = $('#ShippingState').val();
+            var zip = $('#ShippingPostalCode').val();
+            $.post("/Account/ValidateAddress",
+                {
+                    street1: street1,
+                    street2: street2,
+                    locality: city,
+                    region: state,
+                    postalCode: zip
+                }).done(function (data) {
+                    //console.log(data);
+                    $('.address1').text(street1);
+                    $('.address2').text(street2);
+                    $('.city').text(city);
+                    $('.state').text(state);
+                    $('.zip').text(zip);
+                    var addressTemplate = $('dl.address').parent().parent();
+                    var addressContainer = addressTemplate.parent();
+                    for (var i = 0; i < data.length; i++) {
+                        var clone = addressTemplate.clone();
+                        clone.find('.address1').text(data[i].Street);
+                        clone.find('.address2').text(data[i].Street2);
+                        clone.find('.city').text(data[i].City);
+                        clone.find('.state').text(data[i].State);
+                        clone.find('.zip').text(data[i].ZipCode);
+                        clone.appendTo(addressContainer);
+                    }
+                    $('#myModal').modal('toggle');
+                    console.log(data);
+                });
+            event.preventDefault();
+            return false;
+        });
+        $('#addressSave').click(function (event) {
+            var selectedAddress = $('input[name=shipping]:checked').parent().parent();
+            $('#ShippingAddressLine1').val(selectedAddress.children(".address1").text());
+            $('#ShippingAddressLine2').val(selectedAddress.children(".address2").text());
+            $('#ShippingCity').val(selectedAddress.children(".city").text());
+            $('#ShippingState').val(selectedAddress.children(".state").text());
+            $('#ShippingPostalCode').val(selectedAddress.children(".zip").text());
+            $('#myModal').modal('toggle');
+        });
+        $('.input-validation-error').parents('.form-group').addClass('has-error');
+        $('.field-validation-error').addClass('text-danger');
+        //$.post("/checkout/countries", {}, function (result) {
+        //    $("#ShippingCountry").append($("<option>", { value: "", text: "" }));
+        //    $(result).each(function () {
+        //        $("#ShippingCountry").append($("<option>", { value: this.Value, text: this.Text }));
+        //    });
+        //});
+        //$('#ShippingCountry').trigger("chosen:updated");
+        //$("#ShippingCountry").change(function () {
+        //    $("#ShippingState").empty();
+        //    $.post("/checkout/states", { country: this.value }, function (result) {
+        //        if (result.length === 0) {
+        //            $("#ShippingState").parents('.form-group').hide();
+        //        } else {
+        //            $("#ShippingState").parent('.form-group').show();
+        //        }
+        //        $("#ShippingState").append($("<option>", { value: "", text: "" }));
+        //        $(result).each(function () {
+        //            $("#ShippingState").append($("<option>", { value: this.Value, text: this.Text }));
+        //        });
+        //        $('#ShippingState').trigger("chosen:updated");
+        //    });
+        //});
+    });
+    </script>
+}
