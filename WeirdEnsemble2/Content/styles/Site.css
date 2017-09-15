@@ -35,19 +35,21 @@
   .navbar-toggle .icon-bar {
     background-color: black; }
 
+footer, .push {
+  height: 50px; }
+
 footer {
   border-top: 1px solid white;
-  height: 180px;
-  clear: both;
+  /*clear: both;*/
   color: white;
   /*margin-top: 6%;*/
   background-color: transparent;
-  position: relative;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin-top: -180px;
-  /*padding: 1rem;*/ }
+  /*position: relative;
+    bottom: 0;
+    left: 0;
+    right:0;
+    margin-top: -30rem;*/
+  padding: 1.5rem; }
   footer .footer-contact {
     background-color: transparent; }
     footer .footer-contact .footer-contact-table {
@@ -58,12 +60,13 @@ footer {
         display: table-cell;
         padding: 0 15px;
         vertical-align: top;
-        line-height: 1.75; }
+        line-height: 1.75;
+        border-right: 1px solid white; }
   footer .footer-copy {
     background-color: transparent;
     padding: 15px 0 10px;
     font-size: 11px;
-    border-top: 1px solid #ccc; }
+    /*border-top: 1px solid #ccc;*/ }
     footer .footer-copy a {
       color: white; }
 
@@ -277,16 +280,19 @@ h1.title {
     line-height: 2; }
 
 * {
-  margin: 0;
-  padding: 0; }
+  padding: 0;
+  box-sizing: border-box; }
 
-.wrapper {
-  min-height: 100%; }
-
+/*.wrapper {
+    min-height: 100%;
+    margin-bottom: -50px;
+}*/
 .body-content {
-  overflow: auto;
-  margin-top: 6%;
-  padding-bottom: 180px;
+  flex: 1 0 auto;
+  /*min-height: calc(100vh - 300px);*/
+  padding: 40px 40px 0 40px;
+  /*overflow: auto;*/
+  margin-top: 30px;
   background-color: #0077B0;
   color: #fff; }
 
@@ -294,12 +300,15 @@ h1.title {
   color: #333; }
 
 html, body {
-  height: 100%; }
+  height: 100%;
+  margin: 0; }
 
 body {
-  position: relative;
-  margin: 0;
-  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  /*position: relative;
+    margin: 0;
+    min-height: 100%;*/
   /*padding-bottom: 6rem;*/
   background-color: #0077B0;
   /*background-image: url("/Content/images/bg/weird_background.jpg");

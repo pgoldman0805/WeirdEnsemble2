@@ -354,6 +354,7 @@
     <Content Include="Content\styles\pages\_Checkout.scss" />
     <Content Include="Content\styles\pages\_Cart.scss" />
     <Content Include="Content\styles\pages\_Receipt.scss" />
+    <Content Include="Content\styles\pages\_Account.scss" />
     <None Include="Content\styles\Site.scss" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

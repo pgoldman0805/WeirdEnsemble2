@@ -10,16 +10,13 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="wrapper">
-        @Html.Partial("_HeaderNavBar")
-
+    @Html.Partial("_HeaderNavBar")
 
         <div class="container body-content">
             @RenderBody()
-        </div>
+        </div>    
 
 
-    </div>
     @Html.Partial("_Footer")
 
     @Scripts.Render("~/bundles/jquery")
