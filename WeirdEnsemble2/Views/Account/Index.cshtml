@@ -4,11 +4,11 @@
     var addresses = ViewBag.Addresses as Braintree.Address[];
 }
 
-<h2>Index</h2>
+<h2 class="page-title">My Account</h2>
 
-@Model.FirstName
-@Model.LastName
-@Html.ActionLink("Create Address", "CreateAddress", null, new { @class="btn btn-default"})
+@*@Model.FirstName
+@Model.LastName*@
+@Html.ActionLink("Create Address", "CreateAddress", null, new { @class="btn btn-success"})
 @if(addresses != null)
 {
     foreach(var address in addresses)

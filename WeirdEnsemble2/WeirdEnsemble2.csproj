@@ -299,6 +299,7 @@
     <None Include="Content\styles\layout\_Header.scss" />
     <Content Include="Content\images\bg\Logo.png" />
     <Content Include="Content\images\bg\WeirdEnsembleBanner.png" />
+    <Content Include="Content\images\bg\weird_background.jpg" />
     <Content Include="Content\images\products\accordion\Hohner_SteveJordan_TexMex_Rockordeon.jpg" />
     <Content Include="Content\images\products\accordion\Pietro_Premier_Combo2.JPG" />
     <Content Include="Content\images\products\accordion\Roland_FR18_VAccordion.jpg" />
@@ -351,6 +352,8 @@
     <Content Include="Content\styles\pages\_Home.scss" />
     <Content Include="Content\styles\pages\_ProductDetails.scss" />
     <Content Include="Content\styles\pages\_Checkout.scss" />
+    <Content Include="Content\styles\pages\_Cart.scss" />
+    <Content Include="Content\styles\pages\_Receipt.scss" />
     <None Include="Content\styles\Site.scss" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

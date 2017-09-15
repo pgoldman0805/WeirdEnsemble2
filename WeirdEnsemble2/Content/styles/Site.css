@@ -5,21 +5,19 @@
     background: -webkit-linear-gradient(-45deg, rgba(230, 241, 246, 1) 0%, rgba(177, 204, 235, 1) 100%);
     background: linear-gradient(135deg, rgba(230, 241, 246, 1) 0%, rgba(177, 204, 235, 1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6f1f6', endColorstr='#b1cceb', GradientType=1);*/
-  background-color: #0072C6;
+  background-color: RGBA(0, 119, 176, 0.5);
   padding: 0.7em 0;
-  box-shadow: 0 -1px 4px RGBA(0, 0, 0, 0.6), 0 1px 16px rgba(34, 25, 25, 0.4);
-  /*.navbar-brand {
-        text-transform: uppercase;
-
-        img {
-            display: inline;
-            height: 100%;
-            width: 1em;
-        }
-        &:hover {
-            text-decoration: none !important;
-        }
-    }*/ }
+  box-shadow: 0 -1px 4px RGBA(0, 0, 0, 0.6), 0 1px 16px rgba(34, 25, 25, 0.4); }
+  #mainNav .navbar-brand {
+    text-transform: uppercase; }
+    #mainNav .navbar-brand img {
+      position: relative;
+      top: -15px;
+      display: inline;
+      height: auto;
+      width: 2em; }
+    #mainNav .navbar-brand:hover {
+      text-decoration: none !important; }
   #mainNav li a:not(span), #mainNav a.navbar-brand {
     color: #F9FDFC;
     font-size: 1.2em;
@@ -38,10 +36,20 @@
     background-color: black; }
 
 footer {
+  border-top: 1px solid white;
+  height: 180px;
+  clear: both;
+  color: white;
   /*margin-top: 6%;*/
-  background-color: #fff; }
+  background-color: transparent;
+  position: relative;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin-top: -180px;
+  /*padding: 1rem;*/ }
   footer .footer-contact {
-    background-color: #EFEFEF; }
+    background-color: transparent; }
     footer .footer-contact .footer-contact-table {
       display: table;
       text-align: left;
@@ -52,9 +60,22 @@ footer {
         vertical-align: top;
         line-height: 1.75; }
   footer .footer-copy {
+    background-color: transparent;
     padding: 15px 0 10px;
     font-size: 11px;
     border-top: 1px solid #ccc; }
+    footer .footer-copy a {
+      color: white; }
+
+.home-title {
+  font-family: 'Sunshiney',sans-serif;
+  /*font-size: 2em;*/ }
+
+.home-jumbotron {
+  margin-top: -4em;
+  background-color: transparent;
+  /*background-image: url("/Content/images/bg/bg_blue_circles.jpeg");*/
+  border: 10px solid #0077B0; }
 
 p.register-password-text {
   font-size: 0.8em; }
@@ -82,7 +103,8 @@ p.register-password-text {
 
 .productPrice h6 {
   color: green;
-  font-size: 2em; }
+  font-size: 1.5em;
+  margin-top: -0.8em; }
   .productPrice h6:hover {
     text-decoration: none; }
 
@@ -130,6 +152,7 @@ h1.title {
   background-color: rgba(255, 255, 255, 0.7);
   margin: 2em 0; }
   .aboutContent p {
+    color: #333;
     font-family: 'Nunito', sans-serif;
     font-weight: normal;
     text-align: justify;
@@ -137,15 +160,26 @@ h1.title {
     margin-top: 1.5em;
     line-height: 2; }
 
+.product-image {
+  width: 100%;
+  /*max-width: 500px;*/
+  /*height: auto;*/
+  max-height: 450px; }
+
 details-title {
   margin-top: 6%; }
 
 .price-container {
-  color: #d54140;
+  color: #fc9292;
   font-weight: 600;
   font-size: 1.5em;
   display: inline-table; }
 
+/*.review-button{
+
+    border: 11px solid white;
+    color: black;
+}*/
 .dollars {
   font-size: 200%;
   position: relative;
@@ -162,7 +196,7 @@ button.detail-button {
 
 button.accordion {
   background-color: #eee;
-  color: #444;
+  color: #333;
   cursor: pointer;
   padding: 18px;
   width: 100%;
@@ -187,13 +221,22 @@ button.accordion.active:after {
 
 div.review-container {
   padding: 0 18px;
-  background-color: white;
+  color: black;
+  /*background-color: white;*/
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.2s ease-out; }
 
 .checkout-table {
-  border: 1px solid black; }
+  background-color: white; }
+
+.checkout-form {
+  color: #333; }
+
+.checkout-info-container .panel-heading {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1.2em; }
 
 .checkout-info-container .panel-body {
   height: auto;
@@ -201,7 +244,47 @@ div.review-container {
   .checkout-info-container .panel-body:hover {
     outline: none; }
 
+#cartDisplay {
+  background-color: white; }
+  #cartDisplay th, #cartDisplay tfoot * {
+    /*color: white;*/ }
+
+.receipt-table {
+  background-color: white; }
+
+* {
+  margin: 0;
+  padding: 0; }
+
+.wrapper {
+  min-height: 100%; }
+
 .body-content {
+  overflow: auto;
   margin-top: 6%;
-  padding-bottom: 6%; }
+  padding-bottom: 180px;
+  background-color: #0077B0;
+  color: #fff; }
+
+.well *:not(a):not(button), table * {
+  color: #333; }
+
+html, body {
+  height: 100%; }
+
+body {
+  position: relative;
+  margin: 0;
+  min-height: 100%;
+  /*padding-bottom: 6rem;*/
+  background-color: #0077B0;
+  /*background-image: url("/Content/images/bg/weird_background.jpg");
+    background-repeat:repeat;
+    background-size: 100px 100px;*/
+  /*background-attachment: fixed;
+    background-color: black;*/ }
+
+.page-title {
+  font-family: 'Varela Round', sans-serif;
+  color: #fff; }
 

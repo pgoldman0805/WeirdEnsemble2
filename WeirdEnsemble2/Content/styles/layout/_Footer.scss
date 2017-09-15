@@ -1,9 +1,18 @@
 ﻿footer {
+    border-top: 1px solid white;
+    height: 180px;
+    clear: both;
+    color: white;
     /*margin-top: 6%;*/
-    background-color: #fff;
-
+    background-color: transparent;
+    position: relative;
+    bottom: 0;
+    left: 0;
+    right:0;
+    margin-top: -180px;
+    /*padding: 1rem;*/
     .footer-contact {
-        background-color: #EFEFEF;
+        background-color: transparent;
         //        margin: 0 auto;
         .footer-contact-table {
             display: table;
@@ -20,8 +29,12 @@
     }
 
     .footer-copy {
+        background-color: transparent;
         padding: 15px 0 10px;
         font-size: 11px;
         border-top: 1px solid #ccc;
+        a {
+            color: white;
+        }
     }
 }

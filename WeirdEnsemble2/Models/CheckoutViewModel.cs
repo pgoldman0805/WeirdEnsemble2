@@ -22,7 +22,6 @@ namespace WeirdEnsemble2.Models
         [Display(Name = "Email Address")]
         public string EmailAddress { get; set; }
 
-        [Required]
         [Phone]
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
@@ -31,22 +30,22 @@ namespace WeirdEnsemble2.Models
         public string ShippingRecipient { get; set; }
 
         [Required]
-        [Display(Name = "Ship to Street Address")]
+        [Display(Name = "Street Address")]
         public string ShippingAddressLine1 { get; set; }
 
-        [Display(Name = "Ship to Apartment/Unit #")]
+        [Display(Name = "Apartment/Unit #")]
         public string ShippingAddressLine2 { get; set; }
 
         [Required]
-        [Display(Name = "Ship to City")]
+        [Display(Name = "City")]
         public string ShippingCity { get; set; }
 
         [Required]
-        [Display(Name = "Ship to State")]
+        [Display(Name = "State")]
         public string ShippingState { get; set; }
 
         [Required]
-        [Display(Name = "Ship to Zip Code")]
+        [Display(Name = "Zip Code")]
         public string ShippingPostalCode { get; set; }
 
         [Required]
@@ -54,14 +53,15 @@ namespace WeirdEnsemble2.Models
         public string CreditCardNumber { get; set; }
 
         [Required]
-        [Display(Name = "CVV")]
+        [Display(Name = "Security Code")]
         public string CreditCardVerificationValue { get; set; }
 
         [Required]
-        [Display(Name = "Expiration")]
+        [Display(Name = "Expiration Month")]
         public int CreditCardExpirationMonth { get; set; }
 
         [Required]
+        [Display(Name = "Expiration Year")]
         public int CreditCardExpirationYear { get; set; }
 
         [Required]

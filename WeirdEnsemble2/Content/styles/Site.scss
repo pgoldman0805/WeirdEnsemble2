@@ -1,11 +1,48 @@
 ﻿@import "layout/_Header.scss";
 @import "layout/_Footer.scss";
+@import "pages/_Home.scss";
 @import "pages/_sign-in-register.scss";
 @import "pages/_Products.scss";
 @import "pages/_About.scss";
 @import "pages/_ProductDetails.scss";
 @import "pages/_Checkout.scss";
+@import "pages/_Cart.scss";
+@import "pages//_Receipt.scss";
+
+* {
+    margin: 0;
+    padding: 0;
+}
+.wrapper {
+    min-height: 100%;
+}
 .body-content {
+    overflow: auto;
     margin-top: 6%;
-    padding-bottom: 6%;
+    padding-bottom: 180px;
+    background-color: #0077B0;
+    color: #fff;
+}
+.well *:not(a):not(button), table *{
+    color: #333;
+}
+html,body {
+    height: 100%;
+}
+body {
+    position: relative;
+    margin: 0;
+    min-height: 100%;
+    /*padding-bottom: 6rem;*/
+    background-color: #0077B0;
+    /*background-image: url("/Content/images/bg/weird_background.jpg");
+    background-repeat:repeat;
+    background-size: 100px 100px;*/
+    /*background-attachment: fixed;
+    background-color: black;*/
+}
+
+.page-title{
+    font-family: 'Varela Round', sans-serif ;
+    color: #fff;
 }

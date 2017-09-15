@@ -62,7 +62,7 @@ namespace WeirdEnsemble2.Controllers
                 if (User.Identity.IsAuthenticated)
                 {
                     var customerId = db.AspNetUsers.Single(x => x.UserName == User.Identity.Name).Customers.First().Id;
-                    cart = db.Carts.FirstOrDefault(x => x.Id == customerId);
+                    cart = db.Carts.FirstOrDefault(x => x.CustomerId == customerId);
                     if (cart == null)
                     {
                         // If a user doesn't have a cart yet, lets generate a GUID 
@@ -76,6 +76,7 @@ namespace WeirdEnsemble2.Controllers
                             CustomerId = customerId,
                         };
                         db.Carts.Add(cart);
+                        await db.SaveChangesAsync();
                     }
                 }
                 else

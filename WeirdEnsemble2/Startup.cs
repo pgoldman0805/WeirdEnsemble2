@@ -36,7 +36,8 @@ namespace WeirdEnsemble2
                         RequireUppercase = false,
                         RequireLowercase = false,
                         RequireNonLetterOrDigit = false
-                    }
+                    },
+                    EmailService = new SendGridEmailService()
                 };
 
                 // create a role for admins
@@ -48,6 +49,7 @@ namespace WeirdEnsemble2
                         Name = "Admin"
                     });
                 }
+
 
                 return manager;
             });

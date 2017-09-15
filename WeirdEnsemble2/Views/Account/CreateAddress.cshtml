@@ -2,42 +2,42 @@
 @{
     ViewBag.Title = "Create Address";
 }
-<h2 class="text-center">CreateAddress</h2>
+<h2 class="text-center page-title">Create Address</h2>
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
         <div class="well">
             @using (Html.BeginForm("CreateAddress", "Account", null, FormMethod.Post))
             {
                 <div class="form-group">
-                    @Html.Label("First Name")
-                    @Html.TextBox("fname")
+                    @Html.Label("First Name",new { @class="control-label"})
+                    @Html.TextBox("fname",null, new { @class = "form-control" })
                 </div>
                 <div class="form-group">
-                    @Html.Label("LastName")
-                    @Html.TextBox("lname")
+                    @Html.Label("Last Name", new { @class = "control-label" })
+                    @Html.TextBox("lname", null, new { @class = "form-control" })
                 </div>
                 <div class="form-group">
-                    @Html.Label("Street Address Line 1")
-                    @Html.TextBox("street1")
+                    @Html.Label("Street Address Line 1", new { @class = "control-label" })
+                    @Html.TextBox("street1", null, new { @class = "form-control" })
                 </div>
                 <div class="form-group">
-                    @Html.Label("Street Address Line 2")
-                    @Html.TextBox("street2")
+                    @Html.Label("Street Address Line 2", new { @class = "control-label" })
+                    @Html.TextBox("street2", null, new { @class = "form-control" })
                 </div>
                 <div class="form-group">
-                    @Html.Label("City")
-                    @Html.TextBox("locality")
+                    @Html.Label("City", new { @class = "control-label" })
+                    @Html.TextBox("locality", null, new { @class = "form-control" })
                 </div>
                 <div class="form-group">
-                    @Html.Label("State")
-                    @Html.TextBox("region")
+                    @Html.Label("State", new { @class = "control-label" })
+                    @Html.TextBox("region", null, new { @class = "form-control" })
                 </div>
                 <div class="form-group">
-                    @Html.Label("Zip Code")
-                    @Html.TextBox("postalCode")
+                    @Html.Label("Zip Code", new { @class = "control-label" })
+                    @Html.TextBox("postalCode", null, new { @class = "form-control" })
                 </div>
-                <button id="ValidateAddressButton" name="ValidateAddress" onclick="return validateAddress()">Validate Address</button>
-                <input id="submitButton" type="submit" class="hidden"/>
+                <button id="ValidateAddressButton" name="ValidateAddress" class="btn btn-primary" onclick="return validateAddress()">Validate Address</button>
+                <input id="submitButton" type="submit" class="hidden btn btn-success"/>
             }
         </div>
     </div>
@@ -57,15 +57,15 @@
                     <div class="col-xs-12 col-sm-4">
                         <div class="well">
                             <dl class="address">
-                                <dt>@Html.LabelFor(x => x.StreetAddress)</dt>
+                                <dt>@Html.LabelFor(x => x.StreetAddress, new { @class = "control-label" })</dt>
                                 <dd class="address1"></dd>
-                                <dt>@Html.LabelFor(x => x.ExtendedAddress)</dt>
+                                <dt>@Html.LabelFor(x => x.ExtendedAddress, new { @class = "control-label" })</dt>
                                 <dd class="address2"></dd>
-                                <dt>@Html.LabelFor(x => x.Locality)</dt>
+                                <dt>@Html.LabelFor(x => x.Locality, new { @class = "control-label" })</dt>
                                 <dd class="city"></dd>
-                                <dt>@Html.LabelFor(x => x.Region)</dt>
+                                <dt>@Html.LabelFor(x => x.Region, new { @class = "control-label" })</dt>
                                 <dd class="state"></dd>
-                                <dt>@Html.LabelFor(x => x.PostalCode)</dt>
+                                <dt>@Html.LabelFor(x => x.PostalCode, new { @class = "control-label" })</dt>
                                 <dd class="zip"></dd>
                                 <dt>Selected</dt>
                                 <dd><input type="radio" name="shipping" /></dd>
@@ -75,7 +75,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                @*<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>*@
                 <button type="button" class="btn btn-primary" id="addressSave" onclick="return saveAddress()">Save changes</button>
             </div>
         </div>

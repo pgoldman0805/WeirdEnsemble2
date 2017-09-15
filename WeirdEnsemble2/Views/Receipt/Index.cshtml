@@ -1,10 +1,10 @@
 ﻿@model WeirdEnsemble2.Models.Order
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Receipt";
 }
 
-<h2>Receipt For Order #@Model.TransactionID</h2>
-<table class="table table-striped">
+<h2 class=" page-title">Receipt For Order #@Model.TransactionID</h2>
+<table class="table table-striped receipt-table">
     <thead>
         <tr>
             <th>Name</th>
@@ -32,5 +32,13 @@
 
         </tr>
     }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="2"></td>
+            <td><strong>Total:</strong></td>
+            <td><strong>@((Model.OrderItems.Sum(x => x.Quantity * x.Product.ListPrice) ?? 0).ToString("C"))</strong></td>
+        </tr>
+    </tfoot>
 </table>
 

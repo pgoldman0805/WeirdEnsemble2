@@ -30,7 +30,7 @@ namespace WeirdEnsemble2.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var customerId = db.AspNetUsers.Single(x => x.UserName == User.Identity.Name).Customers.First().Id;
-                cart = db.Carts.FirstOrDefault(x => x.Id == customerId);
+                cart = db.Carts.FirstOrDefault(x => x.CustomerId == customerId);
                 if (cart != null)
                 {
                     return View(cart);
@@ -40,8 +40,11 @@ namespace WeirdEnsemble2.Controllers
                     // create an empty cart
                     cart = new Cart()
                     {
-                        CartItems = new CartItem[0]
+                        CartItems = new CartItem[0],
+                        CustomerId = customerId,
+                        
                     };
+
                 }
             }
 
@@ -78,21 +81,33 @@ namespace WeirdEnsemble2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Index(int prodId)
         {
-
             // access the current user's cart
+
+            Cart cart = null;
+            if (User.Identity.IsAuthenticated)
+            {
+                var customerId = db.AspNetUsers.Single(x => x.UserName == User.Identity.Name).Customers.First().Id;
+                cart = db.Carts.FirstOrDefault(x => x.CustomerId == customerId);
+            }
             if (Request.Cookies.AllKeys.Contains("CartName"))
             {
                 string cartName = Request.Cookies["CartName"].Value;
-                Cart cart = db.Carts.Single(x => x.Name == cartName);
-
-                //target the item to deleted
-                CartItem itemToDelete = cart.CartItems.Single(x => x.ProductId == prodId);
-                string itemName = itemToDelete.Product.Name;
-                // delete and save
-                cart.CartItems.Remove(itemToDelete);
-                await db.SaveChangesAsync();
-                TempData["Message"] = string.Format("{0} successfully removed", itemName);
+                cart = db.Carts.Single(x => x.Name == cartName);
             }
+            if (User.Identity.IsAuthenticated)
+            {
+                var customerId = db.AspNetUsers.Single(x => x.UserName == User.Identity.Name).Customers.First().Id;
+                cart = db.Carts.Single(x => x.CustomerId == customerId);
+            }
+
+            //target the item to deleted
+            CartItem itemToDelete = cart.CartItems.Single(x => x.ProductId == prodId);
+            string itemName = itemToDelete.Product.Name;
+            // delete and save
+            cart.CartItems.Remove(itemToDelete);
+            await db.SaveChangesAsync();
+            TempData["Message"] = string.Format("{0} successfully removed", itemName);
+
 
             return RedirectToAction("Index");
         }

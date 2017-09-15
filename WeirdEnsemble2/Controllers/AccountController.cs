@@ -96,8 +96,18 @@ namespace WeirdEnsemble2.Controllers
             return RedirectToAction("Index");
         }
 
+        public class Address
+        {
+            [System.ComponentModel.DataAnnotations.Required]
+            public string Street1 { get; set; }
+            public string Street2 { get; set; }
+            [System.ComponentModel.DataAnnotations.Required]
+            public string Locality { get; set; }
+            public string Region { get; set; }
+            public string PostalCode { get; set; }
 
-        public ActionResult ValidateAddress(string street1, string street2, string locality, string region, string postalCode)
+        }
+        public ActionResult ValidateAddress(Address a)
         {
             if (ModelState.IsValid)
             {
@@ -107,11 +117,11 @@ namespace WeirdEnsemble2.Controllers
                 var smartyClient = builder.BuildUsStreetApiClient();
 
                 SmartyStreets.USStreetApi.Lookup lookup = new SmartyStreets.USStreetApi.Lookup();
-                lookup.City = locality?? "";
-                lookup.State = region ?? "";
-                lookup.Street = street1 ?? "";
-                lookup.Street2 = street2 ?? "";
-                lookup.ZipCode = postalCode ?? "";
+                lookup.City = a.Locality?? "";
+                lookup.State = a.Region ?? "";
+                lookup.Street = a.Street1 ?? "";
+                lookup.Street2 = a.Street2 ?? "";
+                lookup.ZipCode = a.PostalCode ?? "";
 
                 smartyClient.Send(lookup);
                 return Json(lookup.Result.Select(x => new
@@ -144,10 +154,8 @@ namespace WeirdEnsemble2.Controllers
         [Authorize]
         public async Task<ActionResult> CreateAddress(string fname, string lname, string region, string locality, string postalCode, string street1, string street2)
         {
-            
             if (ModelState.IsValid)
             {
-
                 string merchantId = ConfigurationManager.AppSettings["Braintree.MerchantID"];
                 string publicKey = ConfigurationManager.AppSettings["Braintree.PublicKey"];
                 string privateKey = ConfigurationManager.AppSettings["Braintree.PrivateKey"];
@@ -189,8 +197,14 @@ namespace WeirdEnsemble2.Controllers
             if (ModelState.IsValid)
             {
                 IdentityUser user = await UserManager.FindByEmailAsync(username);
+                
                 if (user != null)
                 {
+                    if (!user.EmailConfirmed)
+                    {
+                        ViewBag.Error = "Please confirm your account by clicking the link we e-mailed to " + user.Email;
+                        return View();
+                    }
                     if (await UserManager.CheckPasswordAsync(user,password))
                     {
                         var userIdentity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
@@ -208,10 +222,6 @@ namespace WeirdEnsemble2.Controllers
                         {
                             return RedirectToAction("Index", "Home");
                         }
-                    }
-                    else
-                    {
-                        ViewBag.Error = "Could not sign in with this username / password";
                     }
                 }
             }
@@ -232,12 +242,13 @@ namespace WeirdEnsemble2.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(string username, string fname, string lname, DateTime dateOfBirth, string phone, string password)
+        public async Task<ActionResult> Register(string username, string fname, string lname, DateTime? dateOfBirth, string phone, string password)
         {
             IdentityUser newUser = new IdentityUser(username)
             {
                 // set the Email to be the username
-                Email = username
+                Email = username,
+                PhoneNumber = phone
             };
 
             IdentityResult result = await UserManager.CreateAsync(newUser, password);
@@ -366,7 +377,7 @@ namespace WeirdEnsemble2.Controllers
                 IdentityResult confirmResult = await UserManager.ConfirmEmailAsync(user.Id, token);
                 if (confirmResult.Succeeded)
                 {
-                    TempData["AccountMessage"] = "Your email address has been confirmed";
+                    TempData["AccountMessage"] = "Your email address has been confirmed! Please sign in to continue.";
                 }
             }
             return RedirectToAction("SignIn");

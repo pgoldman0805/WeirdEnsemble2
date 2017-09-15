@@ -10,8 +10,8 @@
     </div>
 }
 
-<h2 class="text-center">My Cart</h2>
-<table class="table table-striped">
+<h2 class="text-center page-title">My Cart</h2>
+<table id="cartDisplay" class="table table-striped">
     <thead>
         <tr>
             <th></th>
@@ -33,7 +33,7 @@
                     }
                 </td>
                 <td>
-                    @item.Product.Name
+                    <a href="/Product/Detail/@item.ProductId">@item.Product.Name</a>
                 </td>
                 <td>
                     @((item.Product.ListPrice ?? 0).ToString("C"))

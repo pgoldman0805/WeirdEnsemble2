@@ -10,6 +10,7 @@
     /* for IE as it does not support min-height */
     /*    height: 300px;*/
     /*outline: 1px solid #222;*/
+
 }
 
 .product-panel-link{
@@ -21,7 +22,8 @@
 }
 .productPrice h6 {
     color: green;
-    font-size: 2em;
+    font-size: 1.5em;
+    margin-top: -0.8em;
     &:hover{
         text-decoration: none;
     }

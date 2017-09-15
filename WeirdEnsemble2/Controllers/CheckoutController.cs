@@ -40,6 +40,7 @@ namespace WeirdEnsemble2.Controllers
                 Customer currentCustomer = db.Customers.FirstOrDefault(x => x.AspNetUser.UserName == User.Identity.Name);
                 if (currentCustomer != null)
                 {
+                    model.CurrentCart = currentCustomer.Carts.First();
                     model.EmailAddress = currentCustomer.AspNetUser.Email;
                     model.PhoneNumber = currentCustomer.PhoneNumber;
                     model.ShippingRecipient = currentCustomer.FirstName + " " + currentCustomer.LastName;
@@ -53,32 +54,41 @@ namespace WeirdEnsemble2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Index(CheckoutViewModel model)
         {
-            // Try to find an existing customer
-            Customer currentCustomer = db.Customers.FirstOrDefault(x => x.AspNetUser.UserName == User.Identity.Name);
-
-            // if this is an anonymous customer, create a new Customer record for them
-            if (currentCustomer == null)
-            {
-                currentCustomer = new Customer
-                {
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    EmailAddress = model.EmailAddress,
-                    PhoneNumber = model.PhoneNumber,
-                    DateCreated = DateTime.UtcNow
-                };
-                db.Customers.Add(currentCustomer);
-                await db.SaveChangesAsync();
-            }
-
-            if (Request.Cookies.AllKeys.Contains("CartName"))
-            {
-                string cartName = Request.Cookies["CartName"].Value;
-                model.CurrentCart = db.Carts.Single(x => x.Name == cartName);
-
-            }
+            // if there are errors on the form, refresh the page with the previous model
+            // along with errors
             if (ModelState.IsValid)
             {
+                // Try to find an existing customer
+                Customer currentCustomer = db.Customers.FirstOrDefault(x => x.AspNetUser.UserName == User.Identity.Name);
+
+                // if this is an anonymous customer, create a new Customer record for them
+                if (currentCustomer == null)
+                {
+                    currentCustomer = new Customer
+                    {
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        EmailAddress = model.EmailAddress,
+                        PhoneNumber = model.PhoneNumber,
+                        DateCreated = DateTime.UtcNow
+                    };
+                    db.Customers.Add(currentCustomer);
+                    await db.SaveChangesAsync();
+
+                    if (Request.Cookies.AllKeys.Contains("CartName"))
+                    {
+                        string cartName = Request.Cookies["CartName"].Value;
+                        model.CurrentCart = db.Carts.Single(x => x.Name == cartName);
+
+                    }
+                }
+                else
+                {
+                    model.CurrentCart = currentCustomer.Carts.First();
+                }
+
+                
+            
                 string merchantId = ConfigurationManager.AppSettings["Braintree.MerchantID"];
                 string publicKey = ConfigurationManager.AppSettings["Braintree.PublicKey"];
                 string privateKey = ConfigurationManager.AppSettings["Braintree.PrivateKey"];
@@ -169,7 +179,13 @@ namespace WeirdEnsemble2.Controllers
                     ModelState.AddModelError("CreditCardNumber", "Unable to authorize this card number");
                 }
             }
-            
+            if (Request.Cookies.AllKeys.Contains("CartName"))
+            {
+                string cartName = Request.Cookies["CartName"].Value;
+                model.CurrentCart = db.Carts.Single(x => x.Name == cartName);
+
+            }
+
             return View(model);
         }
     }
