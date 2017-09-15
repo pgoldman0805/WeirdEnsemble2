@@ -8,23 +8,68 @@
 
 @*@Model.FirstName
 @Model.LastName*@
-@Html.ActionLink("Create Address", "CreateAddress", null, new { @class="btn btn-success"})
-@if(addresses != null)
-{
-    foreach(var address in addresses)
-    {
-        <div class="row">
-            <div class="col-xs-3">
-                <div class="well">
-                    <address>
-                        @address.FirstName @address.LastName<br />
-                        @address.StreetAddress<br />
-                        @address.ExtendedAddress<br />
-                        @address.Locality, @address.Region @address.PostalCode<br />
-                    </address>
-                </div>
+
+@*
+    ADDRESS PANEL    
+*@
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel panel-default account-address-panel">
+            <div class="panel-heading">
+                <h3 class="text-center">Saved Addresses</h3>
+            </div>
+            <div class="panel-body">
+                @Html.ActionLink("Create Address", "CreateAddress", null, new { @class = "btn btn-success" })
+                @if (addresses != null)
+            {
+                foreach (var address in addresses)
+                {
+                        <div class="row">
+                            @*<div class="col-xs-3">*@
+                                <div class="well">
+                                    <address>
+                                        @address.FirstName @address.LastName<br />
+                                        @address.StreetAddress<br />
+                                        @address.ExtendedAddress<br />
+                                        @address.Locality, @address.Region @address.PostalCode<br />
+                                    </address>
+                                </div>
+                            @*</div>*@
+                        </div>
+                        @Html.ActionLink("Delete Address", "DeleteAddress", new { id = address.Id }, new { @class = "btn btn-danger" })
+                    }
+                }
             </div>
         </div>
-        @Html.ActionLink("Delete Address","DeleteAddress", new { id = address.Id }, new { @class="btn btn-danger"})
-    }
-}
+    </div>
+    <div class="col-md-8">
+        <div class="panel panel-default account-order-history-panel">
+            <div class="panel-heading">
+                <h3 class="text-center">Order History</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Order #</th>
+                            <th>Date Placed</th>
+                            <th>Total</th>
+                            <th>Order Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var order in Model.Orders.Where(o => o.CustomerID == Model.Id))
+                        {
+                            <tr>
+                                <td>@order.TransactionID</td>
+                                <td>@order.DatePlaced</td>
+                                <td>@(order.OrderItems.Sum(x => (x.Quantity * x.PurchasePrice)).ToString("C"))</td>
+                                <td><a href="/Receipt/Index/@order.TransactionID">Details</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+    </div>
+
+</div>

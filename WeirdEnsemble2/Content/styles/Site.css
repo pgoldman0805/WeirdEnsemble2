@@ -252,6 +252,30 @@ div.review-container {
 .receipt-table {
   background-color: white; }
 
+h1.title {
+  background-color: dodgerblue;
+  color: white; }
+
+.about-img {
+  margin-bottom: 1em; }
+  .about-img img {
+    width: 30%;
+    min-width: 200px;
+    padding: 2em; }
+
+.aboutContent {
+  padding: 0 2em;
+  background-color: rgba(255, 255, 255, 0.7);
+  margin: 2em 0; }
+  .aboutContent p {
+    color: #333;
+    font-family: 'Nunito', sans-serif;
+    font-weight: normal;
+    text-align: justify;
+    font-size: 1.15em;
+    margin-top: 1.5em;
+    line-height: 2; }
+
 * {
   margin: 0;
   padding: 0; }
