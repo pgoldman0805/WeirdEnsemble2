@@ -24,6 +24,7 @@ namespace WeirdEnsemble2
             app.CreatePerOwinContext(() =>
             {
                 UserStore<IdentityUser> store = new UserStore<IdentityUser>();
+                
 
                 UserManager<IdentityUser> manager = new UserManager<IdentityUser>(store)
                 {
@@ -41,10 +42,10 @@ namespace WeirdEnsemble2
                 };
 
                 // create a role for admins
-                var RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(store.Context));
-                if (!RoleManager.RoleExists("Admin"))
+                var rm = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(store.Context));
+                if (!rm.RoleExists("Admin"))
                 {
-                    RoleManager.Create(new IdentityRole
+                    rm.Create(new IdentityRole
                     {
                         Name = "Admin"
                     });

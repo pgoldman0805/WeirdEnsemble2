@@ -1,4 +1,23 @@
-﻿@*@model WeirdEnsemble2.Models.Cart*@
+﻿@using Microsoft.AspNet.Identity;
+@using WeirdEnsemble2.Models;
+@using Microsoft.AspNet.Identity.EntityFramework;
+@*@model WeirdEnsemble2.Models.Cart*@
+@*@{ 
+    IList<string> Roles = new string[0];
+    using (Entities entities = new Entities())
+    {
+        var UserStore = new UserStore<IdentityUser>(entities);
+        var UserManager = new UserManager<IdentityUser>(UserStore);
+        var RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(entities));
+        IdentityUser u = null;
+        if (User.Identity.IsAuthenticated)
+        {
+            User.
+            u = UserManager.FindByEmail(User.Identity.Name);
+            Roles = UserManager.GetRoles(u.Id);
+        }
+    }
+}*@
 <nav id="mainNav" class="navbar navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -10,8 +29,6 @@
             <a class="navbar-brand" href="/Home">
                 <img src="~/Content/images/bg/Logo.png" alt="WeirdEnsemble Logo" class="logo-navbar-brand" />
             </a>
-            @*@Html.ActionLink("Weird Ensemble", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            @Html.ActionLink("Weird Ensemble","Index","Home",)*@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
@@ -22,6 +39,10 @@
             <ul class="nav navbar-nav pull-right">
                 @if (User.Identity.IsAuthenticated)
                 {
+                    if (User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("ProductsAdmin", "Index", "ProductsAdmin")</li>
+                    }
                     <li>@Html.ActionLink("Sign out as " + User.Identity.Name, "SignOut","Account")</li>
                     <li>
                         <a href="@Url.Action("Index","Account")">
@@ -29,6 +50,7 @@
                             <span class="sr-only">My Account</span>
                         </a>
                     </li>
+                    
                 }
                 else
                 {

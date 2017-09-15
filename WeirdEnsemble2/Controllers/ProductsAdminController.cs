@@ -13,7 +13,7 @@ using WeirdEnsemble2.Models;
 namespace WeirdEnsemble2.Controllers
 {
     // DECLARATIVE CHECKING
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class ProductsAdminController : Controller
     {
         private Entities db = new Entities();
