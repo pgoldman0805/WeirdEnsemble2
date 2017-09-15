@@ -35,9 +35,9 @@
   .navbar-toggle .icon-bar {
     background-color: black; }
 
-footer, .push {
-  height: 50px; }
-
+/*footer,{
+    height: 50px;
+}*/
 footer {
   border-top: 1px solid white;
   /*clear: both;*/
@@ -50,6 +50,11 @@ footer {
     right:0;
     margin-top: -30rem;*/
   padding: 1.5rem; }
+  footer a {
+    color: #FFC426; }
+    footer a:hover {
+      text-decoration: none;
+      color: #FFFF26; }
   footer .footer-contact {
     background-color: transparent; }
     footer .footer-contact .footer-contact-table {
@@ -67,8 +72,6 @@ footer {
     padding: 15px 0 10px;
     font-size: 11px;
     /*border-top: 1px solid #ccc;*/ }
-    footer .footer-copy a {
-      color: white; }
 
 .home-title {
   font-family: 'Sunshiney',sans-serif;
@@ -173,7 +176,8 @@ details-title {
   margin-top: 6%; }
 
 .price-container {
-  color: #fc9292;
+  text-shadow: 3px 3px black;
+  color: #f7cfc0;
   font-weight: 600;
   font-size: 1.5em;
   display: inline-table; }
@@ -232,6 +236,8 @@ div.review-container {
 
 .checkout-table {
   background-color: white; }
+  .checkout-table .checkout-price-row {
+    font-size: 1.3em; }
 
 .checkout-form {
   color: #333; }
@@ -247,10 +253,15 @@ div.review-container {
   .checkout-info-container .panel-body:hover {
     outline: none; }
 
+.checkout-info-container .checkout-validate-button-row {
+  margin-bottom: 2.9em; }
+
 #cartDisplay {
   background-color: white; }
   #cartDisplay th, #cartDisplay tfoot * {
     /*color: white;*/ }
+  #cartDisplay .cart-price-row {
+    font-size: 1.3em; }
 
 .receipt-table {
   background-color: white; }
@@ -319,5 +330,6 @@ body {
 
 .page-title {
   font-family: 'Varela Round', sans-serif;
-  color: #fff; }
+  color: #fff;
+  margin-bottom: 50px; }
 

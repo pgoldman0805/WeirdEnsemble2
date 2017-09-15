@@ -9,6 +9,64 @@
         yearsInt[i] = currentYear + i;
     }
     var years = yearsInt.Select(x => new SelectListItem { Text = x.ToString(), Value = x.ToString() });
+
+
+    List<SelectListItem> states = new List<SelectListItem>()
+    {
+        new SelectListItem() {Text="Alabama", Value="AL"},
+        new SelectListItem() { Text="Alaska", Value="AK"},
+        new SelectListItem() { Text="Arizona", Value="AZ"},
+        new SelectListItem() { Text="Arkansas", Value="AR"},
+        new SelectListItem() { Text="California", Value="CA"},
+        new SelectListItem() { Text="Colorado", Value="CO"},
+        new SelectListItem() { Text="Connecticut", Value="CT"},
+        new SelectListItem() { Text="District of Columbia", Value="DC"},
+        new SelectListItem() { Text="Delaware", Value="DE"},
+        new SelectListItem() { Text="Florida", Value="FL"},
+        new SelectListItem() { Text="Georgia", Value="GA"},
+        new SelectListItem() { Text="Hawaii", Value="HI"},
+        new SelectListItem() { Text="Idaho", Value="ID"},
+        new SelectListItem() { Text="Illinois", Value="IL"},
+        new SelectListItem() { Text="Indiana", Value="IN"},
+        new SelectListItem() { Text="Iowa", Value="IA"},
+        new SelectListItem() { Text="Kansas", Value="KS"},
+        new SelectListItem() { Text="Kentucky", Value="KY"},
+        new SelectListItem() { Text="Louisiana", Value="LA"},
+        new SelectListItem() { Text="Maine", Value="ME"},
+        new SelectListItem() { Text="Maryland", Value="MD"},
+        new SelectListItem() { Text="Massachusetts", Value="MA"},
+        new SelectListItem() { Text="Michigan", Value="MI"},
+        new SelectListItem() { Text="Minnesota", Value="MN"},
+        new SelectListItem() { Text="Mississippi", Value="MS"},
+        new SelectListItem() { Text="Missouri", Value="MO"},
+        new SelectListItem() { Text="Montana", Value="MT"},
+        new SelectListItem() { Text="Nebraska", Value="NE"},
+        new SelectListItem() { Text="Nevada", Value="NV"},
+        new SelectListItem() { Text="New Hampshire", Value="NH"},
+        new SelectListItem() { Text="New Jersey", Value="NJ"},
+        new SelectListItem() { Text="New Mexico", Value="NM"},
+        new SelectListItem() { Text="New York", Value="NY"},
+        new SelectListItem() { Text="North Carolina", Value="NC"},
+        new SelectListItem() { Text="North Dakota", Value="ND"},
+        new SelectListItem() { Text="Ohio", Value="OH"},
+        new SelectListItem() { Text="Oklahoma", Value="OK"},
+        new SelectListItem() { Text="Oregon", Value="OR"},
+        new SelectListItem() { Text="Pennsylvania", Value="PA"},
+        new SelectListItem() { Text="Rhode Island", Value="RI"},
+        new SelectListItem() { Text="South Carolina", Value="SC"},
+        new SelectListItem() { Text="South Dakota", Value="SD"},
+        new SelectListItem() { Text="Tennessee", Value="TN"},
+        new SelectListItem() { Text="Texas", Value="TX"},
+        new SelectListItem() { Text="Utah", Value="UT"},
+        new SelectListItem() { Text="Vermont", Value="VT"},
+        new SelectListItem() { Text="Virginia", Value="VA"},
+        new SelectListItem() { Text="Washington", Value="WA"},
+        new SelectListItem() { Text="West Virginia", Value="WV"},
+        new SelectListItem() { Text="Wisconsin", Value="WI"},
+        new SelectListItem() { Text="Wyoming", Value="WY"}
+    };
+
+
 }
 @*@if (!ViewData.ModelState.IsValid)
 {
@@ -49,7 +107,7 @@
         
     </tbody>
     <tfoot>
-        <tr>
+        <tr class="checkout-price-row">
             <td colspan="3"></td>
             <td><strong>Subtotal:</strong></td>
             <td><strong>@((Model.CurrentCart.CartItems.Sum(x => x.Quantity * x.Product.ListPrice) ?? 0).ToString("C"))</strong></td>
@@ -61,129 +119,147 @@
 @using (Html.BeginForm("Index","Checkout",FormMethod.Post,new { @class ="checkout-form"}))
 {
     @Html.AntiForgeryToken()
-    @*if (!ViewContext.ViewData.ModelState.IsValid)
 
-    {
+    <div class="checkout-info-container row">
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading text-center">Contact Information</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.FirstName, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.FirstName)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.LastName, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.LastName)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.EmailAddress, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.EmailAddress, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.EmailAddress)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.PhoneNumber, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.PhoneNumber)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading text-center">Shipping Information</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ShippingRecipient, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.ShippingRecipient, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.ShippingRecipient)
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.ShippingAddressLine1, new { @class = "control-label" })
+                                @Html.TextBoxFor(m => m.ShippingAddressLine1, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.ShippingAddressLine1)
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.ShippingAddressLine2, new { @class = "control-label" })
+                                @Html.TextBoxFor(m => m.ShippingAddressLine2, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.ShippingAddressLine2)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.ShippingCity, new { @class = "control-label" })
+                                @Html.TextBoxFor(m => m.ShippingCity, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.ShippingCity)
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.ShippingState, new { @class = "control-label" })
+                                @Html.DropDownListFor(m => m.CreditCardExpirationMonth, states, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.ShippingState)
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.ShippingPostalCode, new { @class = "control-label" })
+                                @Html.TextBoxFor(m => m.ShippingPostalCode, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.ShippingPostalCode)
+                            </div>
+                        </div>
+                    </div>
 
-        @Html.ValidationSummary(false, null, new { @class = "alert alert-danger" })
-
-    }*@
-    <div class="checkout-info-container col-md-6 col-md-offset-3">
-        <div class="panel panel-default">
-            <div class="panel-heading text-center">Contact Information</div>
-            <div class="panel-body">
-                <div class="form-group">
-                    @Html.LabelFor(m => m.FirstName, new { @class = "control-label" })
-                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.FirstName)
                 </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.LastName, new { @class = "control-label" })
-                    @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.LastName)
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.EmailAddress, new { @class = "control-label" })
-                    @Html.TextBoxFor(m => m.EmailAddress, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.EmailAddress)
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.PhoneNumber, new { @class = "control-label" })
-                    @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.PhoneNumber)
+                <div class="row text-center checkout-validate-button-row">
+                    <button name="validateshipping" id="validateshipping" class="btn btn-warning">Validate Address</button>
                 </div>
             </div>
         </div>
 
-        <div class="panel panel-default">
-            <div class="panel-heading text-center">Shipping Information</div>
-            <div class="panel-body">
-                <div class="form-group">
-                    @Html.LabelFor(m => m.ShippingRecipient, new { @class = "control-label" })
-                    @Html.TextBoxFor(m => m.ShippingRecipient, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.ShippingRecipient)
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.ShippingAddressLine1, new { @class = "control-label" })
-                    @Html.TextBoxFor(m => m.ShippingAddressLine1, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.ShippingAddressLine1)
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.ShippingAddressLine2, new { @class = "control-label" })
-                    @Html.TextBoxFor(m => m.ShippingAddressLine2, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.ShippingAddressLine2)
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.ShippingCity, new { @class = "control-label" })
-                    @Html.TextBoxFor(m => m.ShippingCity, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.ShippingCity)
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.ShippingState, new { @class = "control-label" })
-                    @Html.TextBoxFor(m => m.ShippingState, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.ShippingState)
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.ShippingPostalCode, new { @class = "control-label" })
-                    @Html.TextBoxFor(m => m.ShippingPostalCode, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.ShippingPostalCode)
-                </div>
-            </div>
-            <div class="row text-center">
-                <button name="validateshipping" id="validateshipping" class="btn btn-warning">Validate Address</button>
-            </div>
-        </div>
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-default">
+                <div class="panel-heading text-center">Payment Information</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.CreditCardHolder, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.CreditCardHolder, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.CreditCardHolder)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.CreditCardNumber, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.CreditCardNumber, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.CreditCardNumber)
+                    </div>
 
+                    <div class="row">
 
-        <div class="panel panel-default">
-            <div class="panel-heading text-center">Payment Information</div>
-            <div class="panel-body">
-                <div class="form-group">
-                    @Html.LabelFor(m => m.CreditCardNumber, new { @class = "control-label" })
-                    @Html.TextBoxFor(m => m.CreditCardNumber, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.CreditCardNumber)
-                </div>
-                
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            @*<label for="CreditCardExpirationMonth" class="control-label">Expiration Month</label>*@
-                            @Html.LabelFor(m => m.CreditCardExpirationMonth, new { @class = "control-label" })
-                            @Html.DropDownListFor(m => m.CreditCardExpirationMonth, months, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.CreditCardExpirationMonth)
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @*<label for="CreditCardExpirationMonth" class="control-label">Expiration Month</label>*@
+                                @Html.LabelFor(m => m.CreditCardExpirationMonth, new { @class = "control-label" })
+                                @Html.DropDownListFor(m => m.CreditCardExpirationMonth, months, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.CreditCardExpirationMonth)
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @*<label for="CreditCardExpirationYear" class="control-label">Expiration Year</label>*@
+
+                                @Html.LabelFor(m => m.CreditCardExpirationYear, new { @class = "control-label" })
+                                @Html.DropDownListFor(m => m.CreditCardExpirationYear, years, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.CreditCardExpirationYear)
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @*<label for="CreditCardVerificationValue" class="control-label">Security Code</label>*@
+
+                                @Html.LabelFor(m => m.CreditCardVerificationValue, new { @class = "control-label" })
+                                @Html.TextBoxFor(m => m.CreditCardVerificationValue, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.CreditCardVerificationValue)
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            @*<label for="CreditCardExpirationYear" class="control-label">Expiration Year</label>*@
 
-                            @Html.LabelFor(m => m.CreditCardExpirationYear, new { @class = "control-label" })
-                            @Html.DropDownListFor(m => m.CreditCardExpirationYear, years, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.CreditCardExpirationYear)
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            @*<label for="CreditCardVerificationValue" class="control-label">Security Code</label>*@
+                    
 
-                            @Html.LabelFor(m => m.CreditCardVerificationValue, new { @class = "control-label" })
-                            @Html.TextBoxFor(m => m.CreditCardVerificationValue, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.CreditCardVerificationValue)
-                        </div>
-                    </div>
+
+
+                    <input type="submit" value="Complete Checkout" class="btn btn-success btn-block" />
                 </div>
-                
-                <div class="form-group">
-                    @Html.LabelFor(m => m.CreditCardHolder, new { @class = "control-label" })
-                    @Html.TextBoxFor(m => m.CreditCardHolder, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.CreditCardHolder)
-                </div>
-                
-                
-
-                <input type="submit" value="Complete Checkout" class="btn btn-primary btn-block" />
             </div>
         </div>
+
+
+        
     </div>
 
     <!-- Modal -->

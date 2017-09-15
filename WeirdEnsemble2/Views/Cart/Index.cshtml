@@ -49,7 +49,7 @@
         }
     </tbody>
     <tfoot>
-        <tr>
+        <tr class="cart-price-row">
             <td colspan="3"></td>
             <td><strong>Subtotal:</strong></td>
             <td><strong>@((Model.CartItems.Sum(x => x.Quantity * x.Product.ListPrice) ?? 0).ToString("C"))</strong></td>

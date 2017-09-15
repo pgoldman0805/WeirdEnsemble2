@@ -1,9 +1,8 @@
-﻿footer, .push {
+﻿/*footer,{
     height: 50px;
-}
+}*/
 footer {
     border-top: 1px solid white;
-
     /*clear: both;*/
     color: white;
     /*margin-top: 6%;*/
@@ -14,6 +13,16 @@ footer {
     right:0;
     margin-top: -30rem;*/
     padding: 1.5rem;
+
+    a {
+        color: #FFC426;
+
+        &:hover {
+            text-decoration: none;
+            color: #FFFF26;
+        }
+    }
+
     .footer-contact {
         background-color: transparent;
         //        margin: 0 auto;
@@ -23,7 +32,6 @@ footer {
             margin: 0 auto;
 
             .table-cell {
-                
                 display: table-cell;
                 padding: 0 15px;
                 vertical-align: top;
@@ -38,8 +46,5 @@ footer {
         padding: 15px 0 10px;
         font-size: 11px;
         /*border-top: 1px solid #ccc;*/
-        a {
-            color: white;
-        }
     }
 }

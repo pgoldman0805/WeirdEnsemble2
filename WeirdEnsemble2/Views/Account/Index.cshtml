@@ -4,7 +4,7 @@
     var addresses = ViewBag.Addresses as Braintree.Address[];
 }
 
-<h2 class="page-title">My Account</h2>
+<h2 class="page-title text-center">My Account</h2>
 
 @*@Model.FirstName
 @Model.LastName*@
@@ -19,26 +19,32 @@
                 <h3 class="text-center">Saved Addresses</h3>
             </div>
             <div class="panel-body">
-                @Html.ActionLink("Create Address", "CreateAddress", null, new { @class = "btn btn-success" })
+               
                 @if (addresses != null)
             {
                 foreach (var address in addresses)
                 {
                         <div class="row">
-                            @*<div class="col-xs-3">*@
+                            <div class="col-xs-10 col-xs-offset-1">
                                 <div class="well">
                                     <address>
                                         @address.FirstName @address.LastName<br />
                                         @address.StreetAddress<br />
-                                        @address.ExtendedAddress<br />
+                                        @if (address.ExtendedAddress != null)
+                                        {
+                                            @address.ExtendedAddress<br />
+                                        }
                                         @address.Locality, @address.Region @address.PostalCode<br />
                                     </address>
+                                    @Html.ActionLink("Delete Address", "DeleteAddress", new { id = address.Id }, new { @class = "btn btn-danger" })
+
+
                                 </div>
-                            @*</div>*@
+                            </div>
                         </div>
-                        @Html.ActionLink("Delete Address", "DeleteAddress", new { id = address.Id }, new { @class = "btn btn-danger" })
                     }
                 }
+                @Html.ActionLink("Create Address", "CreateAddress", null, new { @class = "btn btn-success btn-block" })
             </div>
         </div>
     </div>

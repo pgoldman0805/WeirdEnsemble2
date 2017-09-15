@@ -40,7 +40,7 @@
         <div class="price-container">
             <span class="dollar-sign">$</span>
             <span class="dollars">@(formattedDollars.Split('.')[0])</span>
-            <span class="cents">.@(Model.ListPrice.ToString().Split('.')[1].Substring(0,2))</span>
+            <span class="cents">.@(Model.ListPrice.ToString().Split('.')[1].Substring(0, 2))</span>
         </div>
         <div class="desc-container">
             <p>@Model.Description</p>
@@ -53,28 +53,53 @@
             <label for="quantity">Quantity:  </label>
             @Html.DropDownList("Quantity",quantity,new { @class = "form-control"})
             <button class="btn btn-success pull-right detail-button">Add To Cart</button>
-           
         }
-
+        <br />
+        <div class="row">
+            @*<div class="col-md-4">
+                <div class="price-container">
+                    <span class="dollar-sign">$</span>
+                    <span class="dollars">@(formattedDollars.Split('.')[0])</span>
+                    <span class="cents">.@(Model.ListPrice.ToString().Split('.')[1].Substring(0, 2))</span>
+                </div>
+            </div>*@
+            <div class="col-md-12">
+                @Html.ActionLink("Add a Review", "Review", new { id = Model.Id }, new { @class = "btn btn-default review-button btn-block", })
+            </div>
+            <div class="col-md-12">
+                @if (Model.ProductReviews.Count > 0)
+                {
+                    <br /><br />
+                    <button id="review-button" class="accordion">Reviews</button>
+                    <div class="panel review-container">
+                        @foreach (var review in Model.ProductReviews)
+                        {
+                            @Html.Partial("_DetailReview", review)
+                        }
+                    </div>
+                }
+            </div>
+        </div>
     </div>
 </div>
-<hr />
-<div class="row text-center">
-    @Html.ActionLink("Add a Review", "Review", new { id = Model.Id }, new { @class = "btn btn-lg btn-default review-button", })
+@*<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        @if (Model.ProductReviews.Count > 0)
+        {
+            <br /><br />
+                    <button id="review-button" class="accordion">Reviews</button>
+                    <div class="panel review-container">
+                        @foreach (var review in Model.ProductReviews)
+                        {
+                            @Html.Partial("_DetailReview", review)
+                        }
+                    </div>
+        }
+    </div>
+</div>*@
 
-    @if (Model.ProductReviews.Count > 0)
-    {
-        <br /><br />
-        <button id="review-button" class="accordion">Reviews </button>
-        <div class="panel review-container">
-            @foreach (var review in Model.ProductReviews)
-            {
-                @Html.Partial("_DetailReview", review)
-            }
-        </div>
-    }
+<br />
 
-</div>
 
 <script>
     var acc = document.getElementsByClassName("accordion");

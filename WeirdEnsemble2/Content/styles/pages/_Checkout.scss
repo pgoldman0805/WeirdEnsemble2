@@ -1,22 +1,30 @@
 ﻿.checkout-table{
-background-color: white;
-
+    background-color: white;
+    .checkout-price-row{
+        font-size: 1.3em;
+    }
 }
 
 .checkout-form {
     color: #333;
 }
-.checkout-info-container{
+.checkout-info-container {
     .panel-heading {
         text-transform: uppercase;
         font-weight: bold;
         font-size: 1.2em;
     }
-    .panel-body{
+
+    .panel-body {
         height: auto;
         min-height: 0;
-        &:hover{
+
+        &:hover {
             outline: none;
         }
+    }
+
+    .checkout-validate-button-row{
+        margin-bottom: 2.9em;
     }
 }

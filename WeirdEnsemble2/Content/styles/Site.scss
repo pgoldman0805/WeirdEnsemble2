@@ -29,7 +29,9 @@
 }
 .well *:not(a):not(button), table *{
     color: #333;
+
 }
+
 html,body {
     height: 100%;
     margin: 0;
@@ -52,4 +54,5 @@ body {
 .page-title{
     font-family: 'Varela Round', sans-serif ;
     color: #fff;
+    margin-bottom: 50px;
 }
