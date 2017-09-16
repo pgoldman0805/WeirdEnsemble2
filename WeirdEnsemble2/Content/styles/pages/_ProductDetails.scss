@@ -36,7 +36,6 @@ details-title {
 }
 
 button.detail-button{
-    width: 70%;
 }
 button.accordion {
     background-color: #eee;
@@ -76,3 +75,8 @@ div.review-container {
     transition: max-height 0.2s ease-out;
 }
 
+@media (max-width: 767px){
+    .detail-button {
+        padding: 2em;
+    }
+}

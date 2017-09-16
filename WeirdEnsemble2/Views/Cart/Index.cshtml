@@ -11,54 +11,61 @@
 }
 
 <h2 class="text-center page-title">My Cart</h2>
-<table id="cartDisplay" class="table table-striped">
-    <thead>
-        <tr>
-            <th></th>
-            <th>Name</th>
-            <th>List Price</th>
-            <th>Quantity</th>
-            <th>Total</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.CartItems)
-        {
+@if (Model.CartItems == null || Model.CartItems.Count() == 0)
+{
+    <h5 class="text-center page-title">You don't have any items in your cart.</h5>
+}
+else
+{
+    <table id="cartDisplay" class="table table-striped">
+        <thead>
             <tr>
-                <td>
-                    @using (Html.BeginForm("Index", "Cart", new { prodId = item.ProductId },FormMethod.Post))
-                    {
-                        @Html.AntiForgeryToken()
-                        <button class="btn btn-danger">Remove</button>
-                    }
-                </td>
-                <td>
-                    <a href="/Product/Detail/@item.ProductId">@item.Product.Name</a>
-                </td>
-                <td>
-                    @((item.Product.ListPrice ?? 0).ToString("C"))
-                </td>
-                <td>
-                    @item.Quantity
-                </td>
-                <td>
-                    @((item.Quantity * (item.Product.ListPrice ?? 0)).ToString("C"))
-                </td>
+                <th></th>
+                <th>Name</th>
+                <th>List Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model.CartItems)
+            {
+                <tr>
+                    <td>
+                        @using (Html.BeginForm("Index", "Cart", new { prodId = item.ProductId }, FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            <button class="btn btn-danger">Remove</button>
+                        }
+                    </td>
+                    <td>
+                        <a href="/Product/Detail/@item.ProductId">@item.Product.Name</a>
+                    </td>
+                    <td>
+                        @((item.Product.ListPrice ?? 0).ToString("C"))
+                    </td>
+                    <td>
+                        @item.Quantity
+                    </td>
+                    <td>
+                        @((item.Quantity * (item.Product.ListPrice ?? 0)).ToString("C"))
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr class="cart-price-row">
+                <td colspan="3"></td>
+                <td><strong>Subtotal:</strong></td>
+                <td><strong>@((Model.CartItems.Sum(x => x.Quantity * x.Product.ListPrice) ?? 0).ToString("C"))</strong></td>
 
             </tr>
-        }
-    </tbody>
-    <tfoot>
-        <tr class="cart-price-row">
-            <td colspan="3"></td>
-            <td><strong>Subtotal:</strong></td>
-            <td><strong>@((Model.CartItems.Sum(x => x.Quantity * x.Product.ListPrice) ?? 0).ToString("C"))</strong></td>
-             
-        </tr>
-    </tfoot>
-    
-</table>
-@if (Model.CartItems.Count() > 0)
-{
+        </tfoot>
+
+    </table>
     @Html.ActionLink("Check Out", "Index", "Checkout", null, new { @class = "btn btn-success pull-right" })
+
 }
+

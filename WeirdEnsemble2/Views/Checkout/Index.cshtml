@@ -68,12 +68,13 @@
 
 
 }
-@*@if (!ViewData.ModelState.IsValid)
+@if (ViewData.ModelState.Keys.Contains("ResultMessage") || ViewData.ModelState.Keys.Contains("CreditCardNumber"))
 {
     <div class="alert alert-danger">
-        @Html.ValidationSummary()
+        @Html.ValidationMessage("ResultMessage")
+        @Html.ValidationMessage("CreditCardNumber")
     </div>
-}*@
+}
 
 <h2 class="text-center page-title">Checkout</h2>
 

@@ -188,11 +188,11 @@ namespace WeirdEnsemble2.Controllers
                     await db.SaveChangesAsync();
                     string productName = db.Products.FirstOrDefault(x => x.Id == prodId).Name;
                     TempData["AddedReview"] = "Thanks for reviewing " + productName + "!";
-                    return RedirectToAction("Detail",prodId);
+                    return RedirectToAction("Detail", db.Products.Find(prodId));
                 }
                 
             }
-            return View();
+            return View(db.Products.Find(prodId));
             
         }
     }

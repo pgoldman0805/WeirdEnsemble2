@@ -4,6 +4,12 @@
     var addresses = ViewBag.Addresses as Braintree.Address[];
 }
 
+@if (TempData.ContainsKey("Message"))
+{
+    <div class="alert alert-success">
+        @TempData["Message"]
+    </div>
+}
 <h2 class="page-title text-center">My Account</h2>
 
 @*@Model.FirstName
@@ -53,29 +59,37 @@
             <div class="panel-heading">
                 <h3 class="text-center">Order History</h3>
             </div>
-            <div class="panel-body">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Order #</th>
-                            <th>Date Placed</th>
-                            <th>Total</th>
-                            <th>Order Details</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach(var order in Model.Orders.Where(o => o.CustomerID == Model.Id))
-                        {
+            @if (!Model.Orders.Any(o => o.CustomerID == Model.Id))
+            {
+                <h5 class="text-center page-title">There are no orders in your account</h5>
+            }
+            else
+            {
+                <div class="panel-body">
+                    <table class="table table-striped">
+                        <thead>
                             <tr>
-                                <td>@order.TransactionID</td>
-                                <td>@order.DatePlaced</td>
-                                <td>@(order.OrderItems.Sum(x => (x.Quantity * x.PurchasePrice)).ToString("C"))</td>
-                                <td><a href="/Receipt/Index/@order.TransactionID">Details</a></td>
+                                <th>Order #</th>
+                                <th>Date Placed</th>
+                                <th>Total</th>
+                                <th>Order Details</th>
                             </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody>
+                            @foreach (var order in Model.Orders.Where(o => o.CustomerID == Model.Id))
+                            {
+                                <tr>
+                                    <td>@order.TransactionID</td>
+                                    <td>@order.DatePlaced</td>
+                                    <td>@(order.OrderItems.Sum(x => (x.Quantity * x.PurchasePrice)).ToString("C"))</td>
+                                    <td><a href="/Receipt/Index/@order.TransactionID">Details</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            
         </div>
     </div>
 

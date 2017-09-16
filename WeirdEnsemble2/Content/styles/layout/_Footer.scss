@@ -36,7 +36,7 @@ footer {
                 padding: 0 15px;
                 vertical-align: top;
                 line-height: 1.75;
-                border-right: 1px solid white;
+                /*border-right: 1px solid white;*/
             }
         }
     }
@@ -47,4 +47,14 @@ footer {
         font-size: 11px;
         /*border-top: 1px solid #ccc;*/
     }
+}
+
+@media (max-width: 767px) {
+    footer .footer-contact .footer-contact-table .table-cell {
+        font-size: 0.75em;
+    }
+}
+
+@media (min-width: 768px) and (max-width:1083px) {
+
 }

@@ -5,7 +5,7 @@
     background: -webkit-linear-gradient(-45deg, rgba(230, 241, 246, 1) 0%, rgba(177, 204, 235, 1) 100%);
     background: linear-gradient(135deg, rgba(230, 241, 246, 1) 0%, rgba(177, 204, 235, 1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6f1f6', endColorstr='#b1cceb', GradientType=1);*/
-  background-color: RGBA(0, 119, 176, 0.5);
+  background-color: RGBA(0, 119, 176, 1);
   padding: 0.7em 0;
   box-shadow: 0 -1px 4px RGBA(0, 0, 0, 0.6), 0 1px 16px rgba(34, 25, 25, 0.4); }
   #mainNav .navbar-brand {
@@ -34,6 +34,22 @@
   background-color: white; }
   .navbar-toggle .icon-bar {
     background-color: black; }
+
+.navbar-nav-right {
+  float: right; }
+
+@media (max-width: 767px) {
+  .navbar-nav-right {
+    float: left; }
+  /*#mainNav {
+        background-color: RGBA(0,119,176,1);
+        padding: 0.7em 0;
+        box-shadow: 0 -1px 4px RGBA(0,0,0,0.6), 0 1px 16px rgba(34,25,25,0.4);
+    }*/ }
+
+@media (min-width: 768px) and (max-width: 1083px) {
+  #mainNav li a:not(span) {
+    font-size: 0.75em; } }
 
 /*footer,{
     height: 50px;
@@ -66,12 +82,16 @@ footer {
         padding: 0 15px;
         vertical-align: top;
         line-height: 1.75;
-        border-right: 1px solid white; }
+        /*border-right: 1px solid white;*/ }
   footer .footer-copy {
     background-color: transparent;
     padding: 15px 0 10px;
     font-size: 11px;
     /*border-top: 1px solid #ccc;*/ }
+
+@media (max-width: 767px) {
+  footer .footer-contact .footer-contact-table .table-cell {
+    font-size: 0.75em; } }
 
 .home-title {
   font-family: 'Sunshiney',sans-serif;
@@ -198,9 +218,6 @@ details-title {
     line-height: 2;
     letter-spacing: 1px; }
 
-button.detail-button {
-  width: 70%; }
-
 button.accordion {
   background-color: #eee;
   color: #333;
@@ -233,6 +250,10 @@ div.review-container {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.2s ease-out; }
+
+@media (max-width: 767px) {
+  .detail-button {
+    padding: 2em; } }
 
 .checkout-table {
   background-color: white; }
@@ -289,6 +310,9 @@ h1.title {
     font-size: 1.15em;
     margin-top: 1.5em;
     line-height: 2; }
+
+.products-admin a, .products-admin table * {
+  color: white; }
 
 * {
   padding: 0;

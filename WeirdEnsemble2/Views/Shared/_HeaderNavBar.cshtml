@@ -36,7 +36,7 @@
                 <li>@Html.ActionLink("About", "Index", "About")</li>
                 <li>@Html.ActionLink("Contact", "Index", "Contact")</li>
             </ul>
-            <ul class="nav navbar-nav pull-right">
+            <ul class="nav navbar-nav navbar-nav-right">
                 @if (User.Identity.IsAuthenticated)
                 {
                     if (User.IsInRole("Admin"))
@@ -78,8 +78,6 @@
                         <span class="sr-only">Cart</span>
                     </a>
                 </li>
-
-                @*<li>@Html.ActionLink("Register", "Index", "Register")</li>*@
             </ul>
         </div>
     </div>

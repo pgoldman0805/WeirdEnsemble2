@@ -111,10 +111,9 @@ namespace WeirdEnsemble2.Controllers
                 Braintree.Result<Braintree.Transaction> result = await braintreeGateway.Transaction.SaleAsync(request);
 
 
-                if (result.Errors == null || result.Errors.Count == 0)
+                if ((result.Errors == null || result.Errors.Count == 0))
                 {
-                    string transactionId = result.Target.Id;
-
+                    string transactionId = result.Transaction.Id;
                     var order = new Order
                     {
                         DatePlaced = DateTime.UtcNow,
@@ -176,7 +175,14 @@ namespace WeirdEnsemble2.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("CreditCardNumber", "Unable to authorize this card number");
+                    if (result.Target == null)
+                    {
+                        ModelState.AddModelError("ResultMessage", result.Message);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("CreditCardNumber", "Unable to authorize this card number");
+                    }
                 }
             }
             if (Request.Cookies.AllKeys.Contains("CartName"))

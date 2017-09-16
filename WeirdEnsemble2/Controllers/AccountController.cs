@@ -72,7 +72,13 @@ namespace WeirdEnsemble2.Controllers
                 var customer = customers.FirstItem;
                 ViewBag.Addresses = customer.Addresses;
                 ViewBag.CreditCards = customer.CreditCards;
+                Customer c = db.Customers.FirstOrDefault(x => x.EmailAddress == customer.Email);
+                if (c != null)
+                {
+                    return View(c);
+                }
             }
+            
             return View(db.Customers.FirstOrDefault(x => x.AspNetUser.UserName == User.Identity.Name));
         }
 
