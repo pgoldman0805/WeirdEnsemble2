@@ -184,7 +184,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 @Html.LabelFor(m => m.ShippingState, new { @class = "control-label" })
-                                @Html.DropDownListFor(m => m.CreditCardExpirationMonth, states, new { @class = "form-control" })
+                                @Html.DropDownListFor(m => m.ShippingState, states, new { @class = "form-control" })
                                 @Html.ValidationMessageFor(m => m.ShippingState)
                             </div>
                         </div>
