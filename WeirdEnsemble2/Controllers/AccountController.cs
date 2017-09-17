@@ -264,17 +264,37 @@ namespace WeirdEnsemble2.Controllers
                 ViewBag.Errors = result.Errors;
                 return View();
             }
-            var newCustomer = new Customer
+
+            // Check if new registrant has ordered before. If so, they should already have a Customer record
+            // We don't want to create a new one - just modify their record to add the AspNetUserID
+
+            string custID = "";
+            Customer existingCustomer = db.Customers.FirstOrDefault(x => x.EmailAddress == username);
+            if (existingCustomer == null)
             {
-                AspNetUserID = newUser.Id,
-                FirstName = fname,
-                LastName = lname,
-                DateOfBirth = dateOfBirth,
-                PhoneNumber = phone,
-                EmailAddress = username
-            };
-            db.Customers.Add(newCustomer);
-            await db.SaveChangesAsync();
+                var newCustomer = new Customer
+                {
+                    AspNetUserID = newUser.Id,
+                    FirstName = fname,
+                    LastName = lname,
+                    DateOfBirth = dateOfBirth,
+                    PhoneNumber = phone,
+                    EmailAddress = username,
+                    DateCreated = DateTime.UtcNow,
+                    DateLastModified = DateTime.UtcNow
+                };
+                custID = newCustomer.Id.ToString();
+                db.Customers.Add(newCustomer);
+                await db.SaveChangesAsync();
+            }
+            else
+            {
+                existingCustomer.PhoneNumber = phone;
+                existingCustomer.DateOfBirth = dateOfBirth ?? null;
+                existingCustomer.AspNetUserID = newUser.Id;
+                custID = existingCustomer.Id.ToString();
+            }
+            
 
             string merchantId = ConfigurationManager.AppSettings["Braintree.MerchantID"];
             string publicKey = ConfigurationManager.AppSettings["Braintree.PublicKey"];
@@ -293,7 +313,7 @@ namespace WeirdEnsemble2.Controllers
                 {
                     FirstName = fname,
                     LastName = lname,
-                    CustomerId = newCustomer.Id.ToString(),
+                    CustomerId = custID,
                     Email = username,
                     Phone = phone
                 };

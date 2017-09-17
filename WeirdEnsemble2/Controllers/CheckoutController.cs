@@ -70,7 +70,8 @@ namespace WeirdEnsemble2.Controllers
                         LastName = model.LastName,
                         EmailAddress = model.EmailAddress,
                         PhoneNumber = model.PhoneNumber,
-                        DateCreated = DateTime.UtcNow
+                        DateCreated = DateTime.UtcNow,
+                        DateLastModified = DateTime.UtcNow
                     };
                     db.Customers.Add(currentCustomer);
                     await db.SaveChangesAsync();
@@ -113,7 +114,7 @@ namespace WeirdEnsemble2.Controllers
 
                 if ((result.Errors == null || result.Errors.Count == 0))
                 {
-                    string transactionId = result.Transaction.Id;
+                    string transactionId = result.Target.Id;
                     var order = new Order
                     {
                         DatePlaced = DateTime.UtcNow,

@@ -5,7 +5,7 @@
     {
         <span class="glyphicon glyphicon-star gold" aria-hidden="true"></span>
     }
-    <span class="review-firstname"> @Model.Customer.FirstName</span> | Created (@(Model.DateCreated.HasValue ? DateTime.Now.Subtract(Model.DateCreated.Value).Days.ToString() : "")) days ago
+    <span class="review-firstname"> @Model.Customer.FirstName</span> | Created (@(Model.DateCreated.HasValue ? DateTime.UtcNow.Subtract(Model.DateCreated.Value).Days.ToString() : "")) days ago
     <p>@Model.Comments</p>
 </div>
 <hr/>
